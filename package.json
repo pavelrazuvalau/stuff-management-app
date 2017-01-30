@@ -1,0 +1,25 @@
+{
+  "name": "mean-coursework",
+  "version": "0.0.1",
+  "description": "MEAN Coursework",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prazuvalov/mean-coursework.git"
+  },
+  "author": "BSU MMF Course 2 Group 2",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prazuvalov/mean-coursework/issues"
+  },
+  "homepage": "https://github.com/prazuvalov/mean-coursework#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "compression": "^1.6.2",
+    "ejs": "^2.5.5",
+    "express": "^4.14.1",
+    "express-session": "^1.15.0",
+    "method-override": "^2.3.7",
+    "morgan": "^1.7.0"
+  }
+}
