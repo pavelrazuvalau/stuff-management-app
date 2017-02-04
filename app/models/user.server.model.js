@@ -8,8 +8,26 @@ var UserSchema = new Schema({
     enum: ['Admin', 'Owner', 'User'],
     default: 'User'
   },
-  firstName: String,
-  lastName: String,
+  firstName: {
+    type: String,
+    required: 'First Name is required',
+    validate: [
+      function(username) {
+        return username.length >= 3;
+      },
+      'First Name is too short'
+    ]
+  },
+  lastName: {
+    type: String,
+    required: 'Last Name is required',
+    validate: [
+      function(username) {
+        return username.length >= 3;
+      },
+      'Last Name is too short'
+    ]
+  },
   website: {
     type: String,
     get: function(url) {
@@ -38,7 +56,7 @@ var UserSchema = new Schema({
       function(username) {
         return username.length > 3;
       },
-      'Username should be longer'
+      'Username is too short'
     ]
   },
   password:  {

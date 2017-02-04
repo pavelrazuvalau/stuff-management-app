@@ -10,14 +10,9 @@ module.exports = function() {
       if (err) {
         return done(err);
       }
-      if (!user) {
+      if (!user || !user.authenticate(password)) {
         return done(null, false, {
-          message: 'Unknown user'
-        });
-      }
-      if (!user.authenticate(password)) {
-        return done(null, false, {
-          message: 'Invalid password'
+          message: 'Incorrect username or password'
         });
       }
       return done(null, user);
