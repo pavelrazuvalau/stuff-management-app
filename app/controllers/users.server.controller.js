@@ -7,10 +7,10 @@ var getErrorMessage = function(err) {
     switch (err.code) {
       case 11000:
       case 11001:
-      message = 'Username already exists';
-      break;
+        message = 'Username already exists';
+        break;
       default:
-      message = 'Something went wrong';
+        message = 'Something went wrong';
     }
   } else {
     for (var errName in err.errors) {
@@ -72,3 +72,40 @@ exports.signout = function(req, res) {
   req.logout();
   res.redirect('/');
 };
+
+exports.singleUser = function(req, res, next, usr) {
+  User.findOne({
+    username: usr
+  }, function(err, user) {
+    if (!user) {
+      if (err) {
+        var message = getErrorMessage(err);
+        req.flash('error', message);
+      }
+      else {
+        req.flash('error', 'User not found');
+      }
+      return res.redirect('/');
+    } else{
+      req.userInfo = user;
+      next();
+    }
+  });
+};
+
+exports.profile = function(req, res) {
+  res.render('profile', {
+    title: req.userInfo.fullName+' - Profile',
+
+    fullName: req.user ? req.user.fullName : '',
+    username: req.user ? req.user.username : '',
+
+    fullNameInfo: req.userInfo.fullName,
+    firstNameInfo: req.userInfo.firstName,
+    lastNameInfo: req.userInfo.lastName,
+    emailInfo: req.userInfo.email,
+    usernameInfo: req.userInfo.username,
+    roleInfo: req.userInfo.role,
+    messages: req.flash('error')
+  });
+}

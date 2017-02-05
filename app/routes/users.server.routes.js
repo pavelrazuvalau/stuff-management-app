@@ -13,6 +13,11 @@ module.exports = function(app) {
       failureRedirect: '/signin',
       failureFlash: true
     }));
-    
+
   app.get('/signout', users.signout);
+
+  app.route('/user/:usr')
+    .get(users.profile)
+
+  app.param('usr', users.singleUser);
 };

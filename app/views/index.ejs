@@ -21,13 +21,13 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav navbar-right">
 
-	        <% if ( userFullName ) { %>
+	        <% if ( fullName ) { %>
 	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <%=userFullName%> <span class="caret"></span></a>
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <%=fullName%> <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="#">Profile</a></li>
+	            <li><a href="/user/<%= username %>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</a></li>
 	            <li role="separator" class="divider"></li>
-	            <li><a href="/signout">Sign out</a></li>
+	            <li><a href="/signout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out</a></li>
 	          </ul>
 	        </li>
 	        <% } else { %>
@@ -39,21 +39,23 @@
 	  </div>
 	</nav>
 
-	<% if ( userFullName ) { %>
-	<div class="alert alert-success" role="alert"><%=main_message%></div>
-	<% } else { %>
-	<div class="alert alert-warning" role="alert"><%=main_message%></div>
-	<% } %>
+  <% for(var i in info) { %>
+  <div class="alert alert-info" role="alert"><%= info[i] %></div>
+  <% } %>
+
+  <% for(var i in warning) { %>
+  <div class="alert alert-warning" role="alert"><%= warning[i] %></div>
+  <% } %>
+
+  <% for(var i in error) { %>
+  <div class="alert alert-danger" role="alert"><%= error[i] %></div>
+  <% } %>
 
   <script type="text/javascript" src="/lib/jquery/dist/jquery.js"></script>
   <script type="text/javascript" src="/lib/bootstrap/dist/js/bootstrap.js"></script>
 
   <script type="text/javascript" src="/lib/angular/angular.js"></script>
   <script type="text/javascript" src="/lib/angular-route/angular-route.js"></script>
-
-  <script type="text/javascript" src="/example/example.client.module.js"></script>
-  <script type="text/javascript" src="/example/controllers/example.client.controller.js"></script>
-  <script type="text/javascript" src="/example/config/example.client.routes.js"></script>
 
   <script type="text/javascript" src="/users/users.client.module.js"></script>
   <script type="text/javascript" src="/users/services/authentication.client.service.js"></script>
