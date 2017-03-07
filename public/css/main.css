@@ -1,0 +1,12 @@
+md-sidenav > md-content  md-input-container {
+	margin-bottom: -30px;
+}
+
+.md-headline {
+	text-align: center;
+}
+
+.profile-img {
+	width: 100px;
+	margin-bottom: 10px;
+}

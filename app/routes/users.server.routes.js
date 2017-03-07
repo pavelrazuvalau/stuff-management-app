@@ -2,6 +2,8 @@ var users    = require('../../app/controllers/users.server.controller'),
     passport = require('passport');
 
 module.exports = function(app) {
+  app.get('/', users.getUser);
+
   app.route('/signup')
     .get(users.renderSignup)
     .post(users.signup);
@@ -15,9 +17,4 @@ module.exports = function(app) {
     }));
 
   app.get('/signout', users.signout);
-
-  app.route('/user/:usr')
-    .get(users.profile)
-
-  app.param('usr', users.singleUser);
 };

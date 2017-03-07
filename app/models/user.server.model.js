@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 var UserSchema = new Schema({
   role: {
     type: String,
-    enum: ['Admin', 'Owner', 'User'],
+    enum: ['Admin', 'Moderator', 'User'],
     default: 'User'
   },
   firstName: {
@@ -27,19 +27,6 @@ var UserSchema = new Schema({
       },
       'Last Name is too short'
     ]
-  },
-  website: {
-    type: String,
-    get: function(url) {
-      if (!url) {
-        return url;
-      } else {
-        if (url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
-          url = 'http://' + url;
-        }
-        return url;
-      }
-    }
   },
   email: {
     type: String,
@@ -113,10 +100,9 @@ UserSchema.methods.authenticate = function(password) {
 };
 
 UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
-  var _this = this;
   var possibleUsername = username + (suffix || '');
 
-  _this.findOne({
+  this.findOne({
     username: possibleUsername
   }, function(err, user) {
     if (!err) {

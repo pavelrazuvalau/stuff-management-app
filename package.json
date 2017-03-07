@@ -9,6 +9,10 @@
   },
   "author": "BSU MMF Course 2 Group 2",
   "license": "ISC",
+  "scripts": {
+    "start": "node server.js & gulp",
+    "postinstall": "bower install"
+  },
   "bugs": {
     "url": "https://github.com/prazuvalov/mean-coursework/issues"
   },
@@ -29,5 +33,13 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "socket.io": "^1.7.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-uglify": "^2.0.1",
+    "gulp-webserver": "^0.9.1"
   }
 }

@@ -44,6 +44,10 @@ exports.renderSignup = function(req, res, next) {
   }
 };
 
+exports.getUser = function(req, res){
+  res.send(req.user ? req.user : null);
+}
+
 exports.signup = function(req, res, next) {
   if (!req.user) {
     var user = new User(req.body);
@@ -72,40 +76,3 @@ exports.signout = function(req, res) {
   req.logout();
   res.redirect('/');
 };
-
-exports.singleUser = function(req, res, next, usr) {
-  User.findOne({
-    username: usr
-  }, function(err, user) {
-    if (!user) {
-      if (err) {
-        var message = getErrorMessage(err);
-        req.flash('error', message);
-      }
-      else {
-        req.flash('error', 'User not found');
-      }
-      return res.redirect('/');
-    } else{
-      req.userInfo = user;
-      next();
-    }
-  });
-};
-
-exports.profile = function(req, res) {
-  res.render('profile', {
-    title: req.userInfo.fullName+' - Profile',
-
-    fullName: req.user ? req.user.fullName : '',
-    username: req.user ? req.user.username : '',
-
-    fullNameInfo: req.userInfo.fullName,
-    firstNameInfo: req.userInfo.firstName,
-    lastNameInfo: req.userInfo.lastName,
-    emailInfo: req.userInfo.email,
-    usernameInfo: req.userInfo.username,
-    roleInfo: req.userInfo.role,
-    messages: req.flash('error')
-  });
-}
