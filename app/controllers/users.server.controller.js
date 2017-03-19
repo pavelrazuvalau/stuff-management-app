@@ -1,4 +1,6 @@
-var User = require('mongoose').model('User');
+var User     = require('mongoose').model('User'),
+    passport = require('passport');
+
 
 var getErrorMessage = function(err) {
   var message = '';
@@ -22,30 +24,11 @@ var getErrorMessage = function(err) {
   return message;
 };
 
-exports.renderSignin = function(req, res, next) {
-  if (!req.user) {
-    res.render('signin', {
-      title: 'Sign in',
-      messages: req.flash('error') || req.flash('info')
-    });
-  } else {
-    return res.redirect('/');
+exports.status = function(req, res){
+  if (req.user){
+    res.status(200).send(req.user);
   }
-};
-
-exports.renderSignup = function(req, res, next) {
-  if (!req.user) {
-    res.render('signup', {
-      title: 'Sign up',
-      messages: req.flash('error')
-    });
-  } else {
-    return res.redirect('/');
-  }
-};
-
-exports.getUser = function(req, res){
-  res.send(req.user ? req.user : null);
+  else res.sendStatus(400);
 }
 
 exports.signup = function(req, res, next) {
@@ -56,21 +39,52 @@ exports.signup = function(req, res, next) {
     user.provider = 'local';
 
     user.save(function(err) {
-      if (err) {
-        var message = getErrorMessage(err);
+  		if (err) {
+  			return res.status(400).send({
+  				message: getErrorMessage(err)
+  			});
+  		} else {
+  			// Remove sensitive data before login
+  			user.password = undefined;
+  			user.salt = undefined;
 
-        req.flash('error', message);
-        return res.redirect('/signup');
-      }
-      req.login(user, function(err) {
-        if (err) return next(err);
-        return res.redirect('/');
-      });
-    });
+  			req.login(user, function(err) {
+  				if (err) {
+  					res.send(400, err);
+  				} else {
+  					res.jsonp(user);
+  				}
+  			});
+  		}
+	  });
   } else {
-    return res.redirect('/');
+    res.status(400).send({
+      message: "You are already logged in"
+    })
   }
 };
+
+exports.signin = function(req, res, next){
+  passport.authenticate('local', function(err, user, info) {
+		if (err || !user) {
+			//res.send(400, info);
+      res.status(400).send(info);
+		} else {
+			// Remove sensitive data before login
+			user.password = undefined;
+			user.salt = undefined;
+
+			req.login(user, function(err) {
+				if (err) {
+					//res.send(400, err);
+          res.status(400).send(err);
+				} else {
+					res.jsonp(user);
+				}
+			});
+		}
+	})(req, res, next);
+}
 
 exports.signout = function(req, res) {
   req.logout();

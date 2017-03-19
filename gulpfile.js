@@ -6,16 +6,15 @@ var gulp       = require('gulp'),
     server     = require('gulp-webserver');
 
 var config = {
-  appConfig:  'public/app/config.js',
-  appCore:    'public/app/core.js',
-  appModules: 'public/app/**/*.client.module.js',
-  appSource:  'public/app/**/*.js',
+  appConfig:  'client/config.js',
+  appCore:    'client/core.js',
+  appSource:  'client/**/*.js',
   dest:       'app.js',
   destDir:    'public/js'
 };
 
 gulp.task('app', function(){
-  return gulp.src([config.appConfig, config.appCore, config.appModules, config.appSource])
+  return gulp.src([config.appConfig, config.appCore, config.appSource])
     .pipe(sourcemaps.init())
       .pipe(concat(config.dest))
       .pipe(ngAnnotate())

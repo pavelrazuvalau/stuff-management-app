@@ -38,3 +38,9 @@ jspm_packages
 
 # Frontend dependencies
 public/lib
+
+# Webstorm config
+client/.idea
+
+# Compiled js
+public/js

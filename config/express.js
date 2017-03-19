@@ -37,11 +37,11 @@ module.exports = function(db) {
     saveUninitialized: true,
     resave: true,
     secret: config.sessionSecret,
-    store: mongoStore
+    store:  mongoStore
   }));
 
-  app.set('views', './app/views');
-  app.set('view engine', 'ejs');
+  //app.set('views', './app/views');
+  //app.set('view engine', 'ejs');
 
   app.use(flash());
   app.use(passport.initialize());
