@@ -1,1 +1,1 @@
-AppConfig.moduleReg('user', []);
+AppConfig.moduleReg('user', ['ui']);

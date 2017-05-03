@@ -1,4 +1,4 @@
-angular.module('user').controller('userCtrl', ['$scope', 'User', 'CurrentUser', '$log', '$state', function($scope, User, CurrentUser, $log, $state, $templateCache){
+angular.module('user').controller('userCtrl', ['$scope', 'User', 'CurrentUser', '$log', '$state', 'NotificationService', function($scope, User, CurrentUser, $log, $state, NotificationService){
 
     if (!CurrentUser.get()) {
         User.get(function (res) {
@@ -7,7 +7,8 @@ angular.module('user').controller('userCtrl', ['$scope', 'User', 'CurrentUser', 
                 $state.go($state.current.name,{},{reload: true});
             }
         }, function (err) {
-            $log.error(err.data.message)
+            $log.error(err.data.message);
+            NotificationService.show(err.data.message, 'bottom right');
         });
     }
 
@@ -20,6 +21,7 @@ angular.module('user').controller('userCtrl', ['$scope', 'User', 'CurrentUser', 
             $state.go($state.current.name,{},{reload: true})
         }, function (err) {
             $log.error(err.data.message);
+            NotificationService.show(err.data.message, 'bottom left');
         })
     };
 
@@ -30,6 +32,7 @@ angular.module('user').controller('userCtrl', ['$scope', 'User', 'CurrentUser', 
             $state.go($state.current.name,{},{reload: true});
         }, function (err) {
             log.error(err.data.message);
+            NotificationService.show(err.data.message, 'bottom right');
         });
     }
 }]);

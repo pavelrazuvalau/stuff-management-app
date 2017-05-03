@@ -3,16 +3,10 @@
         <md-input-container class="md-block">
             <label>Username</label>
             <input type="text" name="username" ng-model="login.username" ng-required="true" md-no-asterisk>
-            <div ng-messages="auth.username.$error" ng-if="auth.$submitted" role="alert">
-                <div ng-message="required">Username is required</div>
-            </div>
         </md-input-container>
         <md-input-container class="md-block">
             <label>Password</label>
             <input type="password" name="password" ng-model="login.password" ng-required="true" md-no-asterisk>
-            <div ng-messages="auth.password.$error" ng-if="auth.$submitted" role="alert">
-                <div ng-message="required">Password is required</div>
-            </div>
         </md-input-container>
         <br>
         <section layout="row">
