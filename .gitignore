@@ -43,4 +43,7 @@ public/lib
 client/.idea
 
 # Compiled js
-public/js
+public/app.js
+
+# Public views
+public/views

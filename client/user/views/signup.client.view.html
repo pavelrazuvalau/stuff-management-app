@@ -1,0 +1,50 @@
+<form name="signup_form" ng-submit="signup_form.$valid && signup()" novalidate autocomplete="off">
+        <md-input-container class="md-block">
+            <label>First Name</label>
+            <input type="text" name="firstName" ng-model="reg.firstName" ng-required="true" md-no-asterisk minlength="3" maxlength="50">
+            <div ng-messages="signup_form.firstName.$error" role="alert">
+                <div ng-message="required">First Name is required</div>
+                <div ng-message="minlength">First Name is too short</div>
+                <div ng-message="maxlength">First Name is too long</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Last Name</label>
+            <input type="text" name="lastName" ng-model="reg.lastName" ng-required="true" md-no-asterisk minlength="3" maxlength="50">
+            <div ng-messages="signup_form.lastName.$error" role="alert">
+                <div ng-message="required">Last Name is required</div>
+                <div ng-message="minlength">Last Name is too short</div>
+                <div ng-message="maxlength">Last Name is too long</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>E-mail</label>
+            <input type="text" name="email" ng-model="reg.email" ng-required="true" md-no-asterisk maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+            <div ng-messages="signup_form.email.$error" role="alert">
+                <div ng-message="required">Email is required</div>
+                <div ng-message="pattern">Email should be valid</div>
+                <div ng-message="maxlength">Email is too long</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Username</label>
+            <input type="text" name="username" ng-model="reg.username" ng-required="true" md-no-asterisk minlength="5" maxlength="20">
+            <div ng-messages="signup_form.username.$error" role="alert">
+                <div ng-message="required">Username is required</div>
+                <div ng-message="minlength">Username is too short</div>
+                <div ng-message="maxlength">Username is too long</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Password</label>
+            <input type="password" name="password" ng-model="reg.password" ng-required="true" md-no-asterisk minlength="6">
+            <div ng-messages="signup_form.password.$error" role="alert">
+                <div ng-message="required">Password is required</div>
+                <div ng-message="minlength">Password is too short</div>
+            </div>
+        </md-input-container>
+        <br>
+        <section layout="row">
+            <md-button type="submit" class="md-raised">Sign up</md-button>
+        </section>
+    </form>

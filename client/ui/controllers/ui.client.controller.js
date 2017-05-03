@@ -1,14 +1,13 @@
-angular.module('ui').controller('uiCtrl', function ($scope, $mdSidenav) {
+angular.module('ui').controller('uiCtrl', ['$scope', '$mdSidenav', '$log', function ($scope, $mdSidenav, $log) {
   $scope.toggleLeft = buildToggler('left');
 
   function buildToggler(navID) {
     return function() {
-      // Component lookup should always be available since we are not using `ng-if`
-      $mdSidenav(navID).toggle()
+      $mdSidenav(navID).toggle();
     };
   }
 
   $scope.closeLeft = function(){
     $mdSidenav('left').close();
-  }
-})
+  };
+}]);

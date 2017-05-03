@@ -2,11 +2,11 @@ var users    = require('../../app/controllers/users.server.controller'),
     passport = require('passport');
 
 module.exports = function(app) {
-  app.get('/', users.status);
+  app.get('/user', users.status);
 
-  app.post('/signup', users.signup);
+  app.post('/user/signup', users.signup);
 
-  app.post('/signin', users.signin);
+  app.post('/user/signin', users.signin);
 
-  app.get('/signout', users.signout);
+  app.get('/user/signout', users.signout);
 };

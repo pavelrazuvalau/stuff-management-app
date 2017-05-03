@@ -25,10 +25,7 @@ var getErrorMessage = function(err) {
 };
 
 exports.status = function(req, res){
-  if (req.user){
-    res.status(200).send(req.user);
-  }
-  else res.sendStatus(400);
+  res.status(200).send(req.user ? req.user : null);
 }
 
 exports.signup = function(req, res, next) {

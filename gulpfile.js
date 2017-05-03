@@ -3,28 +3,31 @@ var gulp       = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     uglify     = require('gulp-uglify'),
     ngAnnotate = require('gulp-ng-annotate'),
-    server     = require('gulp-webserver');
-
-var config = {
-  appConfig:  'client/config.js',
-  appCore:    'client/core.js',
-  appSource:  'client/**/*.js',
-  dest:       'app.js',
-  destDir:    'public/js'
-};
+    server     = require('gulp-webserver'),
+    rename     = require('gulp-rename'),
+    clean      = require('gulp-clean');
 
 gulp.task('app', function(){
-  return gulp.src([config.appConfig, config.appCore, config.appSource])
+  return gulp.src(['client/config.js', 'client/core.js', 'client/**/*.js'])
     .pipe(sourcemaps.init())
-      .pipe(concat(config.dest))
+      .pipe(concat('app.js'))
       .pipe(ngAnnotate())
       .pipe(uglify())
      .pipe(sourcemaps.write())
-    .pipe(gulp.dest(config.destDir));
+    .pipe(gulp.dest('public'));
+});
+
+gulp.task('views', function(){
+  gulp.src('public/views/*', {read: false})
+    .pipe(clean());
+  return gulp.src('client/**/views/*.html')
+  .pipe(rename({dirname:''}))
+  .pipe(gulp.dest('public/views'));
 });
 
 gulp.task('watch', function(){
-  gulp.watch(config.appSource, ['app']);
+  gulp.watch('client/**/*.js', ['app']);
+  gulp.watch('client/**/views/*.html', ['views']);
 });
 
 gulp.task('server', function(){
@@ -36,4 +39,4 @@ gulp.task('server', function(){
       }));
 })
 
-gulp.task('default', ['app', 'watch', 'server']);
+gulp.task('default', ['app', 'views', 'watch', 'server']);

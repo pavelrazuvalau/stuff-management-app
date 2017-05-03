@@ -1,1 +1,1 @@
-AppConfig.moduleReg('ui', ['ngMaterial', 'ngAnimate']);
+AppConfig.moduleReg('ui', ['ngMaterial', 'ngAnimate', 'user']);

@@ -22,6 +22,8 @@ module.exports = function(db) {
     app.use(compress());
   }
 
+  app.use(config.client_allowed);
+
   app.use(bodyParser.urlencoded({
     extended: true
   }));
@@ -43,7 +45,7 @@ module.exports = function(db) {
   //app.set('views', './app/views');
   //app.set('view engine', 'ejs');
 
-  app.use(flash());
+  //app.use(flash());
   app.use(passport.initialize());
   app.use(passport.session());
 

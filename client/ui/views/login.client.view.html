@@ -1,0 +1,23 @@
+<div>
+    <form name="auth" ng-submit="auth.$valid && signin(login)" novalidate autocomplete="off">
+        <md-input-container class="md-block">
+            <label>Username</label>
+            <input type="text" name="username" ng-model="login.username" ng-required="true" md-no-asterisk>
+            <div ng-messages="auth.username.$error" ng-if="auth.$submitted" role="alert">
+                <div ng-message="required">Username is required</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Password</label>
+            <input type="password" name="password" ng-model="login.password" ng-required="true" md-no-asterisk>
+            <div ng-messages="auth.password.$error" ng-if="auth.$submitted" role="alert">
+                <div ng-message="required">Password is required</div>
+            </div>
+        </md-input-container>
+        <br>
+        <section layout="row">
+            <md-button type="submit" class="md-raised">Sign in</md-button>
+            <md-button class="md-raised" ui-sref="app.signup">Sign up</md-button>
+        </section>
+    </form>
+</div>

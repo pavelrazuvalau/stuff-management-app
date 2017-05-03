@@ -19,31 +19,8 @@
 
 	      <md-content layout-padding>
 
-	      	<div>
-		        <md-input-container class="md-block">
-				  <label>Username</label>
-				  <input type="text" ng-model="username">
-				</md-input-container>
-				<md-input-container class="md-block">
-				  <label>Password</label>
-				  <input type="password" ng-model="password">
-				</md-input-container>
-				<br>
-				<section layout="row">
-					<md-button class="md-raised">Sign in</md-button>
-					<md-button class="md-raised">Sign up</md-button>
-				</section>
-			</div>
-			<div ng-hide="true">
-				<div layout="column" layout-align="center center">
-					<div><img src="img/user.png" class="profile-img"></div>
-					<span class="md-headline">Profile name</span>
-				</div>
-				<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-					<md-button class="md-raised">Sign out</md-button>
-				</section>
-			</div>
-			
+				<div ui-view="sidenav"></div>
+
 	      </md-content>
 
 	    </md-sidenav>
@@ -63,10 +40,10 @@
 		      </div>
 		    </md-toolbar>
 	      <div layout="column" layout-padding layout-align="top center">
-	        
+
 	      </div>
 
-	      <div flex></div>
+	      <div ui-view></div>
 
 	    </md-content>
 
@@ -80,6 +57,7 @@
 <script type="text/javascript" src="lib/angular-messages/angular-messages.js"></script>
 <script type="text/javascript" src="lib/angular-material/angular-material.js"></script>
 <script type="text/javascript" src="lib/angular-resource/angular-resource.js"></script>
-<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+<script type="text/javascript" src="app.js"></script>
 </body>
 </html>
