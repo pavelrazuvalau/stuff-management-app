@@ -28,6 +28,23 @@ exports.status = function(req, res){
   res.status(200).send(req.user ? req.user : null);
 }
 
+exports.checkUsername = function(req, res){
+  User.findOne({
+    username: req.params.username
+  }, function(err, user) {
+    if (err) {
+      res.status(500).send({message: "Internal server error"})
+    } else {
+      if (user){
+        res.sendStatus(400);
+      }
+      else {
+        res.sendStatus(200);
+      }
+    }
+  });
+}
+
 exports.signup = function(req, res, next) {
   if (!req.user) {
     var user = new User(req.body);
