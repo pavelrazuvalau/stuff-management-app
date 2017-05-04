@@ -6,5 +6,11 @@ angular.module('user').config(['$stateProvider',
                 templateUrl: 'views/signup.client.view.html',
                 controller: 'signupCtrl'
             })
+
+            .state('app.profile', {
+                url: '/profile',
+                templateUrl: 'views/profile.client.view.html',
+                controller: 'ProfileCtrl'
+            })
     }
 ]);

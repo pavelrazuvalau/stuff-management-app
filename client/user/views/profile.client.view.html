@@ -1,0 +1,18 @@
+<div>
+    <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{info.fullName}}</span>
+                <span class="md-subhead">{{info.username}}</span>
+            </md-card-title-text>
+            <!--<md-card-title-media>-->
+                <!--<div class="md-media-lg card-media"></div>-->
+            <!--</md-card-title-media>-->
+        </md-card-title>
+        <md-card-content>
+            <p>
+                {{info.email}}
+            </p>
+        </md-card-content>
+    </md-card>
+</div>

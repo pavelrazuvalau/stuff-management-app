@@ -6,7 +6,15 @@ md-sidenav > md-content  md-input-container {
 	text-align: center;
 }
 
+.md-subhead {
+	text-align: center;
+}
+
 .profile-img {
 	width: 100px;
 	margin-bottom: 10px;
+}
+
+.md_toolbar md-input-container .md-errors-spacer{
+  min-height: 0px !important;
 }

@@ -17,8 +17,10 @@
 	        md-is-locked-open="$mdMedia('gt-md')"
 	        md-whiteframe="4">
 
-	      <md-content layout-padding>
+	      <md-content>
 
+				<div ui-view="user"></div>
+				<md-divider></md-divider>
 				<div ui-view="sidenav"></div>
 
 	      </md-content>
@@ -26,17 +28,30 @@
 	    </md-sidenav>
 
 	    <md-content flex md-swipe-right="toggleLeft()">
-	    	<md-toolbar class="md-accent" md-whiteframe="3">
+	    	<md-toolbar md-whiteframe="3">
 		      <div class="md-toolbar-tools">
 		        <md-button class="md-icon-button" aria-label="Menu" hide-gt-md ng-click="toggleLeft()">
 		          <md-icon ng-bind="'menu'"></md-icon>
 		        </md-button>
 
-		        <h2 flex="" md-truncate="">MEAN Application</h2>
+		        <h2 flex="" md-truncate="">{{toolbar.title}}</h2>
+						<md-icon ng-bind="'search'" class="name" ng-show="toolbar.search"></md-icon>
+						<md-input-container class="md-block" layout-fill style="margin-top: 30px; margin-left: 15px" ng-show="toolbar.search">
+				      <label>&nbsp;</label>
+				      <input ng-model="searchPhrase" name="searchPhrase" placeholder="Search an item" style="color: rgba(255,255,255,0.87);">
+				    </md-input-container>
+						<md-menu>
+							<md-button class="md-icon-button" aria-label="More" layout-align="end" ng-click="$mdMenu.open()" ng-show="toolbar.menu">
+								<md-icon ng-bind="'more_vert'"></md-icon>
+							</md-button>
+							<md-menu-content width="4">
+							 <md-menu-item ng-repeat="item in toolbar.menu">
+								 <md-button>
+									 {{item}}
+								 </md-button>
+							 </md-menu-item>
+				    </md-menu>
 
-		        <md-button class="md-icon-button" aria-label="More" layout-align="end">
-		          <md-icon ng-bind="'more_vert'"></md-icon>
-		        </md-button>
 		      </div>
 		    </md-toolbar>
 	      <div layout="column" layout-padding layout-align="top center">

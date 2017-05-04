@@ -8,11 +8,18 @@ angular.module('user').controller('userCtrl', ['$scope', 'User', 'CurrentUser', 
             }
         }, function (err) {
             $log.error(err.data.message);
-            NotificationService.show(err.data.message, 'bottom right');
+            NotificationService.show(err.data.message, 'right bottom');
         });
     }
 
     $scope.user = CurrentUser.get();
+
+    $scope.user_menu = [
+        {
+            name: 'Profile',
+            action: '.profile'
+        }
+    ];
 
     $scope.signin = function (user) {
         User.signin(user,
@@ -21,7 +28,7 @@ angular.module('user').controller('userCtrl', ['$scope', 'User', 'CurrentUser', 
             $state.go($state.current.name,{},{reload: true})
         }, function (err) {
             $log.error(err.data.message);
-            NotificationService.show(err.data.message, 'bottom left');
+            NotificationService.show(err.data.message, 'bottom');
         })
     };
 
@@ -29,10 +36,10 @@ angular.module('user').controller('userCtrl', ['$scope', 'User', 'CurrentUser', 
         User.signout(function (res) {
             CurrentUser.set(undefined);
             $scope.user = undefined;
-            $state.go($state.current.name,{},{reload: true});
+            $state.go('app.home',{},{reload: true});
         }, function (err) {
             log.error(err.data.message);
-            NotificationService.show(err.data.message, 'bottom right');
+            NotificationService.show(err.data.message, 'right bottom');
         });
     }
 }]);

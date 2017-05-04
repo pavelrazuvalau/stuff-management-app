@@ -8,7 +8,7 @@ angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
             .state('app', {
                 abstract: true,
                 views: {
-                    'sidenav': {
+                    'user': {
                         templateProvider: ['User', 'CurrentUser', '$log', function (User, CurrentUser, $log) {
                             var res = CurrentUser.get();
 
@@ -20,6 +20,9 @@ angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
                         }],
                         controller: 'userCtrl'
                     },
+                    'sidenav': {
+                        templateUrl: 'views/sidenav.client.view.html'
+                    },
                     '': {
                         templateUrl: 'views/content.client.view.html'
                     }
@@ -28,7 +31,8 @@ angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
 
             .state('app.home', {
                 url: '/home',
-                templateUrl: 'views/home.client.view.html'
+                templateUrl: 'views/home.client.view.html',
+                controller: 'homeCtrl'
             })
 
             .state('app.about', {
