@@ -1,9 +1,10 @@
-angular.module('user').controller('signupCtrl', ['$scope', 'User', 'CurrentUser', '$log', '$state', 'NotificationService', 'ToolbarService', function ($scope, User, CurrentUser, $log, $state, NotificationService, ToolbarService) {
+angular.module('user').controller('signupCtrl', ['$scope', 'User', 'CurrentUser', '$log', '$state', 'NotificationService', 'ToolbarService', 'TitleService', function ($scope, User, CurrentUser, $log, $state, NotificationService, ToolbarService, TitleService) {
     if (CurrentUser.get()){
         $state.go('app.home', {}, {reload: true});
     }
 
     ToolbarService.setToolbar('Sign up', null, false);
+    TitleService.set('Sign up');
 
     $scope.signup = function () {
         User.signup($scope.reg,
@@ -14,16 +15,4 @@ angular.module('user').controller('signupCtrl', ['$scope', 'User', 'CurrentUser'
             NotificationService.show(err.data.message, 'right bottom');
         })
     };
-
-    $scope.checkUsername = function () {
-        $log.log($scope.reg.username);
-        User.checkUsername({username: $scope.reg.username},
-            function (res) {
-                NotificationService.show('Username is available', 'right bottom');
-                signup_form.username.$setValidity('usernameAvailable', true);
-            }, function (err) {
-                NotificationService.show('Username is already taken', 'right bottom');
-                signup_form.username.$setValidity('usernameAvailable', false);
-        })
-    }
 }]);

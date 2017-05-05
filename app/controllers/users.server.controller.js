@@ -36,10 +36,10 @@ exports.checkUsername = function(req, res){
       res.status(500).send({message: "Internal server error"})
     } else {
       if (user){
-        res.sendStatus(400);
+        res.status(200).send({isAvailable: false});
       }
       else {
-        res.sendStatus(200);
+        res.status(200).send({isAvailable: true});
       }
     }
   });

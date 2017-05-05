@@ -21,11 +21,7 @@ angular.module('ui').controller('uiCtrl', ['$scope', '$mdSidenav', '$log', 'Tool
         }
     ];
 
-    var updatecb = function () {
-        $scope.toolbar = ToolbarService.getToolbar();
-    };
-
-    updatecb();
+    $scope.toolbar = ToolbarService.getToolbar();
 
     //ToolbarService.setCallback(updatecb());
 
