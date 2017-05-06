@@ -3,7 +3,7 @@
 <head ng-controller="titleCtrl">
 	<title ng-bind="title"></title>
 	<link rel="stylesheet" type="text/css" href="lib/angular-material/angular-material.css">
-	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
@@ -33,7 +33,9 @@
 		        <md-button class="md-icon-button" aria-label="Menu" hide-gt-md ng-click="toggleLeft()">
 		          <md-icon ng-bind="'menu'"></md-icon>
 		        </md-button>
-
+						<md-button ng-show="toolbar.back" class="md-icon-button" aria-label="Back" ui-state="{{'toolbar.back'}}">
+		          <md-icon ng-bind="'keyboard_backspace'"></md-icon>
+		        </md-button>
 		        <h2 flex="" md-truncate="">{{toolbar.title}}</h2>
 						<md-icon ng-bind="'search'" class="name" ng-show="toolbar.search"></md-icon>
 						<md-input-container class="md-block" layout-fill style="margin-top: 30px; margin-left: 15px" ng-show="toolbar.search">

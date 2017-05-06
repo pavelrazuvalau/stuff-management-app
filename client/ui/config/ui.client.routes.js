@@ -7,17 +7,33 @@ angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
 
             .state('app', {
                 abstract: true,
+                resolve: {
+                    User: 'User',
+                    currentUser: function ($q, $log, User, NotificationService) {
+                        var defer = $q.defer();
+
+                        var promise = User.get().$promise;
+
+                        promise.then(function (res) {
+                            defer.resolve(res);
+                        }).catch(function (err) {
+                            $log.error(err.data ? err.data.message : 'Connection error');
+                            NotificationService.show(err.data ? err.data.message : 'Connection error', 'bottom');
+                        });
+
+                        return defer.promise;
+                    }
+                },
                 views: {
                     'user': {
-                        templateProvider: ['User', 'CurrentUser', '$log', function (User, CurrentUser, $log) {
-                            var res = CurrentUser.get();
-
-                            if (res){
-                                CurrentUser.set(res);
+                        templateProvider:function (currentUser) {
+                            if (currentUser.username){
                                 return '<div ng-include="\'views/user.client.view.html\'"></div>';
                             }
-                            return '<div ng-include="\'views/login.client.view.html\'"></div>';
-                        }],
+                            else {
+                                return '<div ng-include="\'views/login.client.view.html\'"></div>';
+                            }
+                        },
                         controller: 'userCtrl'
                     },
                     'sidenav': {

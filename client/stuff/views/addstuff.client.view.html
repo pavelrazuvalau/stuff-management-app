@@ -1,0 +1,36 @@
+<form name="add_form" ng-submit="add_form.$valid && addStuff()" novalidate autocomplete="off" ng-cloak>
+    <md-input-container class="md-block">
+        <label>Name</label>
+        <input type="text" name="name" ng-model="add.name" ng-required="true" minlength="5  " maxlength="50">
+        <div ng-messages="add_form.name.$error" role="alert">
+            <div ng-message="required">Name is required</div>
+            <div ng-message="minlength">Name is too short</div>
+            <div ng-message="maxlength">Name is too long</div>
+        </div>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Type</label>
+        <md-select ng-model="add.stufftype" name="type" ng-required="true">
+            <md-option ng-repeat="type in types" value="{{type}}">
+                {{type}}
+            </md-option>
+        </md-select>
+        <div ng-messages="add_form.type.$error" role="alert">
+            <div ng-message="required">Type is required</div>
+        </div>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Desctiption</label>
+        <textarea ng-model="add.description" name="description" md-maxlength="255" maxlength="255" rows="3" md-select-on-focus></textarea>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Cost (USD)</label>
+        <input type="number" name="number" ng-model="add.cost" ng-required="true">
+        <div ng-messages="add_form.name.$error" role="alert">
+            <div ng-message="required">Cost is required</div>
+        </div>
+    </md-input-container>
+    <section layout="row">
+        <md-button type="submit" class="md-raised">Add stuff</md-button>
+    </section>
+</form>

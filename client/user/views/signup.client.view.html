@@ -19,7 +19,7 @@
         </md-input-container>
         <md-input-container class="md-block">
             <label>E-mail</label>
-            <input type="text" name="email" ng-model="reg.email" ng-required="true" md-no-asterisk maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+            <input type="text" name="email" ng-model="reg.email" ng-required="true" md-no-asterisk maxlength="50" ng-pattern="/^.+@.+\..+$/" />
             <div ng-messages="signup_form.email.$error" role="alert">
                 <div ng-message="required">Email is required</div>
                 <div ng-message="pattern">Email should be valid</div>
@@ -34,7 +34,7 @@
                    ng-required="true"
                    md-no-asterisk
                    minlength="5"
-                   maxlength="20"
+                   maxlength="50"
                    ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}"
                    username-available>
 
@@ -47,10 +47,11 @@
         </md-input-container>
         <md-input-container class="md-block">
             <label>Password</label>
-            <input type="password" name="password" ng-model="reg.password" ng-required="true" md-no-asterisk minlength="6">
+            <input type="password" name="password" ng-model="reg.password" ng-required="true" md-no-asterisk minlength="5" maxlength="50">
             <div ng-messages="signup_form.password.$error" role="alert">
                 <div ng-message="required">Password is required</div>
                 <div ng-message="minlength">Password is too short</div>
+                <div ng-message="maxlength">Password is too long</div>
             </div>
         </md-input-container>
         <br>

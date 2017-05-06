@@ -3,7 +3,7 @@ angular.module('ui').controller('uiCtrl', ['$scope', '$mdSidenav', '$log', 'Tool
 
     function buildToggler(navID) {
         return function() {
-        $mdSidenav(navID).toggle();
+            $mdSidenav(navID).toggle();
         };
     }
 
@@ -16,13 +16,14 @@ angular.module('ui').controller('uiCtrl', ['$scope', '$mdSidenav', '$log', 'Tool
             name: 'home',
             action: '.home'
         }, {
+            name: 'stuff',
+            action: '.stuff'
+        }, {
             name: 'about',
             action: '.about'
         }
     ];
 
-    $scope.toolbar = ToolbarService.getToolbar();
-
-    //ToolbarService.setCallback(updatecb());
+    $scope.toolbar = ToolbarService.get();
 
 }]);

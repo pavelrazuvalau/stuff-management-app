@@ -1,10 +1,9 @@
-angular.module('user').controller('ProfileCtrl', ['$scope', 'CurrentUser', 'ToolbarService', 'TitleService', '$state', function ($scope, CurrentUser, ToolbarService, TitleService, $state) {
-    if (!CurrentUser.get()){
-        $state.go('app.home', {}, {reload: true});
+angular.module('user').controller('ProfileCtrl', ['$scope', 'currentUser', 'ToolbarService', 'TitleService', '$state', function ($scope, currentUser, ToolbarService, TitleService, $state) {
+    if (!currentUser.username){
+        $state.go('app.home');
     }
-    else {
-        $scope.info = CurrentUser.get();
-        ToolbarService.setToolbar('Profile', ['Test'], false);
-        TitleService.set($scope.info.fullName + ' - ' + 'Profile');
-    }
+
+    $scope.info = currentUser;
+    ToolbarService.set('Profile', ['Edit profile'], false, false);
+    TitleService.set($scope.info.fullName + ' - ' + 'Profile');
 }]);

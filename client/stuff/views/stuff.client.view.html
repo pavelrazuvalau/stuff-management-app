@@ -1,0 +1,21 @@
+<div>
+
+    <div layout="row" layout-wrap layout-align="center">
+        <md-card class="ng-animate" ng-init="height = 1" style="width: 300px;" md-whiteframe="{{height}}" ng-mouseenter="height = 6" ng-mouseleave="height = 1" ng-repeat="item in list">
+            <img ng-src="{{imagePath}}" class="md-card-image">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{item.name}}</span>
+                    <span class="md-subhead">{{item.stufftype}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content layout="row" layout-align="center">
+                {{item.cost}} $
+            </md-card-content>
+        </md-card>
+    </div>
+
+    <md-button class="md-fab md-fab-bottom-right md-primary" style="position: fixed" ui-sref=".add" ng-show="addButton">
+        <md-icon ng-bind="'add'"></md-icon>
+    </md-button>
+</div>

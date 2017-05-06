@@ -12,26 +12,32 @@ var UserSchema = new Schema({
     type: String,
     required: 'First Name is required',
     validate: [
-      function(username) {
-        return username.length >= 3;
+      function(name) {
+        return name.length >= 3 && name.length <= 50;
       },
-      'First Name is too short'
+      'First Name length is not valid',
     ]
   },
   lastName: {
     type: String,
     required: 'Last Name is required',
     validate: [
-      function(username) {
-        return username.length >= 3;
+      function(name) {
+        return name.length >= 3 && name.length <= 50;
       },
-      'Last Name is too short'
+      'Last Name length is not valid',
     ]
   },
   email: {
     type: String,
     index: true,
     required: 'E-mail is required',
+    validate: [
+      function(email) {
+        return email.length <= 50;
+      },
+      'Email is too long',
+    ],
     match: [/.+\@.+\..+/, "Please fill a valid e-mail address"]
   },
   username: {
@@ -40,10 +46,10 @@ var UserSchema = new Schema({
     unique: true,
     required: 'Username is required',
     validate: [
-      function(username) {
-        return username.length > 3;
+      function(name) {
+        return name.length >= 5 && name.length <= 50;
       },
-      'Username is too short'
+      'Username length is not valid',
     ]
   },
   password:  {
@@ -51,9 +57,9 @@ var UserSchema = new Schema({
     required: true,
     validate: [
       function(password) {
-        return password.length >= 6;
+        return password.length >= 5 && password.length <= 50;
       },
-      'Password should be longer'
+      'Password length is not valid',
     ]
   },
   salt: {
