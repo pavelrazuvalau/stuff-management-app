@@ -40,7 +40,7 @@
 						<md-icon ng-bind="'search'" class="name" ng-show="toolbar.search"></md-icon>
 						<md-input-container class="md-block" layout-fill style="margin-top: 30px; margin-left: 15px" ng-show="toolbar.search">
 				      <label>&nbsp;</label>
-				      <input ng-model="searchPhrase" name="searchPhrase" placeholder="Search an item" style="color: rgba(255,255,255,0.87);">
+				      <input name="searchPhrase" placeholder="Search an item" style="color: rgba(255,255,255,0.87);" ng-model="searchQuery" ng-change="updateQuery()">
 				    </md-input-container>
 						<md-menu>
 							<md-button class="md-icon-button" aria-label="More" layout-align="end" ng-click="$mdMenu.open()" ng-show="toolbar.menu">

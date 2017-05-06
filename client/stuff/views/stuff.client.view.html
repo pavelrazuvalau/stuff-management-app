@@ -1,7 +1,6 @@
 <div>
-
     <div layout="row" layout-wrap layout-align="center">
-        <md-card class="ng-animate" ng-init="height = 1" style="width: 300px;" md-whiteframe="{{height}}" ng-mouseenter="height = 6" ng-mouseleave="height = 1" ng-repeat="item in list">
+        <md-card class="ng-animate" ng-init="height = 1" style="width: 300px;" md-whiteframe="{{height}}" ng-mouseenter="height = 6" ng-mouseleave="height = 1" ng-repeat="item in list | filter: search">
             <img ng-src="{{imagePath}}" class="md-card-image">
             <md-card-title>
                 <md-card-title-text>
@@ -14,7 +13,6 @@
             </md-card-content>
         </md-card>
     </div>
-
     <md-button class="md-fab md-fab-bottom-right md-primary" style="position: fixed" ui-sref=".add" ng-show="addButton">
         <md-icon ng-bind="'add'"></md-icon>
     </md-button>

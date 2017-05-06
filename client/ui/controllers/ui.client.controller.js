@@ -1,4 +1,4 @@
-angular.module('ui').controller('uiCtrl', ['$scope', '$mdSidenav', '$log', 'ToolbarService', function ($scope, $mdSidenav, $log, ToolbarService) {
+angular.module('ui').controller('uiCtrl', ['$scope', '$mdSidenav', '$log', 'ToolbarService', 'SearchService', function ($scope, $mdSidenav, $log, ToolbarService, SearchService) {
     $scope.toggleLeft = buildToggler('left');
 
     function buildToggler(navID) {
@@ -26,4 +26,7 @@ angular.module('ui').controller('uiCtrl', ['$scope', '$mdSidenav', '$log', 'Tool
 
     $scope.toolbar = ToolbarService.get();
 
+    $scope.updateQuery = function () {
+        SearchService.setQuery($scope.searchQuery);
+    };
 }]);
