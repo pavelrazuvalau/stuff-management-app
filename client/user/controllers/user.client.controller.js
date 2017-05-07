@@ -5,7 +5,16 @@ angular.module('user').controller('userCtrl', ['$scope', 'User', 'currentUser', 
     $scope.user_menu = [
         {
             name: 'Profile',
-            action: '.profile'
+            action: '.profile',
+            icon: 'face'
+        }, {
+            name: 'Cart',
+            action: '.cart',
+            icon: 'shopping_cart'
+        }, {
+            name: 'Wish list',
+            action: '.wish',
+            icon: 'favorite'
         }
     ];
 
@@ -14,8 +23,9 @@ angular.module('user').controller('userCtrl', ['$scope', 'User', 'currentUser', 
             function (res) {
             $state.go($state.current.name,{},{reload: true})
         }, function (err) {
-            $log.error(err.data.message);
-            NotificationService.show(err.data.message, 'bottom');
+                var message = err.data ? err.data.message : 'Connection error';
+                $log.error(message);
+                NotificationService.show(message, 'bottom');
         })
     };
 
@@ -24,8 +34,9 @@ angular.module('user').controller('userCtrl', ['$scope', 'User', 'currentUser', 
             $scope.user = undefined;
             $state.go($state.current.name,{},{reload: true});
         }, function (err) {
-            log.error(err.data.message);
-            NotificationService.show(err.data.message, 'right bottom');
+            var message = err.data ? err.data.message : 'Connection error';
+            $log.error(message);
+            NotificationService.show(message, 'bottom');
         });
     }
 }]);

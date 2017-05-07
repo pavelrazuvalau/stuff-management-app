@@ -36,7 +36,7 @@ exports.get = function (req, res) {
 }
 
 exports.findByID = function(req, res, next, id){
-  Article.findById(id, function(err, stuff){
+  Stuff.findById(id, function(err, stuff){
     if (err) return next(err);
     if (!stuff) return next(new Error('Failed to load stuff ' + id));
     req.stuff = stuff;

@@ -1,0 +1,19 @@
+<div layout="row">
+    <div flex="50">
+
+    </div>
+    <div flex="50">
+        <p class="md-headline" style="text-align: left">{{item.name}}</p>
+        <p class="md-subhead" style="text-align: left">{{item.stufftype}}</p>
+        <p>{{item.description}}</p>
+        <h3>{{item.cost}} $</h3>
+        <md-button class="md-raised md-primary" style="margin: 0">
+            <md-icon ng-bind="'add_shopping_cart'"></md-icon>
+            Add to cart
+        </md-button>
+        <md-button class="md-icon-button md-accent" aria-label="Favorite">
+            <md-icon ng-bind="'favorite_border'"></md-icon>
+            <md-tooltip md-direction="right">Add to wish list</md-tooltip>
+        </md-button>
+    </div>
+</div>

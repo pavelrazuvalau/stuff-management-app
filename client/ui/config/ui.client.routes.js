@@ -17,8 +17,9 @@ angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
                         promise.then(function (res) {
                             defer.resolve(res);
                         }).catch(function (err) {
-                            $log.error(err.data ? err.data.message : 'Connection error');
-                            NotificationService.show(err.data ? err.data.message : 'Connection error', 'bottom');
+                            var message = err.data ? err.data.message : 'Connection error';
+                            $log.error(message);
+                            NotificationService.show(message, 'bottom');
                         });
 
                         return defer.promise;

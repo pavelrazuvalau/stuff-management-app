@@ -12,12 +12,34 @@ angular.module('stuff').config(['$stateProvider',
             })
 
             .state('app.stuff.add', {
-                parent: 'app.stuff',
                 url: '/add',
                 views: {
                     '@app': {
                         templateUrl: 'views/addstuff.client.view.html',
                         controller: 'addStuffCtrl'
+                    }
+                }
+            })
+
+            .state('app.stuff.details', {
+                url: '/:stuffId',
+                views: {
+                    '@app': {
+                        templateUrl: 'views/details.client.view.html',
+                        controller: 'stuffDetailsCtrl'
+                    }
+                }
+            })
+
+            .state('app.stuff.details.edit', {
+                url: '/edit',
+                params: {
+                    default: null
+                },
+                views: {
+                    '@app': {
+                        templateUrl: 'views/editstuff.client.view.html',
+                        controller: 'editStuffCtrl'
                     }
                 }
             })

@@ -1,6 +1,20 @@
 <div>
     <div layout="row" layout-wrap layout-align="center">
-        <md-card class="ng-animate" ng-init="height = 1" style="width: 300px;" md-whiteframe="{{height}}" ng-mouseenter="height = 6" ng-mouseleave="height = 1" ng-repeat="item in list | filter: search">
+        <div class="demo-select-all-checkboxes" ng-repeat="type in types" style="margin-left: 20px; margin-right: 20px">
+            <md-checkbox ng-checked="exists(type, selected)" ng-click="toggle(type, selected)" class="md-primary">
+                {{ type }}
+            </md-checkbox>
+        </div>
+    </div>
+    <div layout="row" layout-wrap layout-align="center">
+        <md-card class="ng-animate"
+                 ng-init="height = 1"
+                 style="width: 300px; cursor: pointer"
+                 md-whiteframe="{{height}}"
+                 ng-mouseenter="height = 6"
+                 ng-mouseleave="height = 1"
+                 ng-repeat="item in list | filter: search | filter: checkbox"
+                 ui-sref=".details({stuffId: item._id})">
             <img ng-src="{{imagePath}}" class="md-card-image">
             <md-card-title>
                 <md-card-title-text>
@@ -9,7 +23,7 @@
                 </md-card-title-text>
             </md-card-title>
             <md-card-content layout="row" layout-align="center">
-                {{item.cost}} $
+                <h3>{{item.cost}} $</h3>
             </md-card-content>
         </md-card>
     </div>

@@ -1,3 +1,6 @@
 <div layout="row" ng-repeat="item in menu">
-    <md-button layout-fill layout-padding style="text-align: left; padding-left: 20px" ui-sref="{{item.action}}" ng-click="closeLeft()">{{item.name}}</md-button>
+    <md-button layout-fill layout-padding style="text-align: left" ui-sref="{{item.action}}" ng-click="closeLeft()">
+        <md-icon ng-bind="item.icon"></md-icon>
+        {{item.name}}
+    </md-button>
 </div>

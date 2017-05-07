@@ -11,8 +11,14 @@
 <md-divider></md-divider>
 
 <div layout="row" ng-repeat="item in user_menu">
-    <md-button layout-fill layout-padding style="text-align: left; padding-left: 20px" ng-click="closeLeft()" ui-sref="{{item.action}}">{{item.name}}</md-button>
+    <md-button layout-fill layout-padding style="text-align: left;" ng-click="closeLeft()" ui-sref="{{item.action}}">
+        <md-icon ng-bind="item.icon"></md-icon>
+        {{item.name}}
+    </md-button>
 </div>
 <div layout="row">
-    <md-button layout-fill layout-padding style="text-align: left; padding-left: 20px" ng-click="signout()">Sign out</md-button>
+    <md-button layout-fill layout-padding style="text-align: left;" ng-click="signout()">
+        <md-icon ng-bind="'exit_to_app'"></md-icon>
+        Sign out
+    </md-button>
 </div>

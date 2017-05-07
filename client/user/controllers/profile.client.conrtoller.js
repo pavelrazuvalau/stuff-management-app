@@ -4,6 +4,6 @@ angular.module('user').controller('ProfileCtrl', ['$scope', 'currentUser', 'Tool
     }
 
     $scope.info = currentUser;
-    ToolbarService.set('Profile', ['Edit profile'], false, false);
+    ToolbarService.set('Profile', null, false, false);
     TitleService.set($scope.info.fullName + ' - ' + 'Profile');
 }]);

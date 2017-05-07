@@ -1,5 +1,5 @@
 angular.module('stuff').controller('addStuffCtrl', ['$scope', '$state', '$log', 'Stuff', 'currentUser', 'ToolbarService', 'TitleService', 'NotificationService', function ($scope, $state, $log, Stuff, currentUser, ToolbarService, TitleService, NotificationService) {
-    if (currentUser.role != 'Admin'){
+    if (currentUser.role !== 'Admin'){
         $state.go('app.stuff', {}, {reload: true});
     }
     else {
@@ -10,12 +10,13 @@ angular.module('stuff').controller('addStuffCtrl', ['$scope', '$state', '$log', 
         $scope.addStuff = function () {
             Stuff.save($scope.add,
                 function (res) {
-                    NotificationService.show('Success', 'right bottom');
+                    NotificationService.show('Successfully added', 'right bottom');
                     $state.go('app.stuff', {}, {reload: true})
                 },
                 function (err) {
-                    $log.error(err.data.message);
-                    NotificationService.show(err.data.message, 'right bottom');
+                    var message = err.data ? err.data.message : 'Connection error';
+                    $log.error(message);
+                    NotificationService.show(message, 'right bottom');
                 });
         }
     }

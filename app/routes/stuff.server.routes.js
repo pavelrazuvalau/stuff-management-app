@@ -5,7 +5,7 @@ module.exports = function(app) {
   app.route('/stuff')
     .get(stuff.get)
     .post(users.requiresLogin, stuff.hasAuthorization, stuff.add);
-  app.route('/stuff:stuffId')
+  app.route('/stuff/:stuffId')
     .get(stuff.getByID)
     .put(users.requiresLogin, stuff.hasAuthorization, stuff.update)
     .delete(users.requiresLogin, stuff.hasAuthorization, stuff.delete);

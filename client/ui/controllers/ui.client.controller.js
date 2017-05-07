@@ -14,13 +14,16 @@ angular.module('ui').controller('uiCtrl', ['$scope', '$mdSidenav', '$log', 'Tool
     $scope.menu = [
         {
             name: 'home',
-            action: '.home'
+            action: '.home',
+            icon: 'home'
         }, {
             name: 'stuff',
-            action: '.stuff'
+            action: '.stuff',
+            icon: 'local_mall'
         }, {
             name: 'about',
-            action: '.about'
+            action: '.about',
+            icon: 'info'
         }
     ];
 

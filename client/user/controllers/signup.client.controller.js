@@ -11,8 +11,9 @@ angular.module('user').controller('signupCtrl', ['$scope', 'User', 'currentUser'
             function (res) {
                 $state.go('app.home',{},{reload: true})
             }, function (err) {
-                $log.error(err.data.message);
-                NotificationService.show(err.data.message, 'right bottom');
+                var message = err.data ? err.data.message : 'Connection error';
+                $log.error(message);
+                NotificationService.show(message, 'right bottom');
             })
     };
 }]);

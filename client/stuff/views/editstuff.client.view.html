@@ -1,0 +1,36 @@
+<form name="edit_form" ng-submit="edit_form.$valid && editStuff()" novalidate autocomplete="off" ng-cloak>
+    <md-input-container class="md-block">
+        <label>Name</label>
+        <input type="text" name="name" ng-model="edit.name" ng-required="true" minlength="5  " maxlength="50">
+        <div ng-messages="edit_form.name.$error" role="alert">
+            <div ng-message="required">Name is required</div>
+            <div ng-message="minlength">Name is too short</div>
+            <div ng-message="maxlength">Name is too long</div>
+        </div>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Type</label>
+        <md-select ng-model="edit.stufftype" name="type" ng-required="true">
+            <md-option ng-repeat="type in types" value="{{type}}">
+                {{type}}
+            </md-option>
+        </md-select>
+        <div ng-messages="edit_form.type.$error" role="alert">
+            <div ng-message="required">Type is required</div>
+        </div>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Desctiption</label>
+        <textarea ng-model="edit.description" name="description" md-maxlength="255" maxlength="255" rows="3" md-select-on-focus></textarea>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Cost (USD)</label>
+        <input type="number" name="number" ng-model="edit.cost" ng-required="true">
+        <div ng-messages="edit_form.name.$error" role="alert">
+            <div ng-message="required">Cost is required</div>
+        </div>
+    </md-input-container>
+    <section layout="row">
+        <md-button type="submit" class="md-raised">Edit stuff</md-button>
+    </section>
+</form>

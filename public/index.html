@@ -48,8 +48,8 @@
 							</md-button>
 							<md-menu-content width="4">
 							 <md-menu-item ng-repeat="item in toolbar.menu">
-								 <md-button>
-									 {{item}}
+								 <md-button ng-click="item.action($event)">
+									 {{item.name}}
 								 </md-button>
 							 </md-menu-item>
 				    </md-menu>
