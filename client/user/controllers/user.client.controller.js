@@ -7,14 +7,6 @@ angular.module('user').controller('userCtrl', ['$scope', 'User', 'currentUser', 
             name: 'Profile',
             action: '.profile',
             icon: 'face'
-        }, {
-            name: 'Cart',
-            action: '.cart',
-            icon: 'shopping_cart'
-        }, {
-            name: 'Wish list',
-            action: '.wish',
-            icon: 'favorite'
         }
     ];
 

@@ -4,3 +4,10 @@
         {{item.name}}
     </md-button>
 </div>
+<md-divider ng-if="admin_menu.length"></md-divider>
+<div layout="row" ng-repeat="item in admin_menu">
+    <md-button layout-fill layout-padding style="text-align: left" ui-sref="{{item.action}}" ng-click="closeLeft()">
+        <md-icon ng-bind="item.icon"></md-icon>
+        {{item.name}}
+    </md-button>
+</div>

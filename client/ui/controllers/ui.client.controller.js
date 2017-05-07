@@ -11,22 +11,6 @@ angular.module('ui').controller('uiCtrl', ['$scope', '$mdSidenav', '$log', 'Tool
         $mdSidenav('left').close();
     };
 
-    $scope.menu = [
-        {
-            name: 'home',
-            action: '.home',
-            icon: 'home'
-        }, {
-            name: 'stuff',
-            action: '.stuff',
-            icon: 'local_mall'
-        }, {
-            name: 'about',
-            action: '.about',
-            icon: 'info'
-        }
-    ];
-
     $scope.toolbar = ToolbarService.get();
 
     $scope.updateQuery = function () {

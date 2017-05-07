@@ -38,7 +38,8 @@ angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
                         controller: 'userCtrl'
                     },
                     'sidenav': {
-                        templateUrl: 'views/sidenav.client.view.html'
+                        templateUrl: 'views/sidenav.client.view.html',
+                        controller: 'sidenavCtrl'
                     },
                     '': {
                         templateUrl: 'views/content.client.view.html'
@@ -50,11 +51,6 @@ angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
                 url: '/home',
                 templateUrl: 'views/home.client.view.html',
                 controller: 'homeCtrl'
-            })
-
-            .state('app.about', {
-                url: '/about',
-                templateUrl: 'views/about.client.view.html'
             })
     }
 ]);
