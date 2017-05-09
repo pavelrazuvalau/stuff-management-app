@@ -1,4 +1,4 @@
-angular.module('stuff').controller('stuffDetailsCtrl', ['$scope', 'currentStuff', '$stateParams', '$log', 'NotificationService', 'ToolbarService', 'TitleService', 'currentUser', '$mdDialog', '$state', 'wishList', 'Wish', function ($scope, currentStuff, $stateParams, $log, NotificationService, ToolbarService, TitleService, currentUser, $mdDialog, $state, wishList, Wish) {
+angular.module('stuff').controller('stuffDetailsCtrl', ['$scope', 'currentStuff', '$stateParams', 'ErrorHandler', 'NotificationService', 'ToolbarService', 'TitleService', 'currentUser', '$mdDialog', '$state', 'wishList', 'Wish', function ($scope, currentStuff, $stateParams, ErrorHandler, NotificationService, ToolbarService, TitleService, currentUser, $mdDialog, $state, wishList, Wish) {
     $scope.item = currentStuff;
 
     ToolbarService.set($scope.item.name, null, null, 'app.stuff');
@@ -19,10 +19,8 @@ angular.module('stuff').controller('stuffDetailsCtrl', ['$scope', 'currentStuff'
             Stuff.delete({stuffId: $scope.item._id}, function () {
                 $state.go('app.stuff', {}, {reload: true});
                 NotificationService.show('Successfully deleted', 'right bottom');
-            }, function () {
-                var message = err.data ? err.data.message : 'Connection error';
-                $log.error(message);
-                NotificationService.show(message, 'right bottom');
+            }, function (err) {
+                ErrorHandler.show(err);
             })
         });
     };
@@ -38,10 +36,6 @@ angular.module('stuff').controller('stuffDetailsCtrl', ['$scope', 'currentStuff'
         ])
     }
 
-    $log.log(wishList.stuff.findIndex(function (item) {
-        return item._id === currentStuff._id;
-    }));
-
     if (wishList.stuff.findIndex(function (item) {
             return item._id === currentStuff._id;
         }) > -1){
@@ -51,9 +45,7 @@ angular.module('stuff').controller('stuffDetailsCtrl', ['$scope', 'currentStuff'
                 $state.go($state.current.name,{},{reload: true});
                 NotificationService.show('Successfully deleted from wish list', 'right bottom');
             }, function (err) {
-                var message = err.data ? err.data.message : 'Connection error';
-                $log.error(message);
-                NotificationService.show(message, 'right bottom');
+                ErrorHandler.show(err);
             })
         };
         $scope.tooltip = 'Remove from wish list';
@@ -65,9 +57,7 @@ angular.module('stuff').controller('stuffDetailsCtrl', ['$scope', 'currentStuff'
                 $state.go($state.current.name,{},{reload: true});
                 NotificationService.show('Successfully added to wish list', 'right bottom');
             }, function (err) {
-                var message = err.data ? err.data.message : 'Connection error';
-                $log.error(message);
-                NotificationService.show(message, 'right bottom');
+                ErrorHandler.show(err);
             })
         };
         $scope.tooltip = 'Add to wish list';

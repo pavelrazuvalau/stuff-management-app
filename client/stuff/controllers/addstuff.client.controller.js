@@ -1,4 +1,4 @@
-angular.module('stuff').controller('addStuffCtrl', ['$scope', '$state', '$log', 'StuffUpload', 'currentUser', 'ToolbarService', 'TitleService', 'NotificationService', '$timeout', function ($scope, $state, $log, StuffUpload, currentUser, ToolbarService, TitleService, NotificationService, $timeout) {
+angular.module('stuff').controller('addStuffCtrl', ['$scope', '$state', 'StuffUpload', 'currentUser', 'ToolbarService', 'TitleService', 'NotificationService', '$timeout', 'ErrorHandler', function ($scope, $state, StuffUpload, currentUser, ToolbarService, TitleService, NotificationService, $timeout, ErrorHandler) {
     if (currentUser.role !== 'Admin'){
         $state.go('app.stuff', {}, {reload: true});
     }
@@ -26,9 +26,7 @@ angular.module('stuff').controller('addStuffCtrl', ['$scope', '$state', '$log', 
                     NotificationService.show('Successfully added', 'right bottom');
                     $timeout(function(){$state.go('app.stuff', {}, {reload: true})}, 1000);
                 }, function (err) {
-                    var message = err.data ? err.data.message : 'Connection error';
-                    $log.error(message);
-                    NotificationService.show(message, 'right bottom');
+                    ErrorHandler.show(err);
                 }, function (event) {
                     $scope.uploadProgress = Math.floor(event.loaded / event.total) * 100;
                 });

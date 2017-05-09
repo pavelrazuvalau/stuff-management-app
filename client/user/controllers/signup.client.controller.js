@@ -1,4 +1,4 @@
-angular.module('user').controller('signupCtrl', ['$scope', 'User', 'currentUser', '$log', '$state', 'NotificationService', 'ToolbarService', 'TitleService', function ($scope, User, currentUser, $log, $state, NotificationService, ToolbarService, TitleService) {
+angular.module('user').controller('signupCtrl', ['$scope', 'User', 'currentUser', 'ErrorHandler', '$state', 'NotificationService', 'ToolbarService', 'TitleService', function ($scope, User, currentUser, ErrorHandler, $state, NotificationService, ToolbarService, TitleService) {
     if (currentUser.username){
         $state.go('app.stuff');
     }
@@ -11,9 +11,7 @@ angular.module('user').controller('signupCtrl', ['$scope', 'User', 'currentUser'
             function (res) {
                 $state.go('app.stuff',{},{reload: true})
             }, function (err) {
-                var message = err.data ? err.data.message : 'Connection error';
-                $log.error(message);
-                NotificationService.show(message, 'right bottom');
+                ErrorHandler.show(err);
             })
     };
 }]);

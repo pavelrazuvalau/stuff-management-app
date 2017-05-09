@@ -1,4 +1,4 @@
-angular.module('ui').controller('uiCtrl', ['$scope', '$mdSidenav', '$log', 'ToolbarService', 'SearchService', function ($scope, $mdSidenav, $log, ToolbarService, SearchService) {
+angular.module('ui').controller('uiCtrl', ['$scope', '$mdSidenav', 'ToolbarService', 'SearchService', function ($scope, $mdSidenav, ToolbarService, SearchService) {
     $scope.toggleLeft = buildToggler('left');
 
     function buildToggler(navID) {

@@ -1,4 +1,4 @@
-angular.module('user').controller('userCtrl', ['$scope', 'User', 'currentUser', '$log', '$state', 'NotificationService', function($scope, User, currentUser, $log, $state, NotificationService){
+angular.module('user').controller('userCtrl', ['$scope', 'User', 'currentUser', 'ErrorHandler', '$state', 'NotificationService', function($scope, User, currentUser, ErrorHandler, $state, NotificationService){
 
     $scope.user = currentUser;
 
@@ -15,9 +15,7 @@ angular.module('user').controller('userCtrl', ['$scope', 'User', 'currentUser', 
             function (res) {
             $state.go($state.current.name,{},{reload: true})
         }, function (err) {
-                var message = err.data ? err.data.message : 'Connection error';
-                $log.error(message);
-                NotificationService.show(message, 'bottom');
+                ErrorHandler.show(err);
         })
     };
 
@@ -26,9 +24,7 @@ angular.module('user').controller('userCtrl', ['$scope', 'User', 'currentUser', 
             $scope.user = undefined;
             $state.go($state.current.name,{},{reload: true});
         }, function (err) {
-            var message = err.data ? err.data.message : 'Connection error';
-            $log.error(message);
-            NotificationService.show(message, 'bottom');
+            ErrorHandler.show(err);
         });
     }
 }]);

@@ -1,4 +1,4 @@
-angular.module('stuff').controller('editStuffCtrl', ['$scope', '$state', '$stateParams', 'TitleService', 'ToolbarService', 'NotificationService', 'Stuff', 'currentUser', function ($scope, $state, $stateParams, TitleService, ToolbarService, NotificationService, Stuff, currentUser) {
+angular.module('stuff').controller('editStuffCtrl', ['$scope', '$state', '$stateParams', 'TitleService', 'ToolbarService', 'NotificationService', 'Stuff', 'currentUser', 'ErrorHandler', function ($scope, $state, $stateParams, TitleService, ToolbarService, NotificationService, Stuff, currentUser, ErrorHandler) {
     if (!$stateParams.default || currentUser.role !== 'Admin'){
         $state.go('^');
     }
@@ -14,9 +14,7 @@ angular.module('stuff').controller('editStuffCtrl', ['$scope', '$state', '$state
                     $state.go('^', {}, {reload: true})
                 },
                 function (err) {
-                    var message = err.data ? err.data.message : 'Connection error';
-                    $log.error(message);
-                    NotificationService.show(message, 'right bottom');
+                    ErrorHandler.show(err);
                 });
         }
     }

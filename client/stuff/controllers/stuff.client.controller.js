@@ -1,4 +1,4 @@
-angular.module('stuff').controller('stuffCtrl', ['$scope', 'currentList', 'ToolbarService', 'currentUser', 'TitleService', 'SearchService', '$log', 'NotificationService', 'CheckboxService', function ($scope, currentList, ToolbarService, currentUser, TitleService, SearchService, $log, NotificationService, CheckboxService) {
+angular.module('stuff').controller('stuffCtrl', ['$scope', 'currentList', 'ToolbarService', 'currentUser', 'TitleService', 'SearchService', 'NotificationService', 'CheckboxService', function ($scope, currentList, ToolbarService, currentUser, TitleService, SearchService, NotificationService, CheckboxService) {
     ToolbarService.set(null, null, true);
     TitleService.set('Stuff');
 

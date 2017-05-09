@@ -1,4 +1,4 @@
-angular.module('wish').controller('wishCtrl', ['$scope', '$state', 'Wish', 'wishList', 'NotificationService', 'ToolbarService', 'TitleService', 'currentUser', '$log', '$mdDialog', function ($scope, $state, Wish, wishList, NotificationService, ToolbarService, TitleService, currentUser, $log, $mdDialog) {
+angular.module('wish').controller('wishCtrl', ['$scope', '$state', 'Wish', 'wishList', 'NotificationService', 'ToolbarService', 'TitleService', 'currentUser', 'ErrorHandler', '$mdDialog', function ($scope, $state, Wish, wishList, NotificationService, ToolbarService, TitleService, currentUser, ErrorHandler, $mdDialog) {
     if (!currentUser.username){
         $state.go('app.stuff');
     }
@@ -11,9 +11,7 @@ angular.module('wish').controller('wishCtrl', ['$scope', '$state', 'Wish', 'wish
                 $state.go($state.current.name,{},{reload: true});
                 NotificationService.show('Successfully deleted from wish list', 'right bottom');
             }, function (err) {
-                var message = err.data ? err.data.message : 'Connection error';
-                $log.error(message);
-                NotificationService.show(message, 'right bottom');
+                ErrorHandler.show(err);
             })
         };
         $scope.getSum = function () {
@@ -35,9 +33,7 @@ angular.module('wish').controller('wishCtrl', ['$scope', '$state', 'Wish', 'wish
                     $state.go($state.current.name,{},{reload: true});
                     NotificationService.show('Successfully cleared wish list', 'right bottom');
                 }, function (err) {
-                    var message = err.data ? err.data.message : 'Connection error';
-                    $log.error(message);
-                    NotificationService.show(message, 'right bottom');
+                    ErrorHandler.show(err);
                 })
             });
         };

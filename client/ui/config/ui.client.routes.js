@@ -9,7 +9,7 @@ angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
                 abstract: true,
                 resolve: {
                     User: 'User',
-                    currentUser: function ($q, $log, User, NotificationService) {
+                    currentUser: function ($q, ErrorHandler, User) {
                         var defer = $q.defer();
 
                         var promise = User.get().$promise;
@@ -17,16 +17,14 @@ angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
                         promise.then(function (res) {
                             defer.resolve(res);
                         }).catch(function (err) {
-                            var message = err.data ? err.data.message : 'Connection error';
-                            $log.error(message);
-                            NotificationService.show(message, 'bottom');
+                            ErrorHandler.show(err);
                             defer.reject();
                         });
 
                         return defer.promise;
                     },
                     Wish: 'Wish',
-                    wishList: function ($q, $log, Wish, currentUser, NotificationService) {
+                    wishList: function ($q, ErrorHandler, Wish, currentUser) {
                         if (currentUser.username){
                             var defer = $q.defer();
 
@@ -35,9 +33,7 @@ angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
                             promise.then(function (res) {
                                 defer.resolve(res);
                             }).catch(function (err) {
-                                var message = err.data ? err.data.message : 'Connection error';
-                                $log.error(err);
-                                NotificationService.show(message, 'bottom');
+                                ErrorHandler.show(err);
                                 defer.reject();
                             });
 

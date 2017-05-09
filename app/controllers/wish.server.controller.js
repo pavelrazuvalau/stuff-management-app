@@ -32,7 +32,7 @@ exports.add = function (req, res) {
 exports.get = function (req, res) {
   Wish.findOne({
     user: req.user
-  }).populate('stuff', 'stufftype name image description cost')
+  }).populate('stuff', 'stufftype name image cost')
   .exec(function(err, wish){
     if (err) {
       res.status(400).send({message: getErrorMessage(err)})

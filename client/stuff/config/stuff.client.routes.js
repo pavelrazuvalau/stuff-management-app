@@ -5,7 +5,7 @@ angular.module('stuff').config(['$stateProvider',
                 url: '/stuff',
                 resolve: {
                     Stuff: 'Stuff',
-                    currentList: function ($q, $log, Stuff, NotificationService) {
+                    currentList: function ($q, ErrorHandler, Stuff) {
                         var defer = $q.defer();
 
                         var promise =  Stuff.query().$promise;
@@ -13,14 +13,12 @@ angular.module('stuff').config(['$stateProvider',
                         promise.then(function (res) {
                             defer.resolve(res);
                         }).catch(function (err) {
-                            var message = err.data ? err.data.message : 'Connection error';
-                            $log.error(err);
-                            NotificationService.show(message, 'bottom');
+                            ErrorHandler.show(err);
                             defer.reject();
                         });
 
                         return defer.promise;
-                    },
+                    }
                 },
                 views: {
                     '@app': {
@@ -43,7 +41,7 @@ angular.module('stuff').config(['$stateProvider',
             .state('app.stuff.details', {
                 url: '/:stuffId',
                 resolve: {
-                    currentStuff: function ($q, $log, Stuff, $stateParams, NotificationService) {
+                    currentStuff: function ($q, ErrorHandler, Stuff, $stateParams) {
                         var defer = $q.defer();
 
                         var promise = Stuff.get({stuffId: $stateParams.stuffId}).$promise;
@@ -51,9 +49,7 @@ angular.module('stuff').config(['$stateProvider',
                         promise.then(function (res) {
                             defer.resolve(res);
                         }).catch(function (err) {
-                            var message = err.data ? err.data.message : 'Connection error';
-                            $log.error(err);
-                            NotificationService.show(message, 'bottom');
+                            ErrorHandler.show(err);
                             defer.reject();
                         });
 

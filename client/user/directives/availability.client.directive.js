@@ -1,4 +1,4 @@
-angular.module('user').directive('usernameAvailable', function (User, NotificationService, $q) {
+angular.module('user').directive('usernameAvailable', function (User, ErrorHandler, $q) {
     return {
         // restrict to an attribute type.
         restrict: 'A',
@@ -21,7 +21,7 @@ angular.module('user').directive('usernameAvailable', function (User, Notificati
                                 deferred.reject();
                             }
                         }, function (err) {
-                            NotificationService.show(err.data.message, 'right bottom');
+                            ErrorHandler.show(err);
                             deferred.reject();
                         });
 
