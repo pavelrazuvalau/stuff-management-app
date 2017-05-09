@@ -1,4 +1,8 @@
-var Stuff = require('mongoose').model('Stuff');
+var Stuff    = require('mongoose').model('Stuff'),
+    multer   = require('multer'),
+    upload   = multer({dest: 'uploads/'}),
+    path     = require('path'),
+    fs       = require('fs');
 
 var getErrorMessage = function(err) {
   if (err.errors) {
@@ -10,8 +14,11 @@ var getErrorMessage = function(err) {
   }
 };
 
+exports.uploadImage = upload.single('image');
+
 exports.add = function(req, res) {
   var stuff = new Stuff(req.body);
+  stuff.image = req.file.filename;
   stuff.save(function(err) {
     if (err) {
       res.status(400).send({
@@ -33,6 +40,10 @@ exports.get = function (req, res) {
       res.jsonp(stuff);
     }
   })
+}
+
+exports.getImage = function (req, res) {
+  res.sendFile(path.resolve('uploads/' + req.params.imageId));
 }
 
 exports.findByID = function(req, res, next, id){
@@ -76,6 +87,7 @@ exports.delete = function(req, res){
         message: getErrorMessage(err)
       });
     } else {
+      fs.unlinkSync('uploads/' + req.stuff.image);
       res.jsonp(stuff);
     }
   });

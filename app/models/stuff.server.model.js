@@ -5,7 +5,7 @@ var StuffSchema = new Schema({
   stufftype: {
     type: String,
     required: 'Stuff type is required',
-    enum: ['Tshirt', 'Cup', 'Pillow', 'Badge', 'Sticker', 'Сase']
+    enum: ['T-shirt', 'Cup', 'Pillow', 'Badge', 'Sticker', 'Сase']
   },
   name: {
     type: String,
@@ -16,6 +16,10 @@ var StuffSchema = new Schema({
       },
       'Name length is not valid'
     ]
+  },
+  image: {
+    type: String,
+    default: ''
   },
   description: {
     type: String,

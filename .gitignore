@@ -47,3 +47,6 @@ public/app.js
 
 # Public views
 public/views
+
+# Uploaded images
+uploads

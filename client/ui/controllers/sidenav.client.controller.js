@@ -1,10 +1,6 @@
 angular.module('ui').controller('sidenavCtrl', ['$scope', 'currentUser', function ($scope, currentUser) {
     $scope.menu = [
         {
-            name: 'home',
-            action: '.home',
-            icon: 'home'
-        }, {
             name: 'stuff',
             action: '.stuff',
             icon: 'local_mall'
@@ -30,6 +26,18 @@ angular.module('ui').controller('sidenavCtrl', ['$scope', 'currentUser', functio
             }])
     }
 
+    if (currentUser.role === 'Admin'){
+        $scope.admin_menu.push({
+            name: 'User orders',
+            action: '.orders',
+            icon: 'credit_card'
+        }, {
+            name: 'User management',
+            action: '.users',
+            icon: 'pan_tool'
+        });
+    }
+
     if (currentUser.role === 'Moderator' || currentUser.role === 'Admin'){
         $scope.admin_menu.push({
             name: 'User comments',
@@ -38,11 +46,4 @@ angular.module('ui').controller('sidenavCtrl', ['$scope', 'currentUser', functio
         });
     }
 
-    if (currentUser.role === 'Admin'){
-        $scope.admin_menu.push({
-            name: 'User orders',
-            action: '.orders',
-            icon: 'credit_card'
-        });
-    }
 }]);

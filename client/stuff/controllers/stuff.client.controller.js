@@ -1,4 +1,4 @@
-angular.module('stuff').controller('stuffCtrl', ['$scope', 'Stuff', 'ToolbarService', 'currentUser', 'TitleService', 'SearchService', '$log', 'NotificationService', function ($scope, Stuff, ToolbarService, currentUser, TitleService, SearchService, $log, NotificationService) {
+angular.module('stuff').controller('stuffCtrl', ['$scope', 'Stuff', 'ToolbarService', 'currentUser', 'TitleService', 'SearchService', '$log', 'NotificationService', 'CheckboxService', function ($scope, Stuff, ToolbarService, currentUser, TitleService, SearchService, $log, NotificationService, CheckboxService) {
     ToolbarService.set(null, null, true);
     TitleService.set('Stuff');
     Stuff.query(function (res) {
@@ -12,8 +12,8 @@ angular.module('stuff').controller('stuffCtrl', ['$scope', 'Stuff', 'ToolbarServ
         $scope.addButton = true;
     }
 
-    $scope.types = ['Tshirt', 'Cup', 'Pillow', 'Badge', 'Sticker', 'Сase'];
-    $scope.selected = [];
+    $scope.types = ['T-shirt', 'Cup', 'Pillow', 'Badge', 'Sticker', 'Сase'];
+    $scope.selected = CheckboxService.get();
 
     $scope.toggle = function (type, list) {
         var idx = list.indexOf(type);
@@ -23,7 +23,7 @@ angular.module('stuff').controller('stuffCtrl', ['$scope', 'Stuff', 'ToolbarServ
         else {
             list.push(type);
         }
-        $log.log($scope.selected);
+        CheckboxService.set($scope.selected);
     };
 
     $scope.exists = function (item, list) {

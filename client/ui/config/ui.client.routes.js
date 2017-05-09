@@ -1,7 +1,7 @@
 angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
 
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/stuff');
 
         $stateProvider
 
@@ -20,6 +20,7 @@ angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
                             var message = err.data ? err.data.message : 'Connection error';
                             $log.error(message);
                             NotificationService.show(message, 'bottom');
+                            defer.reject();
                         });
 
                         return defer.promise;
@@ -45,12 +46,6 @@ angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
                         templateUrl: 'views/content.client.view.html'
                     }
                 }
-            })
-
-            .state('app.home', {
-                url: '/home',
-                templateUrl: 'views/home.client.view.html',
-                controller: 'homeCtrl'
             })
     }
 ]);

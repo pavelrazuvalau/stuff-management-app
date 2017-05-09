@@ -27,7 +27,7 @@
 
 	    </md-sidenav>
 
-	    <md-content flex md-swipe-right="toggleLeft()">
+	    <md-content flex md-swipe-right="toggleLeft()" style="background-color: white !important">
 	    	<md-toolbar md-whiteframe="3">
 		      <div class="md-toolbar-tools">
 		        <md-button class="md-icon-button" aria-label="Menu" hide-gt-md ng-click="toggleLeft()">
@@ -42,6 +42,9 @@
 				      <label>&nbsp;</label>
 				      <input name="searchPhrase" placeholder="Search an item" style="color: rgba(255,255,255,0.87);" ng-model="searchQuery" ng-change="updateQuery()">
 				    </md-input-container>
+						<md-button class="md-icon-button" aria-label="Clear" layout-align="end" ng-click="searchQuery = ''; updateQuery()" ng-show="toolbar.search && searchQuery">
+							<md-icon ng-bind="'clear'"></md-icon>
+						</md-button>
 						<md-menu>
 							<md-button class="md-icon-button" aria-label="More" layout-align="end" ng-click="$mdMenu.open()" ng-show="toolbar.menu">
 								<md-icon ng-bind="'more_vert'"></md-icon>
@@ -75,6 +78,9 @@
 <script type="text/javascript" src="lib/angular-material/angular-material.js"></script>
 <script type="text/javascript" src="lib/angular-resource/angular-resource.js"></script>
 <script type="text/javascript" src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+<script type="text/javascript" src="lib/ng-file-upload/FileAPI.js"></script>
+<script type="text/javascript" src="lib/ng-file-upload/ng-file-upload-shim.js"></script>
+<script type="text/javascript" src="lib/ng-file-upload/ng-file-upload.js"></script>
 <script type="text/javascript" src="app.js"></script>
 </body>
 </html>

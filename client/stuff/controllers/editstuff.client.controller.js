@@ -6,7 +6,7 @@ angular.module('stuff').controller('editStuffCtrl', ['$scope', '$state', '$state
         $scope.edit = $stateParams.default;
         TitleService.set($stateParams.default.name + ' - Edit');
         ToolbarService.set('Edit Stuff', null, null, 'app.stuff.details', {stuffId: $stateParams.default._id});
-        $scope.types = ['Tshirt', 'Cup', 'Pillow', 'Badge', 'Sticker', 'Сase'];
+        $scope.types = ['T-shirt', 'Cup', 'Pillow', 'Badge', 'Sticker', 'Сase'];
         $scope.editStuff = function () {
             Stuff.update({stuffId: $stateParams.default._id}, $scope.edit,
                 function (res) {

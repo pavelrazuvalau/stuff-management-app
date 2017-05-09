@@ -1,5 +1,8 @@
 <div>
     <div layout="row" layout-wrap layout-align="center">
+        <md-checkbox md-indeterminate ng-click="selected.splice(0, selected.length)" ng-show="selected.length" class="md-primary">
+            Unselect all
+        </md-checkbox>
         <div class="demo-select-all-checkboxes" ng-repeat="type in types" style="margin-left: 20px; margin-right: 20px">
             <md-checkbox ng-checked="exists(type, selected)" ng-click="toggle(type, selected)" class="md-primary">
                 {{ type }}
@@ -15,7 +18,12 @@
                  ng-mouseleave="height = 1"
                  ng-repeat="item in list | filter: search | filter: checkbox"
                  ui-sref=".details({stuffId: item._id})">
-            <img ng-src="{{imagePath}}" class="md-card-image">
+            <!--<img ng-src="http://localhost:3000/stuff/image/{{item.image}}" class="md-card-image">-->
+            <div style="width: 300px; height: 300px; background-image: url('http://localhost:3000/stuff/image/{{item.image}}');
+        background-size: cover;
+        background-position: center; ">
+
+            </div>
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-headline">{{item.name}}</span>

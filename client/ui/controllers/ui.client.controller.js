@@ -13,6 +13,8 @@ angular.module('ui').controller('uiCtrl', ['$scope', '$mdSidenav', '$log', 'Tool
 
     $scope.toolbar = ToolbarService.get();
 
+    $scope.searchQery = SearchService.getQuery();
+
     $scope.updateQuery = function () {
         SearchService.setQuery($scope.searchQuery);
     };
