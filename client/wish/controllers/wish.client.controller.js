@@ -1,13 +1,13 @@
-angular.module('wish').controller('wishCtrl', ['$scope', '$state', 'Wish', 'wishList', 'NotificationService', 'ToolbarService', 'TitleService', 'currentUser', 'ErrorHandler', '$mdDialog', function ($scope, $state, Wish, wishList, NotificationService, ToolbarService, TitleService, currentUser, ErrorHandler, $mdDialog) {
+angular.module('wish').controller('wishCtrl', ['$scope', '$state', 'Wish', 'wishList', 'NotificationService', 'ToolbarService', 'TitleService', 'currentUser', 'ErrorHandler', '$mdDialog', 'Cart', 'currentCart', function ($scope, $state, Wish, wishList, NotificationService, ToolbarService, TitleService, currentUser, ErrorHandler, $mdDialog, Cart, currentCart) {
     if (!currentUser.username){
         $state.go('app.stuff');
     }
     else {
-        TitleService.set('Wish list');
+        TitleService.set('Wish list - ' + wishList.stuff.length + ' items');
         ToolbarService.set('Wish list', null, null, null);
         $scope.wishlist = wishList.stuff;
         $scope.delete = function(id){
-            Wish.remove({wishId: id}, function (res) {
+            Wish.remove({stuffId: id}, function (res) {
                 $state.go($state.current.name,{},{reload: true});
                 NotificationService.show('Successfully deleted from wish list', 'right bottom');
             }, function (err) {
@@ -43,5 +43,20 @@ angular.module('wish').controller('wishCtrl', ['$scope', '$state', 'Wish', 'wish
                 action: clear
             }
         ]);
+        $scope.addToCart = function (wish) {
+            if (currentCart.stuff.findIndex(function (item) {
+                    return item._id === wish._id;
+                }) > -1){
+                NotificationService.show('You have already added this item to your cart', 'right bottom');
+            }
+            else {
+                Cart.save(wish, function (res) {
+                    $state.go($state.current.name,{},{reload: true});
+                    NotificationService.show('Successfully added to the cart', 'right bottom');
+                }, function (err) {
+                    ErrorHandler.show(err);
+                })
+            }
+        }
     }
 }]);

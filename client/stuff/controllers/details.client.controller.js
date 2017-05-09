@@ -1,7 +1,7 @@
-angular.module('stuff').controller('stuffDetailsCtrl', ['$scope', 'currentStuff', '$stateParams', 'ErrorHandler', 'NotificationService', 'ToolbarService', 'TitleService', 'currentUser', '$mdDialog', '$state', 'wishList', 'Wish', function ($scope, currentStuff, $stateParams, ErrorHandler, NotificationService, ToolbarService, TitleService, currentUser, $mdDialog, $state, wishList, Wish) {
+angular.module('stuff').controller('stuffDetailsCtrl', ['$scope', 'currentStuff', '$stateParams', 'ErrorHandler', 'NotificationService', 'ToolbarService', 'TitleService', 'currentUser', '$mdDialog', '$state', 'wishList', 'Wish', 'currentCart', 'Cart', function ($scope, currentStuff, $stateParams, ErrorHandler, NotificationService, ToolbarService, TitleService, currentUser, $mdDialog, $state, wishList, Wish, currentCart, Cart) {
     $scope.item = currentStuff;
 
-    ToolbarService.set($scope.item.name, null, null, 'app.stuff');
+    ToolbarService.set($scope.item.name, null, null, $stateParams.backAction || 'app.stuff');
     TitleService.set($scope.item.name + ' - Details');
 
     var edit = function () {
@@ -41,7 +41,7 @@ angular.module('stuff').controller('stuffDetailsCtrl', ['$scope', 'currentStuff'
         }) > -1){
         $scope.wishButton = 'favorite';
         $scope.wishAction = function(){
-            Wish.remove({wishId: currentStuff._id}, function (res) {
+            Wish.remove({stuffId: currentStuff._id}, function (res) {
                 $state.go($state.current.name,{},{reload: true});
                 NotificationService.show('Successfully deleted from wish list', 'right bottom');
             }, function (err) {
@@ -61,5 +61,33 @@ angular.module('stuff').controller('stuffDetailsCtrl', ['$scope', 'currentStuff'
             })
         };
         $scope.tooltip = 'Add to wish list';
+    }
+    if (currentCart.stuff.findIndex(function (item) {
+            return item._id === currentStuff._id;
+        }) > -1){
+        $scope.cartButton = 'remove_shopping_cart';
+        $scope.cartStyle = 'md-warn';
+        $scope.cartName = 'Remove from cart';
+        $scope.cartAction = function(){
+            Cart.remove({stuffId: currentStuff._id}, function (res) {
+                $state.go($state.current.name,{},{reload: true});
+                NotificationService.show('Successfully deleted from the cart', 'right bottom');
+            }, function (err) {
+                ErrorHandler.show(err);
+            })
+        };
+    }
+    else {
+        $scope.cartButton = 'add_shopping_cart';
+        $scope.cartStyle = 'md-primary';
+        $scope.cartName = 'Add to cart';
+        $scope.cartAction = function(){
+            Cart.save(currentStuff, function (res) {
+                $state.go($state.current.name,{},{reload: true});
+                NotificationService.show('Successfully added to the cart', 'right bottom');
+            }, function (err) {
+                ErrorHandler.show(err);
+            })
+        };
     }
 }]);

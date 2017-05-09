@@ -1,5 +1,6 @@
 var User     = require('mongoose').model('User'),
     Wish     = require('mongoose').model('Wish'),
+    Cart     = require('mongoose').model('Cart'),
     passport = require('passport');
 
 
@@ -67,7 +68,16 @@ exports.signup = function(req, res, next) {
       				message: getErrorMessage(err)
       			});
       		}
-        })
+        });
+        var cart = new Cart();
+        cart.user = user;
+        cart.save(function (err) {
+          if (err) {
+      			return res.status(400).send({
+      				message: getErrorMessage(err)
+      			});
+      		}
+        });
   			// Remove sensitive data before login
   			user.password = undefined;
   			user.salt = undefined;

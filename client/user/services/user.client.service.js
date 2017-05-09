@@ -1,7 +1,5 @@
 angular.module('user').factory('User', ['$resource', function ($resource) {
-    return $resource('http://localhost:3000/user/:action/:username', {
-        action: ''
-    }, {
+    return $resource('http://localhost:3000/user/:action/:username', {}, {
         signin: {
             method: 'POST',
             params: {action: 'signin'}

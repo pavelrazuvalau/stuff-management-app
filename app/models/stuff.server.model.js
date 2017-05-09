@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
+var Float = require('mongoose-float').loadType(mongoose);
 
 var StuffSchema = new Schema({
   stufftype: {
@@ -31,7 +32,7 @@ var StuffSchema = new Schema({
     ]
   },
   cost: {
-    type: Number,
+    type: Float,
     required: 'Cost is required'
   }
 })

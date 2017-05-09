@@ -39,6 +39,23 @@ angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
 
                             return defer.promise;
                         }
+                    },
+                    Cart: 'Cart',
+                    currentCart: function ($q, ErrorHandler, Cart, currentUser) {
+                        if (currentUser.username){
+                            var defer = $q.defer();
+
+                            var promise = Cart.get().$promise;
+
+                            promise.then(function (res) {
+                                defer.resolve(res);
+                            }).catch(function (err) {
+                                ErrorHandler.show(err);
+                                defer.reject();
+                            });
+
+                            return defer.promise;
+                        }
                     }
                 },
                 views: {

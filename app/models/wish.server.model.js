@@ -4,11 +4,13 @@ var mongoose = require('mongoose'),
 var WishSchema = new Schema({
   user: {
     type: Schema.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    unique: true
   },
   stuff: [{
     type: Schema.ObjectId,
-    ref: 'Stuff'
+    ref: 'Stuff',
+    unique: true
   }]
 });
 

@@ -56,6 +56,9 @@ angular.module('stuff').config(['$stateProvider',
                         return defer.promise;
                     }
                 },
+                params: {
+                    backAction: null
+                },
                 views: {
                     '@app': {
                         templateUrl: 'views/details.client.view.html',
@@ -67,7 +70,7 @@ angular.module('stuff').config(['$stateProvider',
             .state('app.stuff.details.edit', {
                 url: '/edit',
                 params: {
-                    default: null
+                    default: null,
                 },
                 views: {
                     '@app': {

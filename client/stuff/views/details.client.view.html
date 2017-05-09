@@ -1,16 +1,15 @@
 <div layout="row">
-    <div flex="50">
-        <img ng-src="http://localhost:3000/stuff/image/{{item.image}}" width = 400px style="margin-left: 20px">
-
+    <div flex="50" layout="column" layout-align="center center">
+        <img ng-src="http://localhost:3000/stuff/image/{{item.image}}" width = 400px>
     </div>
     <div flex="50">
         <p class="md-headline" style="text-align: left">{{item.name}}</p>
         <p class="md-subhead" style="text-align: left">{{item.stufftype}}</p>
         <p>{{item.description}}</p>
         <h3>{{item.cost}} $</h3>
-        <md-button class="md-raised md-primary" style="margin: 0">
-            <md-icon ng-bind="'add_shopping_cart'"></md-icon>
-            Add to cart
+        <md-button class="md-raised {{cartStyle}}" style="margin: 0" ng-click="cartAction()">
+            <md-icon ng-bind="cartButton"></md-icon>
+            {{cartName}}
         </md-button>
         <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="wishAction()">
             <md-icon ng-bind="wishButton"></md-icon>

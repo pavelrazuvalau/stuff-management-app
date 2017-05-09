@@ -1,4 +1,4 @@
-var Wish = require('mongoose').model('Wish');
+var Cart = require('mongoose').model('Cart');
 
 var getErrorMessage = function(err) {
   if (err.errors) {
@@ -11,9 +11,12 @@ var getErrorMessage = function(err) {
 };
 
 exports.add = function (req, res) {
-  Wish.update({
+  Cart.update({
     user: req.user
   }, {
+    $inc: {
+      sum: req.body.cost
+    },
     $push: {
       stuff: req.body
     }
@@ -30,24 +33,27 @@ exports.add = function (req, res) {
 }
 
 exports.get = function (req, res) {
-  Wish.findOne({
+  Cart.findOne({
     user: req.user
   }).populate('stuff', 'stufftype name image cost')
-  .exec(function(err, wish){
+  .exec(function(err, cart){
     if (err) {
       res.status(400).send({message: getErrorMessage(err)})
     } else {
-      res.jsonp(wish ? wish : null);
+      res.jsonp(cart ? cart : null);
     }
   });
 }
 
 exports.delete = function(req, res){
-  Wish.update({
+  Cart.update({
     user: req.user
   }, {
+    $inc: {
+      sum: -req.stuff.cost
+    },
     $pull: {
-      stuff: req.params.stuffId
+      stuff: req.stuff._id
     }
   }, function (err) {
     if (err){
@@ -60,11 +66,12 @@ exports.delete = function(req, res){
 }
 
 exports.clear = function (req, res) {
-  Wish.update({
+  Cart.update({
     user: req.user
-  }, {
+  },{
     $set: {
-      stuff: []
+      stuff: [],
+      sum: 0.00
     }
   }, function (err) {
     if (err){

@@ -6,6 +6,6 @@ module.exports = function(app) {
     .get(users.requiresLogin, wish.get)
     .post(users.requiresLogin, wish.add)
     .delete(users.requiresLogin, wish.clear)
-  app.route('/wish/:wishId')
+  app.route('/wish/:stuffId')
     .delete(users.requiresLogin, wish.delete);
 };

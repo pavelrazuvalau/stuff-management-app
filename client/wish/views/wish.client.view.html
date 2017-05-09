@@ -1,7 +1,7 @@
 <div>
     <md-list flex>
-        <md-subheader class="md-no-sticky">You have <span ng-show="wishlist.length">{{wishlist.length}}</span> <span ng-hide="wishlist.length">no</span> items in wish list <span ng-show="wishlist.length">({{getSum()}} $)</span></md-subheader>
-        <md-list-item class="md-3-line" ng-repeat="item in wishlist" ui-sref="app.stuff.details({stuffId: item._id})">
+        <md-subheader class="md-no-sticky">You have <span ng-show="wishlist.length">{{wishlist.length}}</span> <span ng-hide="wishlist.length">no</span> item<span ng-hide="wishlist.length == 1">s</span> in wish list <span ng-show="wishlist.length">({{getSum()}} $)</span></md-subheader>
+        <md-list-item class="md-3-line" ng-repeat="item in wishlist.slice().reverse()" ui-sref="app.stuff.details({stuffId: item._id, backAction: 'app.wish'})">
 
             <img ng-src="http://localhost:3000/stuff/image/{{item.image}}" class="md-avatar" />
             <div class="md-list-item-text" layout="column">
@@ -9,7 +9,7 @@
                 <h4>{{ item.stufftype }}</h4>
                 <p>{{ item.cost }} $</p>
             </div>
-            <md-button class="md-secondary md-icon-button" ng-click="null" aria-label="delete">
+            <md-button class="md-secondary md-icon-button" ng-click="addToCart(item)" aria-label="delete">
                 <md-icon ng-bind="'add_shopping_cart'"></md-icon>
                 <md-tooltip md-direction="top">Add to cart</md-tooltip>
             </md-button>
