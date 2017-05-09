@@ -24,6 +24,25 @@ angular.module('ui').config(['$stateProvider', '$urlRouterProvider',
                         });
 
                         return defer.promise;
+                    },
+                    Wish: 'Wish',
+                    wishList: function ($q, $log, Wish, currentUser, NotificationService) {
+                        if (currentUser.username){
+                            var defer = $q.defer();
+
+                            var promise = Wish.get().$promise;
+
+                            promise.then(function (res) {
+                                defer.resolve(res);
+                            }).catch(function (err) {
+                                var message = err.data ? err.data.message : 'Connection error';
+                                $log.error(err);
+                                NotificationService.show(message, 'bottom');
+                                defer.reject();
+                            });
+
+                            return defer.promise;
+                        }
                     }
                 },
                 views: {

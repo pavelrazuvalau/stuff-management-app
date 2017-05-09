@@ -1,4 +1,5 @@
 var User     = require('mongoose').model('User'),
+    Wish     = require('mongoose').model('Wish'),
     passport = require('passport');
 
 
@@ -33,7 +34,7 @@ exports.checkUsername = function(req, res){
     username: req.params.username
   }, function(err, user) {
     if (err) {
-      res.status(500).send({message: "Internal server error"})
+      res.status(400).send({message: getErrorMessage(err)})
     } else {
       if (user){
         res.status(200).send({isAvailable: false});
@@ -58,6 +59,15 @@ exports.signup = function(req, res, next) {
   				message: getErrorMessage(err)
   			});
   		} else {
+        var wish = new Wish();
+        wish.user = user;
+        wish.save(function (err) {
+          if (err) {
+      			return res.status(400).send({
+      				message: getErrorMessage(err)
+      			});
+      		}
+        })
   			// Remove sensitive data before login
   			user.password = undefined;
   			user.salt = undefined;

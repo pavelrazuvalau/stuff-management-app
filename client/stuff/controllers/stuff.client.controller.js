@@ -1,13 +1,9 @@
-angular.module('stuff').controller('stuffCtrl', ['$scope', 'Stuff', 'ToolbarService', 'currentUser', 'TitleService', 'SearchService', '$log', 'NotificationService', 'CheckboxService', function ($scope, Stuff, ToolbarService, currentUser, TitleService, SearchService, $log, NotificationService, CheckboxService) {
+angular.module('stuff').controller('stuffCtrl', ['$scope', 'currentList', 'ToolbarService', 'currentUser', 'TitleService', 'SearchService', '$log', 'NotificationService', 'CheckboxService', function ($scope, currentList, ToolbarService, currentUser, TitleService, SearchService, $log, NotificationService, CheckboxService) {
     ToolbarService.set(null, null, true);
     TitleService.set('Stuff');
-    Stuff.query(function (res) {
-        $scope.list = res;
-    }, function (err) {
-        var message = err.data ? err.data.message : 'Connection error';
-        $log.error(message);
-        NotificationService.show(message, 'right bottom');
-    });
+
+    $scope.list = currentList;
+
     if (currentUser.role === 'Admin'){
         $scope.addButton = true;
     }

@@ -1,6 +1,6 @@
 angular.module('user').controller('signupCtrl', ['$scope', 'User', 'currentUser', '$log', '$state', 'NotificationService', 'ToolbarService', 'TitleService', function ($scope, User, currentUser, $log, $state, NotificationService, ToolbarService, TitleService) {
     if (currentUser.username){
-        $state.go('app.home');
+        $state.go('app.stuff');
     }
 
     ToolbarService.set('Sign up', null, false, false);
@@ -9,7 +9,7 @@ angular.module('user').controller('signupCtrl', ['$scope', 'User', 'currentUser'
     $scope.signup = function () {
         User.signup($scope.reg,
             function (res) {
-                $state.go('app.home',{},{reload: true})
+                $state.go('app.stuff',{},{reload: true})
             }, function (err) {
                 var message = err.data ? err.data.message : 'Connection error';
                 $log.error(message);

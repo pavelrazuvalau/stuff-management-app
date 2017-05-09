@@ -12,9 +12,9 @@
             <md-icon ng-bind="'add_shopping_cart'"></md-icon>
             Add to cart
         </md-button>
-        <md-button class="md-icon-button md-accent" aria-label="Favorite">
-            <md-icon ng-bind="'favorite_border'"></md-icon>
-            <md-tooltip md-direction="right">Add to wish list</md-tooltip>
+        <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="wishAction()">
+            <md-icon ng-bind="wishButton"></md-icon>
+            <md-tooltip md-direction="right">{{tooltip}}</md-tooltip>
         </md-button>
     </div>
 </div>

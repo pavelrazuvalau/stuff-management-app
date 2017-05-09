@@ -1,6 +1,6 @@
 angular.module('user').controller('ProfileCtrl', ['$scope', 'currentUser', 'ToolbarService', 'TitleService', '$state', function ($scope, currentUser, ToolbarService, TitleService, $state) {
     if (!currentUser.username){
-        $state.go('app.home');
+        $state.go('app.stuff');
     }
 
     $scope.info = currentUser;
