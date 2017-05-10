@@ -94,6 +94,7 @@ angular.module('stuff').controller('stuffDetailsCtrl', ['$scope', 'currentStuff'
         };
     }
     $scope.checkCount = function () {
+        $scope.count = Math.floor($scope.count);
         if ($scope.count > 20){
             $scope.count = 20;
         }
