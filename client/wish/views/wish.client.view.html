@@ -9,10 +9,6 @@
                 <h4>{{ item.stufftype }}</h4>
                 <p>{{ item.cost }} $</p>
             </div>
-            <md-button class="md-secondary md-icon-button" ng-click="addToCart(item)" aria-label="delete">
-                <md-icon ng-bind="'add_shopping_cart'"></md-icon>
-                <md-tooltip md-direction="top">Add to cart</md-tooltip>
-            </md-button>
             <md-button class="md-secondary md-icon-button" ng-click="delete(item._id)" aria-label="delete">
                 <md-icon ng-bind="'clear'"></md-icon>
                 <md-tooltip md-direction="top">Remove from wish list</md-tooltip>

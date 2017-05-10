@@ -43,20 +43,5 @@ angular.module('wish').controller('wishCtrl', ['$scope', '$state', 'Wish', 'wish
                 action: clear
             }
         ]);
-        $scope.addToCart = function (wish) {
-            if (currentCart.stuff.findIndex(function (item) {
-                    return item._id === wish._id;
-                }) > -1){
-                NotificationService.show('You have already added this item to your cart', 'right bottom');
-            }
-            else {
-                Cart.save(wish, function (res) {
-                    $state.go($state.current.name,{},{reload: true});
-                    NotificationService.show('Successfully added to the cart', 'right bottom');
-                }, function (err) {
-                    ErrorHandler.show(err);
-                })
-            }
-        }
     }
 }]);

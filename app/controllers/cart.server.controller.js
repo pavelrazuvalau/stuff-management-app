@@ -101,7 +101,6 @@ exports.itemByID = function (req, res, next, id) {
     if (err) {
       res.status(400).send({message: getErrorMessage(err)})
     } else {
-      console.log(cart.stuff);
       req.item = cart.stuff[0].item;
       req.count = cart.stuff[0].count;
       next();
