@@ -1,15 +1,15 @@
 <div>
     <md-list flex>
         <md-subheader class="md-no-sticky">You have <span ng-show="cart.length">{{cart.length}}</span> <span ng-hide="cart.length">no</span> item<span ng-hide="cart.length == 1">s</span> in the cart</md-subheader>
-        <md-list-item class="md-3-line" ng-repeat="item in cart.slice().reverse()" ui-sref="app.stuff.details({stuffId: item._id, backAction: 'app.cart'})">
+        <md-list-item class="md-3-line" ng-repeat="item in cart.slice().reverse()" ui-sref="app.stuff.details({stuffId: item.item._id, backAction: 'app.cart'})">
 
-            <img ng-src="http://localhost:3000/stuff/image/{{item.image}}" class="md-avatar" />
+            <img ng-src="http://localhost:3000/stuff/image/{{item.item.image}}" class="md-avatar" />
             <div class="md-list-item-text" layout="column">
-                <h3>{{ item.name }}</h3>
-                <h4>{{ item.stufftype }}</h4>
-                <p>{{ item.cost }} $</p>
+                <h3>{{ item.item.name }}</h3>
+                <h4>{{ item.item.stufftype }}</h4>
+                <p>{{ item.item.cost }} $ x {{item.count}} = {{(item.item.cost * item.count).toFixed(2)}} $</p>
             </div>
-            <md-button class="md-secondary md-icon-button" ng-click="delete(item._id)" aria-label="delete">
+            <md-button class="md-secondary md-icon-button" ng-click="delete(item)" aria-label="delete">
                 <md-icon ng-bind="'clear'"></md-icon>
                 <md-tooltip md-direction="top">Remove from cart</md-tooltip>
             </md-button>

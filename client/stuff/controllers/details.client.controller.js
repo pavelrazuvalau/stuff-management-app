@@ -63,13 +63,16 @@ angular.module('stuff').controller('stuffDetailsCtrl', ['$scope', 'currentStuff'
         $scope.tooltip = 'Add to wish list';
     }
     if (currentCart.stuff.findIndex(function (item) {
-            return item._id === currentStuff._id;
+            return item.item._id === currentStuff._id;
         }) > -1){
         $scope.cartButton = 'remove_shopping_cart';
         $scope.cartStyle = 'md-warn';
         $scope.cartName = 'Remove from cart';
         $scope.cartAction = function(){
-            Cart.remove({stuffId: currentStuff._id}, function (res) {
+            var idx = currentCart.stuff.findIndex(function (item) {
+                return item.item._id === currentStuff._id;
+            });
+            Cart.remove({stuffId: currentCart.stuff[idx]._id}, function (res) {
                 $state.go($state.current.name,{},{reload: true});
                 NotificationService.show('Successfully deleted from the cart', 'right bottom');
             }, function (err) {
@@ -82,7 +85,7 @@ angular.module('stuff').controller('stuffDetailsCtrl', ['$scope', 'currentStuff'
         $scope.cartStyle = 'md-primary';
         $scope.cartName = 'Add to cart';
         $scope.cartAction = function(){
-            Cart.save(currentStuff, function (res) {
+            Cart.save({item: currentStuff, count: $scope.count}, function (res) {
                 $state.go($state.current.name,{},{reload: true});
                 NotificationService.show('Successfully added to the cart', 'right bottom');
             }, function (err) {
@@ -90,4 +93,13 @@ angular.module('stuff').controller('stuffDetailsCtrl', ['$scope', 'currentStuff'
             })
         };
     }
+    $scope.checkCount = function () {
+        if ($scope.count > 20){
+            $scope.count = 20;
+        }
+        if ($scope.count < 1){
+            $scope.count = 1;
+        }
+    };
+
 }]);

@@ -7,7 +7,7 @@ module.exports = function(app) {
     .get(users.requiresLogin, cart.get)
     .post(users.requiresLogin, cart.add)
     .delete(users.requiresLogin, cart.clear)
-  app.route('/cart/:stuffId')
+  app.route('/cart/:itemId')
     .delete(users.requiresLogin, cart.delete);
-  app.param('stuffId', stuff.findByID);
+  app.param('itemId', cart.itemByID);
 };

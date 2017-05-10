@@ -6,7 +6,13 @@
         <p class="md-headline" style="text-align: left">{{item.name}}</p>
         <p class="md-subhead" style="text-align: left">{{item.stufftype}}</p>
         <p>{{item.description}}</p>
-        <h3>{{item.cost}} $</h3>
+        <div layout="row">
+            <h3>{{(item.cost * count).toFixed(2)}} $</h3>
+            <md-input-container class="md-block" flex="10" style="margin-left: 10px; margin-top: 12px">
+                <label>&nbsp;</label>
+                <input ng-model="count" ng-init="count = 1" placeholder="Count" type="number" ng-change="checkCount()">
+            </md-input-container>
+        </div>
         <md-button class="md-raised {{cartStyle}}" style="margin: 0" ng-click="cartAction()">
             <md-icon ng-bind="cartButton"></md-icon>
             {{cartName}}

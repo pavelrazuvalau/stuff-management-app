@@ -7,8 +7,9 @@ angular.module('cart').controller('cartCtrl', ['$scope', '$state', '$stateParams
         ToolbarService.set('Cart', null, null, null);
         $scope.cart = currentCart.stuff;
         $scope.sum = currentCart.sum.toFixed(2);
-        $scope.delete = function(id){
-            Cart.remove({stuffId: id}, function (res) {
+        console.log(currentCart);
+        $scope.delete = function(item){
+            Cart.remove({stuffId: item._id}, function (res) {
                 $state.go($state.current.name,{},{reload: true});
                 NotificationService.show('Successfully deleted from the cart', 'right bottom');
             }, function (err) {

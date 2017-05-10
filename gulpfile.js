@@ -18,8 +18,6 @@ gulp.task('app', function(){
 });
 
 gulp.task('views', function(){
-  gulp.src('public/views/*', {read: false})
-    .pipe(clean());
   return gulp.src('client/**/views/*.html')
   .pipe(rename({dirname:''}))
   .pipe(gulp.dest('public/views'));

@@ -11,14 +11,18 @@ var getErrorMessage = function(err) {
 };
 
 exports.add = function (req, res) {
+  console.log(req.body);
   Cart.update({
     user: req.user
   }, {
     $inc: {
-      sum: req.body.cost
+      sum: req.body.item.cost * req.body.count
     },
     $push: {
-      stuff: req.body
+      stuff: {
+        item: req.body.item,
+        count: req.body.count
+      }
     }
   }, {
     upsert: true
@@ -35,7 +39,7 @@ exports.add = function (req, res) {
 exports.get = function (req, res) {
   Cart.findOne({
     user: req.user
-  }).populate('stuff', 'stufftype name image cost')
+  }).populate('stuff.item')
   .exec(function(err, cart){
     if (err) {
       res.status(400).send({message: getErrorMessage(err)})
@@ -50,10 +54,12 @@ exports.delete = function(req, res){
     user: req.user
   }, {
     $inc: {
-      sum: -req.stuff.cost
+      sum: -req.item.cost * req.count
     },
     $pull: {
-      stuff: req.stuff._id
+      stuff: {
+        item:   req.item._id
+      }
     }
   }, function (err) {
     if (err){
@@ -81,4 +87,24 @@ exports.clear = function (req, res) {
       res.sendStatus(200);
     }
   })
+}
+
+exports.itemByID = function (req, res, next, id) {
+  Cart.findOne({
+    user: req.user
+  }, {
+    stuff: {
+      $elemMatch: {_id: id}
+    }
+  }).populate('stuff.item')
+  .exec(function(err, cart){
+    if (err) {
+      res.status(400).send({message: getErrorMessage(err)})
+    } else {
+      console.log(cart.stuff);
+      req.item = cart.stuff[0].item;
+      req.count = cart.stuff[0].count;
+      next();
+    }
+  });
 }

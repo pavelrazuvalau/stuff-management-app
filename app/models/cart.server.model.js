@@ -8,8 +8,14 @@ var CartSchema = new Schema({
     ref: 'User'
   },
   stuff: [{
-    type: Schema.ObjectId,
-    ref: 'Stuff'
+    item: {
+      type: Schema.ObjectId,
+      ref: 'Stuff'
+    },
+    count: {
+      type: Number,
+      default: 1
+    }
   }],
   sum: {
     type: Float,
