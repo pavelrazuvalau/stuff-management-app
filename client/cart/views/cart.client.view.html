@@ -9,16 +9,23 @@
                 <h4>{{ item.item.stufftype }}</h4>
                 <p>{{ item.item.cost }} $ x {{item.count}} = {{(item.item.cost * item.count).toFixed(2)}} $</p>
             </div>
-            <md-button class="md-secondary md-icon-button" ng-click="delete(item)" aria-label="delete">
+            <md-button class="md-secondary md-icon-button" ng-click="delete(item.item)" aria-label="delete">
                 <md-icon ng-bind="'clear'"></md-icon>
                 <md-tooltip md-direction="top">Remove from cart</md-tooltip>
             </md-button>
         </md-list-item>
     </md-list>
-    <md-divider ng-if="cart.length"></md-divider>
-    <div layout="row" layout-fill flex ng-show="cart.length" layout-align="space-between">
-        <md-button class="md-raised md-primary">Make an order</md-button>
-        <span class="md-headline" >Total: {{sum}} $</span>
+    <div ng-show="cart.length">
+        <md-divider></md-divider>
+        <div layout="row" layout-fill flex layout-align="end">
+            <span class="md-headline" >Total: {{sum}} $</span>
+        </div>
+        <form name="order_form" ng-submit="order_form.$valid && makeOrder()" novalidate autocomplete="off" ng-cloak>
+            <md-input-container class="md-block">
+                <label>Comment (optional)</label>
+                <textarea ng-model="comment" name="comment" md-maxlength="255" maxlength="255" rows="3" md-select-on-focus></textarea>
+            </md-input-container>
+            <md-button type="submit" class="md-raised md-primary" style="margin-top: -20px">Make an order</md-button>
+        </form>
     </div>
-
 </div>

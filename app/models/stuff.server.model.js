@@ -1,12 +1,11 @@
 var mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
-var Float = require('mongoose-float').loadType(mongoose);
 
 var StuffSchema = new Schema({
   stufftype: {
     type: String,
     required: 'Stuff type is required',
-    enum: ['T-shirt', 'Cup', 'Pillow', 'Badge', 'Sticker', 'Сase']
+    enum: ['T-shirt', 'Cup', 'Badge', 'Sticker', 'Сase']
   },
   name: {
     type: String,
@@ -32,9 +31,40 @@ var StuffSchema = new Schema({
     ]
   },
   cost: {
-    type: Float,
-    required: 'Cost is required'
+    type: Number,
+    required: 'Cost is required',
+    validate: [
+      function(cost) {
+        console.log(cost);
+        return cost > 0;
+      },
+      'Cost is negative'
+    ]
   }
 })
+
+StuffSchema.pre('remove', function(next) {
+  this.model('Order').update({}, {
+    $pull: {
+      stuff: {
+        item: this._id
+      }
+    },
+  }, {"multi": true}, next);
+  this.model('Cart').update({}, {
+    $pull: {
+      stuff: {
+        item: this._id
+      }
+    },
+  }, {"multi": true}, next);
+  this.model('Wish').update({}, {
+    $pull: {
+      stuff: {
+        item: this._id
+      }
+    },
+  }, {"multi": true}, next);
+});
 
 mongoose.model('Stuff', StuffSchema);

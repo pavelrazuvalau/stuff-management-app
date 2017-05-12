@@ -18,3 +18,136 @@ md-sidenav > md-content  md-input-container {
 .md_toolbar md-input-container .md-errors-spacer{
   min-height: 0px !important;
 }
+
+.searchInput {
+	margin-top: 20px;
+	margin-left: 15px
+}
+
+@media screen and (min-width: 619px) {
+    .searchInput {
+        margin-top: 13px;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    .searchInput {
+        margin-top: 30px;
+    }
+}
+
+.itemCard {
+	width: 150px !important;
+	height: 320px !important;
+}
+
+.itemImage {
+	width: 150px !important;
+	height: 150px !important;
+}
+
+.itemTitle {
+	font-size: 18px;
+}
+
+@media screen and (min-width: 697px) {
+	.itemCard {
+		width: 200px !important;
+		height: 350px !important;
+	}
+
+	.itemImage {
+		width: 200px !important;
+		height: 200px !important;
+	}
+
+	.itemTitle {
+		font-size: 20px;
+	}
+}
+
+@media screen and (min-width: 997px) {
+    .itemCard {
+        width: 300px !important;
+				height: 450px !important;
+    }
+		.itemImage {
+			width: 300px !important;
+			height: 300px !important;
+		}
+		.itemTitle {
+			font-size: 24px;
+		}
+}
+
+@media screen and (min-width: 1500px) {
+    .itemCard {
+        width: 340px !important;
+				height: 500px !important;
+    }
+		.itemImage {
+			width: 340px !important;
+			height: 340px !important;
+		}
+		.itemTitle {
+			font-size: 24px;
+		}
+}
+
+@media screen and (min-width: 1700px) {
+    .itemCard {
+        width: 350px !important;
+				height: 520px !important;
+    }
+		.itemImage {
+			width: 350px !important;
+			height: 350px !important;
+		}
+		.itemTitle {
+			font-size: 24px;
+		}
+}
+
+@media screen and (min-width: 1800px) {
+    .itemCard {
+        width: 370px !important;
+				height: 530px !important;
+    }
+		.itemImage {
+			width: 370px !important;
+			height: 370px !important;
+		}
+		.itemTitle {
+			font-size: 24px;
+		}
+}
+
+@media screen and (min-width: 2000px) {
+    .itemCard {
+        width: 420px !important;
+				height: 550px !important;
+    }
+		.itemImage {
+			width: 420px !important;
+			height: 420px !important;
+		}
+		.itemTitle {
+			font-size: 24px;
+		}
+}
+
+md-content {
+	 overflow-x: hidden;
+}
+
+.status-critical {
+	color: red;
+}
+
+.status-warn {
+	color: orange;
+}
+
+.status-success {
+	color: green;
+}

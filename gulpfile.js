@@ -31,6 +31,7 @@ gulp.task('watch', function(){
 gulp.task('server', function(){
   gulp.src('public')
       .pipe(server({
+        host: '0.0.0.0',
         livereload: true,
         directoryListing: false,
         open: false

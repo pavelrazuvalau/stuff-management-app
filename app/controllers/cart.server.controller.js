@@ -11,13 +11,9 @@ var getErrorMessage = function(err) {
 };
 
 exports.add = function (req, res) {
-  console.log(req.body);
   Cart.update({
     user: req.user
   }, {
-    $inc: {
-      sum: req.body.item.cost * req.body.count
-    },
     $push: {
       stuff: {
         item: req.body.item,
@@ -39,12 +35,22 @@ exports.add = function (req, res) {
 exports.get = function (req, res) {
   Cart.findOne({
     user: req.user
-  }).populate('stuff.item')
+  }).populate('stuff.item').lean()
   .exec(function(err, cart){
     if (err) {
       res.status(400).send({message: getErrorMessage(err)})
     } else {
-      res.jsonp(cart ? cart : null);
+      if (cart){
+        var sum = 0;
+        for (var i = 0; i < cart.stuff.length; i++){
+          sum += (cart.stuff[i].item.cost * cart.stuff[i].count);
+        }
+        cart.sum = sum.toFixed(2);
+        res.jsonp(cart);
+      }
+      else {
+        res.jsonp(null);
+      }
     }
   });
 }
@@ -53,12 +59,9 @@ exports.delete = function(req, res){
   Cart.update({
     user: req.user
   }, {
-    $inc: {
-      sum: -req.item.cost * req.count
-    },
     $pull: {
       stuff: {
-        item:   req.item._id
+        item: req.params.stuffId
       }
     }
   }, function (err) {
@@ -76,8 +79,7 @@ exports.clear = function (req, res) {
     user: req.user
   },{
     $set: {
-      stuff: [],
-      sum: 0.00
+      stuff: []
     }
   }, function (err) {
     if (err){
@@ -87,23 +89,4 @@ exports.clear = function (req, res) {
       res.sendStatus(200);
     }
   })
-}
-
-exports.itemByID = function (req, res, next, id) {
-  Cart.findOne({
-    user: req.user
-  }, {
-    stuff: {
-      $elemMatch: {_id: id}
-    }
-  }).populate('stuff.item')
-  .exec(function(err, cart){
-    if (err) {
-      res.status(400).send({message: getErrorMessage(err)})
-    } else {
-      req.item = cart.stuff[0].item;
-      req.count = cart.stuff[0].count;
-      next();
-    }
-  });
 }

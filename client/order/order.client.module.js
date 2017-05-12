@@ -1,0 +1,1 @@
+AppConfig.moduleReg('order', ['ui']);

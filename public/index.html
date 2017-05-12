@@ -5,9 +5,10 @@
 	<link rel="stylesheet" type="text/css" href="lib/angular-material/angular-material.css">
 	<link rel="stylesheet" type="text/css" href="css/icon.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<meta name="viewport" content="width=device-width">
 </head>
 <body>
-	<div layout="column" style="height:100%" md-swipe-left="closeLeft()" ng-cloak ng-controller="uiCtrl">
+	<div layout="column" layout-fill md-swipe-left="closeLeft()" ng-cloak ng-controller="uiCtrl">
 
 	  <section layout="row" flex >
 
@@ -27,7 +28,7 @@
 
 	    </md-sidenav>
 
-	    <md-content flex md-swipe-right="toggleLeft()" style="background-color: white !important">
+	    <div flex layout="column" layout-fill md-swipe-right="toggleLeft()" style="background-color: white !important">
 	    	<md-toolbar md-whiteframe="3">
 		      <div class="md-toolbar-tools">
 		        <md-button class="md-icon-button" aria-label="Menu" hide-gt-md ng-click="toggleLeft()">
@@ -38,7 +39,7 @@
 		        </md-button>
 		        <h2 flex="" md-truncate="">{{toolbar.title}}</h2>
 						<md-icon ng-bind="'search'" class="name" ng-show="toolbar.search"></md-icon>
-						<md-input-container class="md-block" layout-fill style="margin-top: 30px; margin-left: 15px" ng-show="toolbar.search">
+						<md-input-container class="md-block searchInput" layout-fill ng-show="toolbar.search">
 				      <label>&nbsp;</label>
 				      <input name="searchPhrase" placeholder="Search an item" style="color: rgba(255,255,255,0.87);" ng-model="searchQuery" ng-change="updateQuery()">
 				    </md-input-container>
@@ -59,13 +60,10 @@
 
 		      </div>
 		    </md-toolbar>
-	      <div layout="column" layout-padding layout-align="top center">
 
-	      </div>
+	      <md-content ui-view></md-content>
 
-	      <div ui-view></div>
-
-	    </md-content>
+	    </div>
 
 	  </section>
 

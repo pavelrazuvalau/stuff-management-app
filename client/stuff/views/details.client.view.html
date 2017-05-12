@@ -8,18 +8,23 @@
         <p>{{item.description}}</p>
         <div layout="row">
             <h3 ng-show="count > 0">{{(item.cost * count).toFixed(2)}} $</h3>
-            <md-input-container class="md-block" flex="10" style="margin-left: 10px; margin-top: 12px">
+            <md-input-container class="md-block" flex="15" style="margin-left: 10px; margin-top: 12px; margin-bottom: -20px" ng-show="isLoggedIn && isItemInCart">
                 <label>&nbsp;</label>
                 <input ng-model="count" ng-init="count = 1" placeholder="Count" type="number" ng-change="checkCount()">
             </md-input-container>
         </div>
-        <md-button class="md-raised {{cartStyle}}" style="margin: 0" ng-click="cartAction()">
-            <md-icon ng-bind="cartButton"></md-icon>
-            {{cartName}}
-        </md-button>
-        <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="wishAction()">
-            <md-icon ng-bind="wishButton"></md-icon>
-            <md-tooltip md-direction="right">{{tooltip}}</md-tooltip>
-        </md-button>
+        <div ng-show="isLoggedIn">
+            <md-button class="md-raised {{cartStyle}}" style="margin: 0" ng-click="cartAction()">
+                <md-icon ng-bind="cartButton"></md-icon>
+                {{cartName}}
+            </md-button>
+            <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="wishAction()">
+                <md-icon ng-bind="wishButton"></md-icon>
+                <md-tooltip md-direction="right">{{tooltip}}</md-tooltip>
+            </md-button>
+        </div>
+        <div ng-hide="isLoggedIn">
+            <p class="md-body-2">Please sign in or sign up to buy this item</p>
+        </div>
     </div>
 </div>

@@ -25,7 +25,7 @@
     </md-input-container>
     <md-input-container class="md-block">
         <label>Cost (USD)</label>
-        <input type="number" name="number" ng-model="add.cost" ng-required="true">
+        <input type="number" name="number" ng-model="add.cost" ng-required="true" min="0">
         <div ng-messages="add_form.name.$error" role="alert">
             <div ng-message="required">Cost is required</div>
         </div>

@@ -1,16 +1,22 @@
 <div>
-    <div layout="row" layout-wrap layout-align="center">
-        <md-checkbox md-indeterminate ng-click="selected.splice(0, selected.length)" ng-show="selected.length" class="md-primary">
-            Unselect all
-        </md-checkbox>
-        <div class="demo-select-all-checkboxes" ng-repeat="type in types" style="margin-left: 20px; margin-right: 20px">
-            <md-checkbox ng-checked="exists(type, selected)" ng-click="toggle(type, selected)" class="md-primary">
+    <md-grid-list
+        md-cols = "5"
+        md-row-height="3:1"
+        md-gutter="12px" md-gutter-gt-sm="8px" >
+
+    <md-grid-tile ng-repeat="type in types">
+        <md-checkbox ng-checked="exists(type, selected)" ng-click="toggle(type, selected)" class="md-primary">
                 {{ type }}
             </md-checkbox>
-        </div>
-    </div>
+    </md-grid-tile>
+  </md-grid-list>
+  <div layout="row" layout-align="center">
+      <md-checkbox md-indeterminate ng-click="selected.splice(0, selected.length)" ng-show="selected.length" class="md-primary">
+            Unselect all
+        </md-checkbox>
+  </div>
     <div layout="row" layout-wrap layout-align="center">
-        <md-card class="ng-animate"
+        <md-card class="ng-animate itemCard"
                  ng-init="height = 1"
                  style="width: 300px; cursor: pointer"
                  md-whiteframe="{{height}}"
@@ -19,19 +25,20 @@
                  ng-repeat="item in list.slice().reverse() | filter: search | filter: checkbox"
                  ui-sref=".details({stuffId: item._id, backAction: 'app.stuff'})">
             <!--<img ng-src="http://localhost:3000/stuff/image/{{item.image}}" class="md-card-image">-->
-            <div style="width: 300px; height: 300px; background-image: url('http://localhost:3000/stuff/image/{{item.image}}');
+            <div class="itemImage" style="width: 300px; height: 300px; background-image: url('http://localhost:3000/stuff/image/{{item.image}}');
         background-size: cover;
         background-position: center; ">
 
             </div>
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-headline">{{item.name}}</span>
-                    <span class="md-subhead">{{item.stufftype}}</span>
+                    <span class="md-headline itemTitle">{{item.name}}</span>
+
                 </md-card-title-text>
             </md-card-title>
-            <md-card-content layout="row" layout-align="center">
-                <h3 style="margin: 0">{{item.cost}} $</h3>
+            <md-card-content>
+                <p class="md-subhead">{{item.stufftype}}</p>
+                <h3 style="margin: 0" align="center">{{(item.cost).toFixed(2)}} $</h3>
             </md-card-content>
         </md-card>
     </div>

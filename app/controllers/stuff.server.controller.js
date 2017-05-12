@@ -1,4 +1,7 @@
 var Stuff    = require('mongoose').model('Stuff'),
+    Wish     = require('mongoose').model('Wish'),
+    Cart     = require('mongoose').model('Cart'),
+    Order    = require('mongoose').model('Order'),
     multer   = require('multer'),
     upload   = multer({dest: 'uploads/'}),
     path     = require('path'),
@@ -49,7 +52,9 @@ exports.getImage = function (req, res) {
 exports.findByID = function(req, res, next, id){
   Stuff.findById(id, function(err, stuff){
     if (err) return next(err);
-    if (!stuff) return next(new Error('Failed to load stuff ' + id));
+    if (!stuff) {
+      res.status(404).send({message: 'Stuff not found'});
+    };
     req.stuff = stuff;
     next();
   })
@@ -73,7 +78,7 @@ exports.update = function(req, res){
         message: getErrorMessage(err)
       });
     } else {
-      res.jsonp(stuff);
+      res.sendStatus(200);
     }
   });
 }
@@ -82,13 +87,14 @@ exports.delete = function(req, res){
   var stuff = req.stuff;
 
   stuff.remove(function(err) {
+    console.log('called item delete');
     if (err) {
       return res.status(400).send({
         message: getErrorMessage(err)
       });
     } else {
       fs.unlinkSync('uploads/' + req.stuff.image);
-      res.jsonp(stuff);
+      res.sendStatus(200);
     }
   });
 }

@@ -38,12 +38,4 @@ angular.module('ui').controller('sidenavCtrl', ['$scope', 'currentUser', functio
         });
     }
 
-    if (currentUser.role === 'Moderator' || currentUser.role === 'Admin'){
-        $scope.admin_menu.push({
-            name: 'User comments',
-            action: '.comments',
-            icon: 'comment'
-        });
-    }
-
 }]);

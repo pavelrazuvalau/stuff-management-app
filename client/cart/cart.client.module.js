@@ -1,1 +1,1 @@
-AppConfig.moduleReg('cart', ['ui']);
+AppConfig.moduleReg('cart', ['ui', 'order']);
