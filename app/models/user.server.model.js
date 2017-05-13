@@ -40,6 +40,21 @@ var UserSchema = new Schema({
     ],
     match: [/.+\@.+\..+/, "Please fill a valid e-mail address"]
   },
+  address: {
+    type: String,
+    required: 'Address is required',
+    validate: [
+      function(address) {
+        return address.length >= 10 && address.length <= 100;
+      },
+      'Address length is not valid',
+    ]
+  },
+  phone: {
+    type: String,
+    required: 'Phone is required',
+    match: [/^\+*(\d{3})*[0-9,\-]{8,}/, 'Phone is not valid']
+  },
   username: {
     type: String,
     trim: true,

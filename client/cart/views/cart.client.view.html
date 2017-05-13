@@ -25,7 +25,10 @@
                 <label>Comment (optional)</label>
                 <textarea ng-model="comment" name="comment" md-maxlength="255" maxlength="255" rows="3" md-select-on-focus></textarea>
             </md-input-container>
-            <md-button type="submit" class="md-raised md-primary" style="margin-top: -20px">Make an order</md-button>
+            <md-button type="submit" class="md-raised md-primary" style="margin-top: -20px">
+                <md-icon ng-bind="'shopping_basket'"></md-icon>
+                Make an order
+            </md-button>
         </form>
     </div>
 </div>

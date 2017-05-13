@@ -3,7 +3,12 @@
         <img ng-src="http://localhost:3000/stuff/image/{{item.image}}" width = 400px>
     </div>
     <div flex="50">
-        <p class="md-headline" style="text-align: left">{{item.name}}</p>
+        <p class="md-headline" style="text-align: left">{{item.name}}
+            <md-button ng-show="isLoggedIn" class="md-icon-button md-accent" aria-label="Favorite" ng-click="wishAction()">
+                <md-icon ng-bind="wishButton"></md-icon>
+                <md-tooltip md-direction="bottom">{{tooltip}}</md-tooltip>
+            </md-button>
+        </p>
         <p class="md-subhead" style="text-align: left">{{item.stufftype}}</p>
         <p>{{item.description}}</p>
         <p layout="row" layout-align="left" style="margin-left: -6px" ng-show="item.avg">
@@ -12,21 +17,15 @@
         </p>
         <div layout="row">
             <h3 ng-show="count > 0">{{(item.cost * count).toFixed(2)}} $</h3>
-            <md-input-container class="md-block" flex="15" style="margin-left: 10px; margin-top: 12px; margin-bottom: -20px" ng-show="isLoggedIn && isItemInCart">
+            <md-input-container class="md-block" flex="20" style="margin-left: 10px; margin-top: 12px; margin-bottom: -20px" ng-show="isLoggedIn && isItemInCart">
                 <label>&nbsp;</label>
                 <input ng-model="count" ng-init="count = 1" placeholder="Count" type="number" ng-change="checkCount()">
             </md-input-container>
         </div>
-        <div ng-show="isLoggedIn">
-            <md-button class="md-raised {{cartStyle}}" style="margin: 0" ng-click="cartAction()">
-                <md-icon ng-bind="cartButton"></md-icon>
-                {{cartName}}
-            </md-button>
-            <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="wishAction()">
-                <md-icon ng-bind="wishButton"></md-icon>
-                <md-tooltip md-direction="right">{{tooltip}}</md-tooltip>
-            </md-button>
-        </div>
+        <md-button ng-show="isLoggedIn" class="md-raised {{cartStyle}}" style="margin: 0" ng-click="cartAction()">
+            <md-icon ng-bind="cartButton"></md-icon>
+            {{cartName}}
+        </md-button>
         <div ng-hide="isLoggedIn">
             <p class="md-body-2">Please sign in or sign up to buy this item</p>
         </div>
