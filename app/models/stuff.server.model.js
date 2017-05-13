@@ -40,7 +40,11 @@ var StuffSchema = new Schema({
       },
       'Cost is negative'
     ]
-  }
+  },
+  comments: [{
+    type: Schema.ObjectId,
+    ref: 'Comment'
+  }]
 })
 
 StuffSchema.pre('remove', function(next) {

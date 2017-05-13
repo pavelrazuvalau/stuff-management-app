@@ -14,6 +14,7 @@ angular.module('stuff').controller('stuffDetailsCtrl', [
     'currentCart',
     'Cart',
     'Stuff',
+    'Comment',
     function ($scope,
               currentStuff,
               $stateParams,
@@ -28,9 +29,11 @@ angular.module('stuff').controller('stuffDetailsCtrl', [
               Wish,
               currentCart,
               Cart,
-              Stuff) {
+              Stuff,
+              Comment) {
 
         $scope.item = currentStuff;
+        $scope.user = currentUser;
 
         ToolbarService.set($scope.item.name, null, null, $stateParams.backAction || 'app.stuff');
         TitleService.set($scope.item.name + ' - Details');
@@ -138,6 +141,49 @@ angular.module('stuff').controller('stuffDetailsCtrl', [
                     $scope.count = 1;
                 }
             };
+
+            $scope.addComment = function () {
+                Comment.save({stuffId: currentStuff._id}, $scope.formComment, function (res) {
+                    $state.go($state.current.name,{},{reload: true});
+                    NotificationService.show('Successfully added the comment');
+                }, function (err) {
+                    ErrorHandler.show(err);
+                })
+            };
+
+            $scope.editComment = function (id) {
+                Comment.update({stuffId: currentStuff._id, commentId: id}, $scope.formComment, function (res) {
+                    $state.go($state.current.name,{},{reload: true});
+                    NotificationService.show('Successfully edited the comment');
+                }, function (err) {
+                    ErrorHandler.show(err);
+                })
+            };
+
+            $scope.editFormToggle = function (comment) {
+                $scope.showForm = true;
+                $scope.showCancel = true;
+                $scope.formComment = angular.copy(comment);
+                $scope.formAction = $scope.editComment;
+            };
+
+            $scope.cancelEdit = function () {
+                $scope.showForm = false;
+                $scope.showCancel = false;
+            };
+
+            $scope.showForm = currentStuff.comments.findIndex(function (comment) {
+                    return comment.user._id === currentUser._id;
+                }) <= -1;
+
+            $scope.deleteComment = function (id) {
+                Comment.delete({stuffId: currentStuff._id, commentId: id}, function (res) {
+                    $state.go($state.current.name,{},{reload: true});
+                    NotificationService.show('Successfully deleted the comment');
+                }, function (err) {
+                    ErrorHandler.show(err);
+                })
+            }
         }
         else {
             $scope.isLoggedIn = false;

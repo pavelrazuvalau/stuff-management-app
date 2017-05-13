@@ -50,7 +50,17 @@ exports.getImage = function (req, res) {
 }
 
 exports.findByID = function(req, res, next, id){
-  Stuff.findById(id, function(err, stuff){
+
+  Stuff.findById(id).populate({
+    path: 'comments',
+    model: 'Comment',
+
+    populate: {
+      path: 'user',
+      model: 'User',
+      select: 'firstName lastName'
+    }
+  }).exec(function(err, stuff){
     if (err) return next(err);
     if (!stuff) {
       res.status(404).send({message: 'Stuff not found'});
@@ -87,7 +97,6 @@ exports.delete = function(req, res){
   var stuff = req.stuff;
 
   stuff.remove(function(err) {
-    console.log('called item delete');
     if (err) {
       return res.status(400).send({
         message: getErrorMessage(err)

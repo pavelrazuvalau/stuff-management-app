@@ -47,6 +47,13 @@ angular.module('stuff').config(['$stateProvider',
                         var promise = Stuff.get({stuffId: $stateParams.stuffId}).$promise;
 
                         promise.then(function (res) {
+                            var sum = 0;
+                            for(var i = 0; i < res.comments.length; i++){
+                                sum += res.comments[i].rating;
+                            }
+                            var avg = (sum / res.comments.length);
+
+                            res.avg = avg;
                             defer.resolve(res);
                         }).catch(function (err) {
                             ErrorHandler.show(err);
