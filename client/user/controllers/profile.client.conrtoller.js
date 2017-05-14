@@ -36,7 +36,7 @@ angular.module('user').controller('ProfileCtrl', [
 
             $scope.submit = function () {
                 User.save($scope.editUser, function (res) {
-                    NotificationService.show('Info has been edited');
+                    NotificationService.show('Successfully edited');
                     $state.go($state.current.name,{},{reload: true});
                 }, function (err) {
                     ErrorHandler.show(err);

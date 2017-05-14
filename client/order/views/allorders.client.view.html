@@ -33,7 +33,7 @@
                 <md-icon ng-bind="'done'"></md-icon>
                 Finish
             </md-button>
-            <md-button class = "md-raised md-warn" ng-click="cancel(order._id, status_comment)">
+            <md-button ng-show="!(order.status == 'Canceled' || order.status == 'Finished')" class = "md-raised md-warn" ng-click="cancel(order._id, status_comment)">
                 <md-icon ng-bind="'clear'"></md-icon>
                 Cancel
             </md-button>
