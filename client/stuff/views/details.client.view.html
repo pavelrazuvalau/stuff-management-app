@@ -3,11 +3,8 @@
         <img ng-src="http://localhost:3000/stuff/image/{{item.image}}" width = 400px>
     </div>
     <div flex="50">
-        <p class="md-headline" style="text-align: left">{{item.name}}
-            <md-button ng-show="isLoggedIn" class="md-icon-button md-accent" aria-label="Favorite" ng-click="wishAction()">
-                <md-icon ng-bind="wishButton"></md-icon>
-                <md-tooltip md-direction="bottom">{{tooltip}}</md-tooltip>
-            </md-button>
+        <p class="md-headline" style="text-align: left">
+            {{item.name}}
         </p>
         <p class="md-subhead" style="text-align: left">{{item.stufftype}}</p>
         <p>{{item.description}}</p>
@@ -22,10 +19,16 @@
                 <input ng-model="count" ng-init="count = 1" placeholder="Count" type="number" ng-change="checkCount()">
             </md-input-container>
         </div>
-        <md-button ng-show="isLoggedIn" class="md-raised {{cartStyle}}" style="margin: 0" ng-click="cartAction()">
-            <md-icon ng-bind="cartButton"></md-icon>
-            {{cartName}}
-        </md-button>
+        <div ng-show="isLoggedIn">
+            <md-button  class="md-raised {{cartStyle}}" style="margin: 0" ng-click="cartAction()">
+                <md-icon ng-bind="cartButton"></md-icon>
+                {{cartName}}
+            </md-button>
+            <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="wishAction()">
+                <md-icon ng-bind="wishButton"></md-icon>
+                <md-tooltip md-direction="right">{{tooltip}}</md-tooltip>
+            </md-button>
+        </div>
         <div ng-hide="isLoggedIn">
             <p class="md-body-2">Please sign in or sign up to buy this item</p>
         </div>

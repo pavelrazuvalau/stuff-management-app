@@ -1,5 +1,5 @@
 <md-list flex ng-show="!orders.length">
-    <md-subheader class="md-no-sticky">There is no orders in your history</md-subheader>
+    <md-subheader class="md-no-sticky">There is no orders in your site :c</md-subheader>
 </md-list>
 <md-card ng-repeat="order in orders.slice().reverse()">
     <md-card-content>
@@ -7,6 +7,7 @@
         <span ng-show="order.status=='Awaiting payment'">({{order.sum}} $)</span>
         <md-list flex>
             <md-list-item class="md-3-line" ng-repeat="item in order.stuff.slice().reverse()" ui-sref="app.stuff.details({stuffId: item.item._id, backAction: 'app.orders'})">
+
                 <img ng-src="http://localhost:3000/stuff/image/{{item.item.image}}" class="md-avatar" />
                 <div class="md-list-item-text" layout="column">
                     <h3>{{ item.item.name }}</h3>
@@ -15,13 +16,26 @@
                 </div>
             </md-list-item>
         </md-list>
+        <md-input-container class="md-block" ng-show="order.status == 'Processing'">
+            <md-icon ng-bind="'comment'"></md-icon>
+            <input ng-model="status_comment" type="text" placeholder="Status comment">
+        </md-input-container>
         <p>{{order.comment}}</p>
-
     </md-card-content>
-        <md-card-actions layout="row" layout-align="start center" ng-show="order.status=='Awaiting payment'">
-            <md-button ng-click="pay(order._id)">
-                <md-icon ng-bind="'payment'"></md-icon>
-                Pay
+    <md-card-actions layout="row" layout-align="start center" >
+            <md-button ng-show="order.status == 'Processing'" class = "md-raised md-primary" ng-click="finish(order._id, status_comment)">
+                <md-icon ng-bind="'done'"></md-icon>
+                Finish
             </md-button>
-        </md-card-actions>
+            <md-button ng-show="order.status == 'Processing'" class = "md-raised md-warn" ng-click="cancel(order._id, status_comment)">
+                <md-icon ng-bind="'clear'"></md-icon>
+                Cancel
+            </md-button>
+        <md-button class = "md-raised md-warn" ng-click="delete(order._id)">
+            <md-icon ng-bind="'delete'"></md-icon>
+            Delete
+        </md-button>
+    </md-card-actions>
+
+
 </md-card>

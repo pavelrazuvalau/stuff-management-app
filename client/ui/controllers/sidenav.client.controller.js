@@ -29,7 +29,7 @@ angular.module('ui').controller('sidenavCtrl', ['$scope', 'currentUser', functio
     if (currentUser.role === 'Admin'){
         $scope.admin_menu.push({
             name: 'User orders',
-            action: '.orders',
+            action: '.orders.all',
             icon: 'credit_card'
         }, {
             name: 'User management',

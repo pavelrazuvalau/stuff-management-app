@@ -28,5 +28,14 @@ angular.module('stuff').config(['$stateProvider',
                         controller: 'orderCtrl'
                     }
                 }
+            })
+            .state('app.orders.all', {
+                url: '/all',
+                views: {
+                    '@app': {
+                        templateUrl: 'views/allorders.client.view.html',
+                        controller: 'allOrdersCtrl'
+                    }
+                }
             });
     }]);

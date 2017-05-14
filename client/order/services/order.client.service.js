@@ -5,12 +5,16 @@ angular.module('order').factory('Order', ['$resource', function ($resource) {
             params: {action: 'pay'}
         },
         finish: {
-            method: 'GET',
-            params: {action: 'status/finish'}
+            method: 'POST',
+            params: {action: 'finish'}
         },
-        cances: {
-            method: 'GET',
-            params: {action: 'status/cancel'}
+        cancel: {
+            method: 'POST',
+            params: {action: 'cancel'}
         }
     })
+}]);
+
+angular.module('order').factory('OrderAll', ['$resource', function ($resource) {
+    return $resource('http://localhost:3000/order/all', {});
 }]);

@@ -36,6 +36,15 @@ var OrderSchema = new Schema({
     type: String,
     enum: ['Awaiting payment', 'Processing', 'Finished', 'Canceled'],
     default: 'Awaiting payment'
+  },
+  statusComment: {
+    type: String,
+    validate: [
+      function(comment) {
+        return comment.length <= 255;
+      },
+      'Comment is too long'
+    ]
   }
 })
 

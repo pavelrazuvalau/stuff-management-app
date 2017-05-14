@@ -84,13 +84,25 @@ exports.get = function (req, res) {
 }
 
 exports.getAll = function (req, res) {
-  Order.find(function (err, orders) {
+  Order.find().populate('stuff.item').populate('user').exec(function (err, orders) {
     if (err) {
       res.status(400).send({
         message: getErrorMessage(err)
       });
     } else {
-      res.jsonp(orders);
+      if (orders){
+        for (var i = 0; i < orders.length; i++){
+          var sum = 0;
+          for (var j = 0; j < orders[i].stuff.length; j++){
+            sum += (orders[i].stuff[j].item.cost * orders[i].stuff[j].count);
+          }
+          orders[i].sum = sum.toFixed(2);
+        }
+        res.jsonp(orders);
+      }
+      else {
+        res.jsonp(null);
+      }
     }
   })
 }
@@ -109,27 +121,24 @@ exports.delete = function (req, res) {
   });
 }
 
-exports.changeStatus = function (req, res, next) {
-  switch (req.params.action.toLowerCase()) {
-    case 'finish':
-      req.order.status = 'Finished';
-      next();
-    case 'cancel':
-      req.order.status = 'Canceled';
-      next();
-    default:
-    console.log('called default');
-      res.status(400).send({message: 'Unknown status action'})
-  }
-}
-
 exports.pay = function (req, res, next) {
   req.order.status = 'Processing';
   next();
 }
 
+exports.finish = function (req, res, next) {
+  req.order.status = 'Finished';
+  next();
+}
+
+exports.cancel = function (req, res, next) {
+  req.order.status = 'Canceled';
+  next();
+}
+
 exports.update = function (req, res) {
   var order = req.order;
+  order.statusComment = req.body.comment;
 
   order.save(function(err) {
     if (err) {

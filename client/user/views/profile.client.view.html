@@ -1,21 +1,86 @@
-<div>
-    <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
-        <md-card-title>
-            <md-card-title-text>
-                <span class="md-headline">{{info.fullName}}</span>
-                <span class="md-subhead">{{info.username}}</span>
-            </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-            <p>
-                {{info.address}}
-            </p>
-            <p>
-                {{info.email}}
-            </p>
-            <p>
-                {{info.phone}}
-            </p>
-        </md-card-content>
-    </md-card>
+<div ng-hide="editForm">
+    <p class="md-headline" style="text-align: center !important;">{{info.fullName}}
+        <span class="md-subhead" style="margin-left: 10px">({{info.username}})</span>
+    </p>
+
+    <p>
+        {{info.address}}
+    </p>
+    <p>
+        {{info.email}}
+    </p>
+    <p>
+        {{info.phone}}
+    </p>
+    <md-button class="md-raised md-primary" ng-click="edit()">
+        <md-icon ng-bind="'edit'"></md-icon>
+        Edit
+    </md-button>
 </div>
+<form ng-show="editForm" name="user_form" ng-submit="user_form.$valid && signup()" novalidate autocomplete="off">
+    <div layout="row">
+        <md-input-container class="md-block md-icon-float" flex="50">
+            <label>First Name</label>
+            <md-icon ng-bind="'perm_contact_calendar'"></md-icon>
+            <input type="text" name="firstName" ng-model="editUser.firstName" ng-required="true" minlength="3" maxlength="50">
+            <div ng-messages="user.firstName.$error" role="alert">
+                <div ng-message="required">First Name is required</div>
+                <div ng-message="minlength">First Name is too short</div>
+                <div ng-message="maxlength">First Name is too long</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex="50">
+            <label>Last Name</label>
+            <md-icon ng-bind="'supervisor_account'"></md-icon>
+            <input type="text" name="lastName" ng-model="editUser.lastName" ng-required="true"  minlength="3" maxlength="50">
+            <div ng-messages="user.lastName.$error" role="alert">
+                <div ng-message="required">Last Name is required</div>
+                <div ng-message="minlength">Last Name is too short</div>
+                <div ng-message="maxlength">Last Name is too long</div>
+            </div>
+        </md-input-container>
+    </div>
+    <div layout="row" layout-sm="column">
+        <md-input-container class="md-block" flex="50" flex-sm = "100">
+            <label>Address</label>
+            <md-icon ng-bind="'home'"></md-icon>
+            <input type="text"
+                   name="address"
+                   ng-model="editUser.address"
+                   ng-required="true">
+
+            <div ng-messages="user.address.$error" role="alert">
+                <div ng-message="required">Address is required</div>
+                <div ng-message="minlength">Address is too short</div>
+                <div ng-message="maxlength">Address is too long</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex="50">
+            <label>Phone</label>
+            <md-icon ng-bind="'call'"></md-icon>
+            <input type="text"
+                   name="phone"
+                   ng-model="editUser.phone"
+                   ng-pattern="/^\+*(\d{3})*[0-9,\-]{8,}/"
+                   ng-required="true">
+
+            <div ng-messages="user.phone.$error" role="alert">
+                <div ng-message="required">Phone is required</div>
+                <div ng-message="minlength">Phone is too short</div>
+                <div ng-message="maxlength">Phone is too long</div>
+                <div ng-message="pattern">Phone is not valid</div>
+            </div>
+        </md-input-container>
+    </div>
+    <br>
+    <section layout="row" style="margin-top: -50px">
+        <md-button type="submit" class="md-raised md-primary">
+            <md-icon ng-bind="'done'"></md-icon>
+            Submit
+        </md-button>
+        <md-button class="md-raised md-warn" ng-click="cancel()">
+            <md-icon ng-bind="'clear'"></md-icon>
+            Cancel
+        </md-button>
+    </section>
+</form>
