@@ -17,7 +17,7 @@ angular.module('comment').controller('commentCtrl', [
               TitleService,
               NotificationService,
               ErrorHandler) {
-        if (currentUser.role !== 'Admin'){
+        if (!(currentUser.role == 'Admin' || currentUser.role == 'Moderator')){
             $state.go('app.stuff');
             NotificationService.show('Access denied');
         }
