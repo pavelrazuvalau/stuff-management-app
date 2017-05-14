@@ -3,6 +3,12 @@
 </md-list>
 <md-card ng-repeat="order in orders.slice().reverse()">
     <md-card-content>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{order.user.fullName}}</span>
+                <span class="md-subhead">{{order.user.username}}</span>
+            </md-card-title-text>
+        </md-card-title>
         <span ng-class="{'status-critical': order.status == 'Awaiting payment' || order.status == 'Canceled', 'status-warn': order.status == 'Processing', 'status-success': order.status == 'Finished'}">{{order.status}} <span ng-show="order.statusComment">- </span>{{order.statusComment}}</span>
         <span ng-show="order.status=='Awaiting payment'">({{order.sum}} $)</span>
         <md-list flex>

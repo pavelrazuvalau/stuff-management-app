@@ -84,7 +84,7 @@ exports.get = function (req, res) {
 }
 
 exports.getAll = function (req, res) {
-  Order.find().populate('stuff.item').populate('user').exec(function (err, orders) {
+  Order.find().populate('stuff.item').populate('user', 'firstName lastName username').exec(function (err, orders) {
     if (err) {
       res.status(400).send({
         message: getErrorMessage(err)
