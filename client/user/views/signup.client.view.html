@@ -38,7 +38,7 @@
             <input type="text"
                    name="address"
                    ng-model="reg.address"
-                   ng-required="true">
+                   ng-required="true" minlength="10" maxlength="100">
 
             <div ng-messages="signup_form.address.$error" role="alert">
                 <div ng-message="required">Address is required</div>

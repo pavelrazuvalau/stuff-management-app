@@ -12,5 +12,11 @@ module.exports = function(app) {
 
   app.post('/user', users.edit);
 
+  app.get('/user/all', users.hasAuthorization, users.getAll);
+
+  app.post('/user/:userId', users.hasAuthorization, users.grantRole);
+
+  app.delete('/user/:userId', users.hasAuthorization, users.delete);
+
   app.get('/user/check/:username', users.checkUsername);
 };

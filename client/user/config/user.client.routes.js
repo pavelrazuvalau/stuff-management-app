@@ -3,9 +3,6 @@ angular.module('user').config(['$stateProvider',
         $stateProvider
             .state('app.signup', {
                 url: '/signup',
-                data: {
-                    needsUser: false
-                },
                 views: {
                     '@app': {
                         templateUrl: 'views/signup.client.view.html',
@@ -17,13 +14,20 @@ angular.module('user').config(['$stateProvider',
 
             .state('app.profile', {
                 url: '/profile',
-                data: {
-                    needsUser: true
-                },
                 views: {
                     '@app': {
                         templateUrl: 'views/profile.client.view.html',
                         controller: 'ProfileCtrl'
+                    }
+                }
+            })
+
+            .state('app.users', {
+                url: '/users',
+                views: {
+                    '@app': {
+                        templateUrl: 'views/alluser.client.view.html',
+                        controller: 'userAllCtrl'
                     }
                 }
             })

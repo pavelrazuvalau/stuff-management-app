@@ -155,3 +155,60 @@ exports.edit = function (req, res) {
   }
   else res.sendStatus(403);
 }
+
+exports.hasAuthorization = function(req, res, next) {
+  if (req.user.role != 'Admin') {
+    return res.status(403).send({
+      message: 'Access denied'
+    });
+  }
+  next();
+};
+
+exports.getAll = function(req, res){
+  User.find().lean() .exec(function (err, users) {
+    if (err){
+      res.status(400).send({
+        message: getErrorMessage
+      })
+    }
+    else {
+      users.splice(0, 1);
+      res.jsonp(users);
+    }
+  })
+}
+
+exports.grantRole = function (req, res) {
+  User.update({
+    _id: req.params.userId
+  }, {
+    $set: {
+      role: req.body.role
+    }
+  }, function (err) {
+    if (err){
+      res.status(400).send({
+        message: getErrorMessage
+      })
+    }
+    else {
+      res.sendStatus(200);
+    }
+  })
+}
+
+exports.delete = function (req, res) {
+  User.remove({
+    _id: req.params.userId
+  }, function (err) {
+    if (err){
+      res.status(400).send({
+        message: getErrorMessage
+      })
+    }
+    else {
+      res.sendStatus(200);
+    }
+  })
+}
