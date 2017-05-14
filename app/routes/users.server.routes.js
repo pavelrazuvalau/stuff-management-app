@@ -10,5 +10,7 @@ module.exports = function(app) {
 
   app.get('/user/signout', users.signout);
 
+  app.post('/user', users.edit);
+
   app.get('/user/check/:username', users.checkUsername);
 };

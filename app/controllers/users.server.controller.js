@@ -133,3 +133,25 @@ exports.requiresLogin = function(req, res, next) {
   }
   next();
 };
+
+exports.edit = function (req, res) {
+  if (req.user){
+    var user = req.user;
+    user.firstName = req.body.firstName;
+    user.lastName = req.body.lastName;
+    user.address = req.body.address;
+    user.phone = req.body.phone;
+
+    user.save(function(err){
+      if (err){
+        res.status(400).send({
+          message: getErrorMessage(err)
+        })
+      }
+      else {
+        res.sendStatus(200);
+      }
+    })
+  }
+  else res.sendStatus(403);
+}

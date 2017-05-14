@@ -17,13 +17,13 @@
         Edit
     </md-button>
 </div>
-<form ng-show="editForm" name="user_form" ng-submit="user_form.$valid && signup()" novalidate autocomplete="off">
+<form ng-show="editForm" name="user_form" ng-submit="user_form.$valid && submit()" novalidate autocomplete="off">
     <div layout="row">
         <md-input-container class="md-block md-icon-float" flex="50">
             <label>First Name</label>
             <md-icon ng-bind="'perm_contact_calendar'"></md-icon>
             <input type="text" name="firstName" ng-model="editUser.firstName" ng-required="true" minlength="3" maxlength="50">
-            <div ng-messages="user.firstName.$error" role="alert">
+            <div ng-messages="user_form.firstName.$error" role="alert">
                 <div ng-message="required">First Name is required</div>
                 <div ng-message="minlength">First Name is too short</div>
                 <div ng-message="maxlength">First Name is too long</div>
@@ -33,7 +33,7 @@
             <label>Last Name</label>
             <md-icon ng-bind="'supervisor_account'"></md-icon>
             <input type="text" name="lastName" ng-model="editUser.lastName" ng-required="true"  minlength="3" maxlength="50">
-            <div ng-messages="user.lastName.$error" role="alert">
+            <div ng-messages="user_form.lastName.$error" role="alert">
                 <div ng-message="required">Last Name is required</div>
                 <div ng-message="minlength">Last Name is too short</div>
                 <div ng-message="maxlength">Last Name is too long</div>
@@ -49,7 +49,7 @@
                    ng-model="editUser.address"
                    ng-required="true">
 
-            <div ng-messages="user.address.$error" role="alert">
+            <div ng-messages="user_form.address.$error" role="alert">
                 <div ng-message="required">Address is required</div>
                 <div ng-message="minlength">Address is too short</div>
                 <div ng-message="maxlength">Address is too long</div>
@@ -64,7 +64,7 @@
                    ng-pattern="/^\+*(\d{3})*[0-9,\-]{8,}/"
                    ng-required="true">
 
-            <div ng-messages="user.phone.$error" role="alert">
+            <div ng-messages="user_form.phone.$error" role="alert">
                 <div ng-message="required">Phone is required</div>
                 <div ng-message="minlength">Phone is too short</div>
                 <div ng-message="maxlength">Phone is too long</div>
@@ -73,7 +73,7 @@
         </md-input-container>
     </div>
     <br>
-    <section layout="row" style="margin-top: -50px">
+    <section layout="row" style="margin-top: -45px">
         <md-button type="submit" class="md-raised md-primary">
             <md-icon ng-bind="'done'"></md-icon>
             Submit
