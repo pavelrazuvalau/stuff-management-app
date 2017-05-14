@@ -35,6 +35,10 @@ angular.module('ui').controller('sidenavCtrl', ['$scope', 'currentUser', functio
             name: 'User management',
             action: '.users',
             icon: 'pan_tool'
+        }, {
+            name: 'Comments',
+            action: '.comments',
+            icon: 'comment'
         });
     }
 

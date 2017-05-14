@@ -8,3 +8,7 @@ angular.module('comment').factory('Comment', ['$resource', function ($resource) 
         }
     })
 }]);
+
+angular.module('comment').factory('CommentAll', ['$resource', function ($resource) {
+    return $resource('http://localhost:3000/comments/:commentId', {})
+}]);

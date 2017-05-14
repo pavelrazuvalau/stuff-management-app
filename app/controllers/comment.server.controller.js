@@ -68,7 +68,7 @@ exports.delete = function (req, res) {
 }
 
 exports.findByID = function(req, res, next, id){
-  Comment.findById(id).populate('user').exec(function(err, comment){
+  Comment.findById(id).exec(function(err, comment){
     if (err) return next(err);
     if (!comment) {
       res.status(404).send({message: 'Comment not found'});
@@ -86,3 +86,24 @@ exports.hasAuthorization = function(req, res, next) {
   }
   next();
 };
+
+exports.hasPermissions = function (req, res, next) {
+  if(!(req.user.role == 'Admin' || req.user.role == 'Moderator')){
+    return res.status(403).send({
+      message: 'User is not authorized'
+    });
+  }
+  next()
+}
+
+exports.get = function (req, res) {
+  Comment.find().populate('stuff').populate('user', 'firstName lastName').exec(function (err, comments) {
+    if (err) {
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(comments);
+    }
+  })
+}
