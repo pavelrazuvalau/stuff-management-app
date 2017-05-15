@@ -1,13 +1,12 @@
 {
   "name": "mean-coursework",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "MEAN Coursework",
-  "main": "server.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/prazuvalov/mean-coursework.git"
   },
-  "author": "BSU MMF Course 2 Group 2",
+  "author": "Pavel Razuvalov",
   "license": "ISC",
   "scripts": {
     "start": "concurrently --kill-others \"node server.js\" \"gulp\"",
