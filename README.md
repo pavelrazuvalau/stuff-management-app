@@ -2,8 +2,7 @@
 
 This app is designed for selling stuff and managing orders.
 
-![](doc/screenshots/main.png)
-![](doc/screenshots/details.png)
+![](doc/slideshow.gif)
 
 ## Installation
 
