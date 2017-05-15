@@ -16,10 +16,6 @@ angular.module('user').controller('signupCtrl', [
               ToolbarService,
               TitleService) {
 
-        if (currentUser.username){
-            $state.go('app.stuff');
-        }
-
         ToolbarService.set('Sign up', null, false, false);
         TitleService.set('Sign up');
 

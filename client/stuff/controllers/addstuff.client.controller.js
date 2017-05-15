@@ -18,10 +18,6 @@ angular.module('stuff').controller('addStuffCtrl', [
               $timeout,
               ErrorHandler) {
 
-        if (currentUser.role !== 'Admin'){
-            $state.go('app.stuff', {}, {reload: true});
-        }
-        else {
             ToolbarService.set('Add Stuff', null, false, 'app.stuff');
             TitleService.set('Add Stuff');
             $scope.types = ['T-shirt', 'Cup', 'Badge', 'Sticker', 'Сase'];
@@ -50,6 +46,5 @@ angular.module('stuff').controller('addStuffCtrl', [
                         $scope.uploadProgress = Math.floor(event.loaded / event.total) * 100;
                     });
             };
-        }
     }
 ]);

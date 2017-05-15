@@ -20,10 +20,6 @@ angular.module('wish').controller('wishCtrl', [
               ErrorHandler,
               $mdDialog) {
 
-        if (!currentUser.username){
-            $state.go('app.stuff');
-        }
-        else {
             TitleService.set('Wish list - ' + wishList.stuff.length + ' items');
             ToolbarService.set('Wish list', null, null, null);
             $scope.wishlist = wishList.stuff;
@@ -66,6 +62,5 @@ angular.module('wish').controller('wishCtrl', [
                     }
                 ]);
             }
-        }
     }
 ]);

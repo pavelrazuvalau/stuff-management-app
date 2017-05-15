@@ -17,11 +17,6 @@ angular.module('user').controller('userAllCtrl', [
               TitleService,
               NotificationService,
               ErrorHandler) {
-        if (currentUser.role !== 'Admin'){
-            $state.go('app.stuff');
-            NotificationService.show('Access denied');
-        }
-        else {
             ToolbarService.set('User Management', null, null, null);
             TitleService.set('User Management');
             $scope.users = userList;
@@ -43,6 +38,5 @@ angular.module('user').controller('userAllCtrl', [
                     ErrorHandler.show(err);
                 })
             }
-        }
     }
 ]);

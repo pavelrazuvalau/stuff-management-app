@@ -17,11 +17,6 @@ angular.module('order').controller('allOrdersCtrl', [
               ToolbarService,
               TitleService,
               currentUser) {
-        if (currentUser.role !== 'Admin'){
-            $state.go('app.stuff');
-            NotificationService.show('Access denied');
-        }
-        else {
             ToolbarService.set('User orders', null, null, null);
             TitleService.set('User orders');
             $scope.orders = orderList;
@@ -54,6 +49,5 @@ angular.module('order').controller('allOrdersCtrl', [
                     ErrorHandler.show(err);
                 })
             }
-        }
     }
 ]);

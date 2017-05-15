@@ -4,6 +4,12 @@ angular.module('stuff').config(['$stateProvider',
             .state('app.orders', {
                 url: '/orders',
                 resolve: {
+                    checkOrder: function (currentUser, $state, NotificationService) {
+                        if(!currentUser.username) {
+                            $state.go('app.stuff', {}, {reload: true});
+                            NotificationService.show('Access denied');
+                        }
+                    },
                     Order: 'Order',
                     currentOrders: function ($q, ErrorHandler, Order, currentUser) {
                         if (currentUser.username) {
@@ -33,7 +39,7 @@ angular.module('stuff').config(['$stateProvider',
                 url: '/all',
                 resolve: {
                     OrderAll: 'OrderAll',
-                    orderList: function ($q, ErrorHandler, OrderAll, currentUser) {
+                    orderList: function ($q, $state, NotificationService, ErrorHandler, OrderAll, currentUser) {
                         if (currentUser.role == 'Admin'){
                             var defer = $q.defer();
 
@@ -48,7 +54,11 @@ angular.module('stuff').config(['$stateProvider',
 
                             return defer.promise;
                         }
-                    },
+                        else {
+                            $state.go('app.stuff', {}, {reload: true})
+                            NotificationService.show('Access denied');
+                        }
+                    }
                 },
                 views: {
                     '@app': {

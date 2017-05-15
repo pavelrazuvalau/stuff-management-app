@@ -5,7 +5,7 @@ angular.module('comment').config(['$stateProvider',
                 url: '/comments',
                 resolve: {
                     CommentAll: 'CommentAll',
-                    commentList: function ($q, ErrorHandler, CommentAll, currentUser) {
+                    commentList: function ($q, $state, ErrorHandler, NotificationService, CommentAll, currentUser) {
                         if (currentUser.role == 'Admin' || currentUser.role == 'Moderator'){
                             var defer = $q.defer();
 
@@ -19,6 +19,10 @@ angular.module('comment').config(['$stateProvider',
                             });
 
                             return defer.promise;
+                        }
+                        else {
+                            $state.go('app.stuff', {}, {reload: true})
+                            NotificationService.show('Access denied');
                         }
                     }
                 },

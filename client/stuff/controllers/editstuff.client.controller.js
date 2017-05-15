@@ -18,10 +18,6 @@ angular.module('stuff').controller('editStuffCtrl', [
               currentUser,
               ErrorHandler) {
 
-        if (!$stateParams.default || currentUser.role !== 'Admin'){
-            $state.go('^');
-        }
-        else {
             $scope.edit = $stateParams.default;
             TitleService.set($stateParams.default.name + ' - Edit');
             ToolbarService.set('Edit Stuff', null, null, 'app.stuff.details', {stuffId: $stateParams.default._id});
@@ -36,6 +32,5 @@ angular.module('stuff').controller('editStuffCtrl', [
                         ErrorHandler.show(err);
                     });
             }
-        }
     }
 ]);

@@ -17,11 +17,6 @@ angular.module('comment').controller('commentCtrl', [
               TitleService,
               NotificationService,
               ErrorHandler) {
-        if (!(currentUser.role == 'Admin' || currentUser.role == 'Moderator')){
-            $state.go('app.stuff');
-            NotificationService.show('Access denied');
-        }
-        else {
             ToolbarService.set('Comments', null, null, null);
             TitleService.set('Comments');
             $scope.comments = commentList;
@@ -34,6 +29,5 @@ angular.module('comment').controller('commentCtrl', [
                     ErrorHandler.show(err);
                 })
             }
-        }
     }
 ]);

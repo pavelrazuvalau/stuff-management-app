@@ -45,6 +45,14 @@ angular.module('stuff').config(['$stateProvider',
 
             .state('app.stuff.add', {
                 url: '/add',
+                resolve: {
+                    checkAdd: function (currentUser, $state, NotificationService) {
+                        if(currentUser.role !== 'Admin') {
+                            $state.go('app.stuff', {}, {reload: true});
+                            NotificationService.show('Access denied');
+                        }
+                    }
+                },
                 views: {
                     '@app': {
                         templateUrl: 'views/addstuff.client.view.html',
@@ -92,7 +100,15 @@ angular.module('stuff').config(['$stateProvider',
             .state('app.stuff.details.edit', {
                 url: '/edit',
                 params: {
-                    default: null,
+                    default: null
+                },
+                resolve: {
+                    checkEdit: function (currentUser, $state, NotificationService) {
+                        if(currentUser.role !== 'Admin') {
+                            $state.go('app.stuff', {}, {reload: true});
+                            NotificationService.show('Access denied');
+                        }
+                    }
                 },
                 views: {
                     '@app': {

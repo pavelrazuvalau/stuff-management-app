@@ -18,11 +18,6 @@ angular.module('order').controller('orderCtrl', [
               ToolbarService,
               TitleService) {
 
-        if (!currentUser.username){
-            NotificationService.show('Access denied');
-            $state.go('app.stuff');
-        }
-        else {
             TitleService.set('My orders');
             ToolbarService.set('My orders', null, null, null);
 
@@ -36,6 +31,5 @@ angular.module('order').controller('orderCtrl', [
                     NotificationService.show('Payment unsuccessful');
                 })
             }
-        }
     }
 ]);

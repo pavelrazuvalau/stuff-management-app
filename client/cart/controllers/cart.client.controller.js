@@ -24,10 +24,6 @@ angular.module('cart').controller('cartCtrl', [
               Order,
               ErrorHandler) {
 
-        if (!currentUser.username){
-            $state.go('app.stuff');
-        }
-        else {
             TitleService.set('Cart - ' + currentCart.stuff.length + ' items');
             ToolbarService.set('Cart', null, null, null);
             $scope.cart = currentCart.stuff;
@@ -74,6 +70,5 @@ angular.module('cart').controller('cartCtrl', [
                     ErrorHandler.show(err);
                 })
             }
-        }
     }
 ]);

@@ -3,6 +3,14 @@ angular.module('user').config(['$stateProvider',
         $stateProvider
             .state('app.signup', {
                 url: '/signup',
+                resolve: {
+                  checkUser: function (currentUser, $state, NotificationService) {
+                      if(currentUser.username) {
+                          $state.go('app.stuff', {}, {reload: true})
+                          NotificationService.show('You are already signed up');
+                      }
+                  }
+                },
                 views: {
                     '@app': {
                         templateUrl: 'views/signup.client.view.html',
@@ -26,7 +34,7 @@ angular.module('user').config(['$stateProvider',
                 url: '/users',
                 resolve: {
                     User: 'User',
-                    userList: function ($q, ErrorHandler, User, currentUser) {
+                    userList: function ($q, $state, ErrorHandler, NotificationService, User, currentUser) {
                         if (currentUser.role == 'Admin'){
                             var defer = $q.defer();
 
@@ -40,6 +48,10 @@ angular.module('user').config(['$stateProvider',
                             });
 
                             return defer.promise;
+                        }
+                        else {
+                            $state.go('app.stuff', {}, {reload: true})
+                            NotificationService.show('Access denied');
                         }
                     }
                 },
