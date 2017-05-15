@@ -2,7 +2,7 @@ angular.module('order').controller('allOrdersCtrl', [
     '$scope',
     '$state',
     'Order',
-    'OrderAll',
+    'orderList',
     'ErrorHandler',
     'NotificationService',
     'ToolbarService',
@@ -11,7 +11,7 @@ angular.module('order').controller('allOrdersCtrl', [
     function ($scope,
               $state,
               Order,
-              OrderAll,
+              orderList,
               ErrorHandler,
               NotificationService,
               ToolbarService,
@@ -24,11 +24,7 @@ angular.module('order').controller('allOrdersCtrl', [
         else {
             ToolbarService.set('User orders', null, null, null);
             TitleService.set('User orders');
-            OrderAll.query(function (res) {
-                $scope.orders = res;
-            }, function (err) {
-                ErrorHandler.show(err);
-            });
+            $scope.orders = orderList;
 
             $scope.finish = function (id, comment) {
                 console.log($scope.status_comment);

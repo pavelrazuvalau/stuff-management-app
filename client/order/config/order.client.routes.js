@@ -31,6 +31,25 @@ angular.module('stuff').config(['$stateProvider',
             })
             .state('app.orders.all', {
                 url: '/all',
+                resolve: {
+                    OrderAll: 'OrderAll',
+                    orderList: function ($q, ErrorHandler, OrderAll, currentUser) {
+                        if (currentUser.role == 'Admin'){
+                            var defer = $q.defer();
+
+                            var promise = OrderAll.query().$promise;
+
+                            promise.then(function (res) {
+                                defer.resolve(res);
+                            }).catch(function (err) {
+                                ErrorHandler.show(err);
+                                defer.reject();
+                            });
+
+                            return defer.promise;
+                        }
+                    },
+                },
                 views: {
                     '@app': {
                         templateUrl: 'views/allorders.client.view.html',

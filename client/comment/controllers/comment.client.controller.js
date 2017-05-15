@@ -2,7 +2,7 @@ angular.module('comment').controller('commentCtrl', [
     '$scope',
     '$state',
     'currentUser',
-    'CommentAll',
+    'commentList',
     'Comment',
     'ToolbarService',
     'TitleService',
@@ -11,7 +11,7 @@ angular.module('comment').controller('commentCtrl', [
     function ($scope, 
               $state,
               currentUser,
-              CommentAll,
+              commentList,
               Comment,
               ToolbarService,
               TitleService,
@@ -24,12 +24,7 @@ angular.module('comment').controller('commentCtrl', [
         else {
             ToolbarService.set('Comments', null, null, null);
             TitleService.set('Comments');
-            CommentAll.query(function (res) {
-                console.log(res);
-                $scope.comments = res;
-            }, function (err) {
-                ErrorHandler.show(err);
-            });
+            $scope.comments = commentList;
 
             $scope.remove = function (stuffId, commentId) {
                 Comment.delete({stuffId: stuffId, commentId: commentId}, function (res) {

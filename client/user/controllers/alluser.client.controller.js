@@ -1,7 +1,7 @@
 angular.module('user').controller('userAllCtrl', [
     '$scope',
     '$state',
-    'User',
+    'userList',
     'UserManager',
     'currentUser',
     'ToolbarService',
@@ -10,7 +10,7 @@ angular.module('user').controller('userAllCtrl', [
     'ErrorHandler',
     function ($scope,
               $state,
-              User,
+              userList,
               UserManager,
               currentUser,
               ToolbarService,
@@ -24,12 +24,8 @@ angular.module('user').controller('userAllCtrl', [
         else {
             ToolbarService.set('User Management', null, null, null);
             TitleService.set('User Management');
-            User.getAll(function (res) {
-                $scope.users = res;
-                $scope.roles = ['User', 'Moderator', 'Admin'];
-            }, function (err) {
-                ErrorHandler.show(err)
-            });
+            $scope.users = userList;
+            $scope.roles = ['User', 'Moderator', 'Admin'];
 
             $scope.grantRole = function (id, role) {
                 UserManager.save({userId: id}, {role: role}, function (res) {
