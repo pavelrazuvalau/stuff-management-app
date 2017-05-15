@@ -31,7 +31,7 @@ angular.module('user').controller('userCtrl', [
 
         $scope.signout = function () {
             User.signout(function () {
-                $state.go($state.current.name,{},{reload: true});
+                $state.go('app.stuff',{},{reload: true});
             }, function (err) {
                 ErrorHandler.show(err);
             });
