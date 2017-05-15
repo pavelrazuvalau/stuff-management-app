@@ -11,6 +11,21 @@ angular.module('stuff').config(['$stateProvider',
                         var promise =  Stuff.query().$promise;
 
                         promise.then(function (res) {
+                            for (var id = 0; id < res.length; id++){
+                                var sum = 0;
+                                for(var i = 0; i < res[id].comments.length; i++){
+                                    sum += res[id].comments[i].rating;
+                                }
+                                var avg = (sum / res[id].comments.length);
+
+                                if (avg){
+                                    res[id].avg = avg;
+                                }
+                                else {
+                                    res[id].avg = 0;
+                                }
+                            }
+                            console.log(res);
                             defer.resolve(res);
                         }).catch(function (err) {
                             ErrorHandler.show(err);

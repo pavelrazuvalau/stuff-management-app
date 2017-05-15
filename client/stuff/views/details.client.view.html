@@ -9,7 +9,7 @@
         <p class="md-subhead" style="text-align: left">{{item.stufftype}}</p>
         <p>{{item.description}}</p>
         <p layout="row" layout-align="left" style="margin-left: -6px" ng-show="item.avg">
-            <star-rating-comp rating="item.avg" read-only="true" style="margin-right: 10px"></star-rating-comp>
+            <star-rating-comp show-half-stars="true" rating="item.avg" read-only="true" style="margin-right: 10px"></star-rating-comp>
             <span style="margin-top: 3px">{{item.avg}} / 5</span>
         </p>
         <div layout="row">

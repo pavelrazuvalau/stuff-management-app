@@ -61,6 +61,11 @@ angular.module('stuff').controller('stuffCtrl', [
                 return $scope.selected.indexOf(item.stufftype) > -1;
             }
             else return true;
-        }
+        };
+
+        $scope.sortBy = function(propertyName) {
+            $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+            $scope.propertyName = propertyName;
+        };
     }
 ]);

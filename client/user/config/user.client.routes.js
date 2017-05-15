@@ -41,7 +41,7 @@ angular.module('user').config(['$stateProvider',
 
                             return defer.promise;
                         }
-                    },
+                    }
                 },
                 views: {
                     '@app': {

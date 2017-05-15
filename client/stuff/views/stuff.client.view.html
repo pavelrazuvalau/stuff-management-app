@@ -10,11 +10,30 @@
             </md-checkbox>
     </md-grid-tile>
   </md-grid-list>
-  <div layout="row" layout-align="center">
-      <md-checkbox md-indeterminate ng-click="selected.splice(0, selected.length)" ng-show="selected.length" class="md-primary">
+  <div layout="row" layout-align="center center" flex ng-show="selected.length">
+      <md-checkbox md-indeterminate ng-click="selected.splice(0, selected.length)" class="md-primary">
             Unselect all
-        </md-checkbox>
+      </md-checkbox>
   </div>
+    <div style="margin-top: -15px">
+    <p class="md-subhead">Sort by:</p>
+    <div layout="row" layout-align="center center" flex ng-init="reverse = false" style="margin-top: -15px">
+        <md-button ng-click="propertyName = null; reverse = false" ng-show="propertyName">
+            <md-icon ng-bind="'clear'"></md-icon>
+            Unsort
+        </md-button>
+        <md-button ng-click="sortBy('cost')">
+            <md-icon ng-show="propertyName == 'cost' && reverse == true" ng-bind="'keyboard_arrow_down'"></md-icon>
+            <md-icon ng-show="propertyName == 'cost' && reverse == false" ng-bind="'keyboard_arrow_up'"></md-icon>
+            Cost
+        </md-button>
+        <md-button ng-click="sortBy('avg')">
+            <md-icon ng-show="propertyName == 'avg' && reverse == true" ng-bind="'keyboard_arrow_down'"></md-icon>
+            <md-icon ng-show="propertyName == 'avg' && reverse == false" ng-bind="'keyboard_arrow_up'"></md-icon>
+            Rating
+        </md-button>
+    </div>
+    </div>
     <div layout="row" layout-wrap layout-align="center">
         <md-card class="ng-animate itemCard"
                  ng-init="height = 1"
@@ -22,7 +41,7 @@
                  md-whiteframe="{{height}}"
                  ng-mouseenter="height = 6"
                  ng-mouseleave="height = 1"
-                 ng-repeat="item in list.slice().reverse() | filter: search | filter: checkbox"
+                 ng-repeat="item in list.slice().reverse() | filter: search | filter: checkbox | orderBy:propertyName:reverse"
                  ui-sref=".details({stuffId: item._id, backAction: 'app.stuff'})">
             <!--<img ng-src="http://localhost:3000/stuff/image/{{item.image}}" class="md-card-image">-->
             <div class="itemImage" style="width: 300px; height: 300px; background-image: url('http://localhost:3000/stuff/image/{{item.image}}');
@@ -38,6 +57,9 @@
             </md-card-title>
             <md-card-content>
                 <p class="md-subhead">{{item.stufftype}}</p>
+                <p layout="row" layout-align="center">
+                    <star-rating-comp show-half-stars="true" rating="item.avg" read-only="true"></star-rating-comp>
+                </p>
                 <h3 style="margin: 0" align="center">{{(item.cost).toFixed(2)}} $</h3>
             </md-card-content>
         </md-card>

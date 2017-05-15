@@ -34,7 +34,7 @@ exports.add = function(req, res) {
 };
 
 exports.get = function (req, res) {
-  Stuff.find(function(err, stuff){
+  Stuff.find().populate('comments').exec(function(err, stuff){
     if (err) {
       res.status(400).send({
         message: getErrorMessage(err)
