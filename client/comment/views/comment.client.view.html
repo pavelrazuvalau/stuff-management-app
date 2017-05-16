@@ -1,0 +1,34 @@
+<md-list flex>
+    <md-subheader class="md-no-sticky" ng-hide="comments.length">There is no comments</md-subheader>
+    <div ng-show="comments.length">
+        <md-subheader class="md-no-sticky" >Comments ({{comments.length}})</md-subheader>
+        <div ng-repeat="comment in comments">
+            <md-list-item class="md-3-line" ui-sref="app.stuff.details({stuffId: comment.stuff._id, backAction: 'app.comments'})">
+                <img ng-src="http://localhost:3000/stuff/image/{{comment.stuff.image}}" class="md-avatar" />
+                <div class="md-list-item-text" layout="column">
+                    <h3>{{ comment.stuff.name }}</h3>
+                    <h4>{{ comment.stuff.stufftype }}</h4>
+                    <p>{{ comment.stuff.cost }} $</p>
+                </div>
+            </md-list-item>
+            <md-list-item class="md-3-line md-long-text" >
+                <div>
+                    <div class="md-list-item-text">
+                        <h3>{{comment.user.fullName}}</h3>
+                        <p>
+                            {{comment.message}}
+                        </p>
+                        <p layout="row" layout-align="left" style="margin-left: -6px">
+                            <star-rating-comp rating="comment.rating" read-only="true" style="margin-right: 10px"></star-rating-comp>
+                            {{comment.rating}} / 5
+                        </p>
+                    </div>
+                    <md-button class="md-secondary md-icon-button" ng-click="remove(comment.stuff._id, comment._id)" aria-label="delete">
+                        <md-icon ng-bind="'clear'"></md-icon>
+                        <md-tooltip md-direction="top">Remove comment</md-tooltip>
+                    </md-button>
+                </div>
+            </md-list-item>
+        </div>
+    </div>
+</md-list>

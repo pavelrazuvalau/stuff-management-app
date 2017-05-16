@@ -1,0 +1,18 @@
+{
+  "name": "mean-coursework",
+  "description": "MEAN Coursework",
+  "main": "server.js",
+  "authors": [
+    "Pavel Razuvalov"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/prazuvalov/mean-coursework",
+  "dependencies": {
+    "angular": "^1.6.1",
+    "angular-resource": "^1.6.2",
+    "angular-material": "^1.1.3",
+    "angular-ui-router": "^0.4.2",
+    "ng-file-upload": "^12.2.13",
+    "angular1-star-rating": "^1.2.11"
+  }
+}

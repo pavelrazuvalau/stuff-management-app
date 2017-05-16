@@ -1,0 +1,111 @@
+<form name="signup_form" ng-submit="signup_form.$valid && signup()" novalidate autocomplete="off">
+    <div layout="row">
+        <md-input-container class="md-block md-icon-float" flex="50">
+            <label>First Name</label>
+            <md-icon ng-bind="'perm_contact_calendar'"></md-icon>
+            <input type="text" name="firstName" ng-model="reg.firstName" ng-required="true" minlength="3" maxlength="50">
+            <div ng-messages="signup_form.firstName.$error" role="alert">
+                <div ng-message="required">First Name is required</div>
+                <div ng-message="minlength">First Name is too short</div>
+                <div ng-message="maxlength">First Name is too long</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex="50">
+            <label>Last Name</label>
+            <md-icon ng-bind="'supervisor_account'"></md-icon>
+            <input type="text" name="lastName" ng-model="reg.lastName" ng-required="true"  minlength="3" maxlength="50">
+            <div ng-messages="signup_form.lastName.$error" role="alert">
+                <div ng-message="required">Last Name is required</div>
+                <div ng-message="minlength">Last Name is too short</div>
+                <div ng-message="maxlength">Last Name is too long</div>
+            </div>
+        </md-input-container>
+    </div>
+    <div layout="row" layout-sm="column">
+        <md-input-container class="md-block" flex="50" flex-sm = "100">
+            <label>E-mail</label>
+            <md-icon ng-bind="'email'"></md-icon>
+            <input type="text" name="email" ng-model="reg.email" ng-required="true" maxlength="50" ng-pattern="/^.+@.+\..+$/" />
+            <div ng-messages="signup_form.email.$error" role="alert">
+                <div ng-message="required">Email is required</div>
+                <div ng-message="pattern">Email should be valid</div>
+                <div ng-message="maxlength">Email is too long</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex="50" flex-sm = "100">
+            <label>Address</label>
+            <md-icon ng-bind="'home'"></md-icon>
+            <input type="text"
+                   name="address"
+                   ng-model="reg.address"
+                   ng-required="true" minlength="10" maxlength="100">
+
+            <div ng-messages="signup_form.address.$error" role="alert">
+                <div ng-message="required">Address is required</div>
+                <div ng-message="minlength">Address is too short</div>
+                <div ng-message="maxlength">Address is too long</div>
+            </div>
+        </md-input-container>
+    </div>
+    <div layout="row">
+        <md-input-container class="md-block" flex="50">
+            <label>Username</label>
+            <md-icon ng-bind="'face'"></md-icon>
+            <input type="text"
+                   name="username"
+                   ng-model="reg.username"
+                   ng-required="true"
+                   minlength="5"
+                   maxlength="50"
+                   ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}"
+                   username-available>
+
+            <div ng-messages="signup_form.username.$error" role="alert">
+                <div ng-message="required">Username is required</div>
+                <div ng-message="minlength">Username is too short</div>
+                <div ng-message="maxlength">Username is too long</div>
+                <div ng-message="usernameTaken">Username is already taken</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex="50">
+            <label>Phone</label>
+            <md-icon ng-bind="'call'"></md-icon>
+            <input type="text"
+                   name="phone"
+                   ng-model="reg.phone"
+                   ng-pattern="/^\+*(\d{3})*[0-9,\-]{8,}/"
+                   ng-required="true">
+
+            <div ng-messages="signup_form.phone.$error" role="alert">
+                <div ng-message="required">Phone is required</div>
+                <div ng-message="minlength">Phone is too short</div>
+                <div ng-message="maxlength">Phone is too long</div>
+                <div ng-message="pattern">Phone is not valid</div>
+            </div>
+        </md-input-container>
+    </div>
+    <div layout="row">
+        <md-input-container class="md-block" flex="50">
+            <label>Password</label>
+            <md-icon ng-bind="'https'"></md-icon>
+            <input type="password" name="password" ng-model="reg.password" ng-required="true" minlength="5" maxlength="50">
+            <div ng-messages="signup_form.password.$error" role="alert">
+                <div ng-message="required">Password is required</div>
+                <div ng-message="minlength">Password is too short</div>
+                <div ng-message="maxlength">Password is too long</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex="50">
+            <label>Confirm Password</label>
+            <md-icon ng-bind="'check_circle'"></md-icon>
+            <input type="password" name="confirm_password" ng-model="reg.confirm" confirm-password="reg.password" ng-required="true">
+            <div ng-messages="signup_form.confirm_password.$error" role="alert">
+                <div ng-message="confirmPassword">Passwords are not match</div>
+            </div>
+        </md-input-container>
+    </div>
+        <br>
+        <section layout="row">
+            <md-button type="submit" class="md-raised md-primary">Sign up</md-button>
+        </section>
+    </form>

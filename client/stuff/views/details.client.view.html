@@ -1,0 +1,84 @@
+<div layout="row">
+    <div flex="50" layout="column" layout-align="center center">
+        <img ng-src="http://localhost:3000/stuff/image/{{item.image}}" width = 400px>
+    </div>
+    <div flex="50">
+        <p class="md-headline" style="text-align: left">
+            {{item.name}}
+        </p>
+        <p class="md-subhead" style="text-align: left">{{item.stufftype}}</p>
+        <p>{{item.description}}</p>
+        <p layout="row" layout-align="left" style="margin-left: -6px" ng-show="item.avg">
+            <star-rating-comp show-half-stars="true" rating="item.avg" read-only="true" style="margin-right: 10px"></star-rating-comp>
+            <span style="margin-top: 3px">{{item.avg}} / 5</span>
+        </p>
+        <div layout="row">
+            <h3 ng-show="count > 0">{{(item.cost * count).toFixed(2)}} $</h3>
+            <md-input-container class="md-block" flex="20" style="margin-left: 10px; margin-top: 12px; margin-bottom: -20px" ng-show="isLoggedIn && isItemInCart">
+                <label>&nbsp;</label>
+                <input ng-model="count" ng-init="count = 1" placeholder="Count" type="number" ng-change="checkCount()">
+            </md-input-container>
+        </div>
+        <div ng-show="isLoggedIn">
+            <md-button  class="md-raised {{cartStyle}}" style="margin: 0" ng-click="cartAction()">
+                <md-icon ng-bind="cartButton"></md-icon>
+                {{cartName}}
+            </md-button>
+            <md-button class="md-icon-button md-accent" aria-label="Favorite" ng-click="wishAction()">
+                <md-icon ng-bind="wishButton"></md-icon>
+                <md-tooltip md-direction="right">{{tooltip}}</md-tooltip>
+            </md-button>
+        </div>
+        <div ng-hide="isLoggedIn">
+            <p class="md-body-2">Please sign in or sign up to buy this item</p>
+        </div>
+    </div>
+</div>
+<md-list flex ng-init="editForm = false">
+    <md-subheader class="md-no-sticky" ng-hide="item.comments.length">There is no comments for this item</md-subheader>
+    <div ng-show="item.comments.length">
+        <md-subheader class="md-no-sticky" >Comments ({{item.comments.length}})</md-subheader>
+        <md-list-item class="md-3-line md-long-text" ng-repeat="comment in item.comments">
+            <div ng-hide="editForm">
+                <div class="md-list-item-text">
+                    <h3>{{comment.user.fullName}}</h3>
+                    <p>
+                        {{comment.message}}
+                    </p>
+                    <p layout="row" layout-align="left" style="margin-left: -6px">
+                        <star-rating-comp rating="comment.rating" read-only="true" style="margin-right: 10px"></star-rating-comp>
+                        {{comment.rating}} / 5
+                    </p>
+                </div>
+                <md-button ng-show="(comment.user._id == user._id) && !editForm" class="md-secondary md-icon-button" ng-click="editFormToggle(comment)" aria-label="delete">
+                    <md-icon ng-bind="'edit'"></md-icon>
+                    <md-tooltip md-direction="top">Edit comment</md-tooltip>
+                </md-button>
+                <md-button ng-show="(comment.user._id == user._id || user.role === 'Admin' || user.role === 'Moderator') && !editForm" class="md-secondary md-icon-button" ng-click="deleteComment(comment._id)" aria-label="delete">
+                    <md-icon ng-bind="'clear'"></md-icon>
+                    <md-tooltip md-direction="top">Remove comment</md-tooltip>
+                </md-button>
+            </div>
+        </md-list-item>
+    </div>
+</md-list>
+<form name="comment_form" ng-submit="comment_form.$valid && formAction(formComment._id)" novalidate autocomplete="off" ng-cloak ng-show="isLoggedIn && showForm" ng-init="formAction = addComment">
+    <md-input-container class="md-block">
+        <label>Your message</label>
+        <textarea ng-required="true" ng-model="formComment.message" name="message" md-maxlength="255" maxlength="255" minlength = "2" rows="3" md-select-on-focus></textarea>
+    </md-input-container>
+    <div layout="row" layout-align="left" style="margin-top: -30px">
+        <star-rating-comp ng-model="formComment.rating" ng-init="formComment.rating = 5" rating="formComment.rating" on-rating-change="formComment.rating = $event.rating" label-text="'Rating: ' + formComment.rating + ' / 5'"></star-rating-comp>
+    </div>
+    <div layout="row">
+        <md-button type="submit" class="md-raised md-primary">
+            <md-icon ng-bind="'send'"></md-icon>
+            Send
+        </md-button>
+        <md-button class="md-raised md-warn" ng-show="showCancel" ng-click="cancelEdit()">
+            <md-icon ng-bind="'clear'"></md-icon>
+            Cancel
+        </md-button>
+    </div>
+
+</form>

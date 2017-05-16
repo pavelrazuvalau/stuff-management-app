@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head ng-controller="titleCtrl">
+	<title ng-bind="title"></title>
+	<link rel="stylesheet" type="text/css" href="lib/angular-material/angular-material.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<meta name="viewport" content="width=device-width">
+</head>
+<body>
+	<div layout="column" layout-fill md-swipe-left="closeLeft()" ng-cloak ng-controller="uiCtrl">
+
+	  <section layout="row" flex >
+
+	    <md-sidenav
+	        class="md-sidenav-left"
+	        md-component-id="left"
+	        md-is-locked-open="$mdMedia('gt-md')"
+	        md-whiteframe="4">
+
+	      <md-content>
+
+				<div ui-view="user"></div>
+				<md-divider></md-divider>
+				<div ui-view="sidenav"></div>
+
+	      </md-content>
+
+	    </md-sidenav>
+
+	    <div flex layout="column" layout-fill md-swipe-right="toggleLeft()" style="background-color: white !important">
+	    	<md-toolbar md-whiteframe="3">
+		      <div class="md-toolbar-tools">
+		        <md-button class="md-icon-button" aria-label="Menu" hide-gt-md ng-click="toggleLeft()">
+		          <md-icon ng-bind="'menu'"></md-icon>
+		        </md-button>
+						<md-button ng-show="toolbar.back" class="md-icon-button" aria-label="Back" ui-state="{{'toolbar.back'}}">
+		          <md-icon ng-bind="'keyboard_backspace'"></md-icon>
+		        </md-button>
+		        <h2 flex="" md-truncate="">{{toolbar.title}}</h2>
+						<md-icon ng-bind="'search'" class="name" ng-show="toolbar.search"></md-icon>
+						<md-input-container class="md-block searchInput" layout-fill ng-show="toolbar.search">
+				      <label>&nbsp;</label>
+				      <input name="searchPhrase" placeholder="Search an item" style="color: rgba(255,255,255,0.87);" ng-model="searchQuery" ng-change="updateQuery()">
+				    </md-input-container>
+						<md-button class="md-icon-button" aria-label="Clear" layout-align="end" ng-click="searchQuery = ''; updateQuery()" ng-show="toolbar.search && searchQuery">
+							<md-icon ng-bind="'clear'"></md-icon>
+						</md-button>
+						<md-menu>
+							<md-button class="md-icon-button" aria-label="More" layout-align="end" ng-click="$mdMenu.open()" ng-show="toolbar.menu">
+								<md-icon ng-bind="'more_vert'"></md-icon>
+							</md-button>
+							<md-menu-content width="4">
+							 <md-menu-item ng-repeat="item in toolbar.menu">
+								 <md-button ng-click="item.action($event)">
+									 {{item.name}}
+								 </md-button>
+							 </md-menu-item>
+				    </md-menu>
+
+		      </div>
+		    </md-toolbar>
+
+	      <md-content ui-view style="background-color: white !important"></md-content>
+
+	    </div>
+
+	  </section>
+
+	</div>
+
+<script type="text/javascript" src="lib/angular/angular.min.js"></script>
+<script type="text/javascript" src="lib/angular-animate/angular-animate.min.js"></script>
+<script type="text/javascript" src="lib/angular-aria/angular-aria.min.js"></script>
+<script type="text/javascript" src="lib/angular-messages/angular-messages.min.js"></script>
+<script type="text/javascript" src="lib/angular-material/angular-material.min.js"></script>
+<script type="text/javascript" src="lib/angular-resource/angular-resource.min.js"></script>
+<script type="text/javascript" src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="lib/ng-file-upload/FileAPI.min.js"></script>
+<script type="text/javascript" src="lib/ng-file-upload/ng-file-upload-shim.min.js"></script>
+<script type="text/javascript" src="lib/ng-file-upload/ng-file-upload.min.js"></script>
+<script type="text/javascript" src="lib/angular1-star-rating/dist/index.js"></script>
+<script type="text/javascript" src="app.js"></script>
+</body>
+</html>

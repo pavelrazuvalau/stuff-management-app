@@ -1,0 +1,17 @@
+<div layout-padding>
+    <form name="auth" ng-submit="auth.$valid && signin(login)" novalidate autocomplete="off">
+        <md-input-container class="md-block">
+            <label>Username</label>
+            <input type="text" name="username" ng-model="login.username" ng-required="true" md-no-asterisk>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Password</label>
+            <input type="password" name="password" ng-model="login.password" ng-required="true" md-no-asterisk>
+        </md-input-container>
+        <br>
+        <section layout="row">
+            <md-button type="submit" class="md-raised md-primary">Sign in</md-button>
+            <md-button class="md-raised md-primary" ui-sref="app.signup">Sign up</md-button>
+        </section>
+    </form>
+</div>

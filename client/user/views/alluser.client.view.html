@@ -1,0 +1,35 @@
+<md-list flex ng-show="!users.length">
+    <md-subheader class="md-no-sticky">There is no registered users</md-subheader>
+</md-list>
+<md-card ng-repeat="user in users">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{user.fullName}}</span>
+            <span class="md-subhead">{{user.username}}</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <div layout="row" layout-align="center">
+            <md-select ng-model="editRole" ng-init="editRole = user.role" flex="20" ng-change = "grantRole(user._id, editRole)">
+                <md-option ng-repeat="role in roles" value="{{role}}">
+                    {{role}}
+                </md-option>
+            </md-select>
+        </div>
+        <p>
+            {{user.address}}
+        </p>
+        <p>
+            {{user.email}}
+        </p>
+        <p>
+            {{user.phone}}
+        </p>
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="start center">
+        <md-button class = "md-raised md-warn" ng-click="delete(user._id)">
+            <md-icon ng-bind="'delete'"></md-icon>
+            Delete
+        </md-button>
+    </md-card-actions>
+</md-card>

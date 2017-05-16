@@ -1,0 +1,24 @@
+<md-toolbar class="md-tall md-hue-2">
+    <span flex></span>
+    <div layout="column" class="md-toolbar-tools-bottom inset">
+        <span></span>
+        <div class="md-body-2">{{user.fullName}}</div>
+        <div class="md-body-2">{{user.email}}</div>
+    </div>
+</md-toolbar>
+
+
+<md-divider></md-divider>
+
+<div layout="row" ng-repeat="item in user_menu">
+    <md-button layout-fill layout-padding style="text-align: left;" ng-click="closeLeft()" ui-sref="{{item.action}}">
+        <md-icon ng-bind="item.icon"></md-icon>
+        {{item.name}}
+    </md-button>
+</div>
+<div layout="row">
+    <md-button layout-fill layout-padding style="text-align: left;" ng-click="signout()">
+        <md-icon ng-bind="'exit_to_app'"></md-icon>
+        Sign out
+    </md-button>
+</div>

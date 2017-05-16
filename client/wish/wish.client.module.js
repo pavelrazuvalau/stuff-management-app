@@ -1,0 +1,1 @@
+AppConfig.moduleReg('wish', ['ui']);

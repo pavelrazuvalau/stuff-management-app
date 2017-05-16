@@ -1,0 +1,63 @@
+<form name="add_form" ng-submit="add_form.$valid && addStuff()" novalidate autocomplete="off" ng-cloak>
+    <div layout="row">
+        <md-input-container class="md-block" flex="50">
+            <label>Name</label>
+            <md-icon ng-bind="'assignment'"></md-icon>
+            <input type="text" name="name" ng-model="add.name" ng-required="true" minlength="5 " maxlength="50">
+            <div ng-messages="add_form.name.$error" role="alert">
+                <div ng-message="required">Name is required</div>
+                <div ng-message="minlength">Name is too short</div>
+                <div ng-message="maxlength">Name is too long</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex="50">
+            <label>Type</label>
+            <md-icon ng-bind="'list'"></md-icon>
+            <md-select ng-model="add.stufftype" name="type" ng-required="true">
+                <md-option ng-repeat="type in types" value="{{type}}">
+                    {{type}}
+                </md-option>
+            </md-select>
+            <div ng-messages="add_form.type.$error" role="alert">
+                <div ng-message="required">Type is required</div>
+            </div>
+        </md-input-container>
+    </div>
+    <md-input-container class="md-block" flex>
+        <label>Cost (USD)</label>
+        <md-icon ng-bind="'attach_money'"></md-icon>
+        <input type="number" name="number" ng-model="add.cost" ng-required="true" min="0">
+        <div ng-messages="add_form.name.$error" role="alert">
+            <div ng-message="required">Cost is required</div>
+        </div>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label>Desctiption</label>
+        <textarea ng-model="add.description" name="description" md-maxlength="255" maxlength="255" rows="3" md-select-on-focus></textarea>
+    </md-input-container>
+    <br>
+    <choose-file layout="row" flex style="margin-top: -35px">
+        <div>
+            <md-button id="uploadButton" class="md-fab md-mini md-primary">
+                <md-icon class="material-icons">attach_file</md-icon>
+            </md-button>
+        </div>
+        <img ng-src="{{thumbnail}}" style="width: 100%; height: 100%; max-width: 100px; margin-left: 10px" ng-show="thumbnail">
+        <input id="fileInput" type="file" name="image" class="ng-hide" ng-model="add.image" ngf-select ngf-max-size="25MB" accept="image/*" onchange="angular.element(this).scope().generateThumbnail(this.files)" ng-required="true">
+        <md-input-container flex class="md-block" style="margin-left: 15px">
+            <label>&nbsp;</label>
+            <input type="text" ng-model="fileName" name="imageName" disabled ng-required="true" placeholder="Select image" md-no-asterisk>
+            <div ng-messages="add_form.image.$error" role="alert">
+                <div ng-message="required">Image is required</div>
+                <div ng-message="ngf-max-size">Image is too big</div>
+            </div>
+        </md-input-container>
+    </choose-file>
+    <section layout="row" style="margin-top: 15px">
+        <md-button type="submit" class="md-raised md-primary">
+            <md-icon ng-bind="'add'"></md-icon>
+            Add stuff
+        </md-button>
+        <md-progress-circular md-mode="determinate" value="{{uploadProgress}}" style="margin-left: 15px" ng-show="uploadProgress >= 0"></md-progress-circular>
+    </section>
+</form>
